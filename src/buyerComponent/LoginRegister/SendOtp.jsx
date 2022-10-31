@@ -7,6 +7,7 @@ import classNames from "classnames";
 
 const SendOtp = (otpEmail) => {
   const apiUrl = "http://localhost:7000/user/verifyOtp";
+  const sendOtp ="http://localhost:7000/user/forgotPassword"
   const[error,setError]=useState("")
   let email = otpEmail?.otpEmail;
   const {
@@ -46,6 +47,14 @@ const SendOtp = (otpEmail) => {
     };
     VerifyUser();
   };
+
+  const ResendOtp =async (e)=>{
+     e.preventDefault()
+     await  axios
+     .post(sendOtp, {
+       email: email,
+     }).then((res)=>{})
+  }
   const  moveOnMax =(event, field, nextFieldID)=> {
     event = event || window.event;
     if (event.keyCode != 9) {
@@ -133,6 +142,7 @@ const SendOtp = (otpEmail) => {
                 <a
                   href="javascript:;"
                   className="text-decoration-none text-info"
+                  onClick={ResendOtp}
                 >
                   Resend OTP
                 </a>

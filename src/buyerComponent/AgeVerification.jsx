@@ -1,5 +1,5 @@
 import React from "react";
-import "./AgeVerification.css";
+import "../buyerComponent/AgeVerification.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const AgeVerification = (modalClose) => {
@@ -10,20 +10,20 @@ const AgeVerification = (modalClose) => {
 
   return (
     <div className="ageVerify">
-      <section className="age_verification">
-        <div className="container">
-          <div className="row justify-content-center ">
+      <section className="mt-5">
+        <div className="container mt-5">
+          <div className="row justify-content-center   ">
             <div className="col-lg-5 col-md-6 col-sm-10 verification_content mt-5">
-              <h2>Confirm Your Age</h2>
-              <span>ARE YOU 21 YEARS OLD OR OLDER?</span>
+              <h2 className="text-dark">Confirm Your Age</h2>
+              <span className="text-dark">ARE YOU 21 YEARS OLD OR OLDER?</span>
               <div className="form-group custom_checkbox mt-3 mb-md-4 mb-3">
                 <input
                   type="checkbox"
-                  className="mx-1 checkbox"
+                  className="mx-1 checkbox "
                   name="check"
                   id="check"
                 />
-                <label htmlFor="check">
+                <label htmlFor="check" className="text-dark">
                   I confirm that I am 21 years old or over
                 </label>
               </div>
@@ -39,6 +39,7 @@ const AgeVerification = (modalClose) => {
                 className="comman_btn2 shadow mx-2"
                 to=""
                 style={{ textDecoration: "none" }}
+                onClick={()=>{window.location.reload()}}
               >
                 Exit
               </Link>

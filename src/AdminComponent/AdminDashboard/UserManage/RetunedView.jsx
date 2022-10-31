@@ -2,12 +2,13 @@ import React from "react";
 import { useState } from "react";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "../dashboard.css";
+import "../../../assets/css/adminMain.css";
+
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
-import {FaFileUpload} from "react-icons/fa"
+import { FaFileUpload } from "react-icons/fa";
 
 const ReturnedView = () => {
   const apiUrl = "http://localhost:7000/api/admin/getUser";
@@ -62,15 +63,14 @@ const ReturnedView = () => {
             <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className=""
+                  className=" "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
+                    fontSize: "18px",
                   }}
                 >
-                  Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
@@ -79,12 +79,12 @@ const ReturnedView = () => {
                   to="/UserManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                     color: "#3e4093",
                   }}
                 >
-                  User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
@@ -93,11 +93,11 @@ const ReturnedView = () => {
                   to="/CategorySub"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
@@ -106,24 +106,24 @@ const ReturnedView = () => {
                   to="/Inventory"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/brandsManage"
-                  to=""
+                  className=""
+                  to="/brandsManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
@@ -132,11 +132,11 @@ const ReturnedView = () => {
                   to="/OrderRequest"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
@@ -145,11 +145,11 @@ const ReturnedView = () => {
                   to="/Cms"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -159,11 +159,11 @@ const ReturnedView = () => {
                   onClick={handleClick}
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -317,7 +317,7 @@ const ReturnedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                                <FaFileUpload size={25} />
                                 {user?.federalTaxId}
                               </div>
                             </label>
@@ -336,7 +336,7 @@ const ReturnedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                                <FaFileUpload size={25} />
                                 {user?.tobaccoLicence}
                               </div>
                             </label>
@@ -355,7 +355,7 @@ const ReturnedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                                <FaFileUpload size={25} />
                                 {user?.salesTaxId}
                               </div>
                             </label>
@@ -374,7 +374,7 @@ const ReturnedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                                <FaFileUpload size={25} />
                                 {user?.businessLicense}
                               </div>
                             </label>
@@ -409,7 +409,7 @@ const ReturnedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                                <FaFileUpload size={25} />
                                 {user?.accountOwnerId}
                               </div>
                             </label>

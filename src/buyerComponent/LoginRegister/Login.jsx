@@ -23,63 +23,63 @@ const Login = () => {
     formState: { errors },
     trigger,
   } = useForm();
-  const onSubmit = (data) => {
-    const LoginUser = async () => {
-      let response = await axios
-        .post(apiUrl, {
-          email: data.email,
-          password: data.password,
-        })
-        .then((res) => {
-          if (res?.data.message === "Logged In") {
-            setApiData(res?.data);
-            localStorage.setItem("loginToken", res?.data?.results.token);
-            localStorage.setItem("UserData", JSON.stringify(res?.data?.results?.verifyUser));
+  const onSubmit = async (data) => {
+    console.log( data ,"clicke");
+    await axios
+      .post(apiUrl, {
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        if (res?.data.message === "Logged In") {
+          setApiData(res?.data);
+          localStorage.setItem("loginToken", res?.data?.results.token);
+          localStorage.setItem(
+            "UserData",
+            JSON.stringify(res?.data?.results?.verifyUser)
+          );
 
-            Swal.fire({
-              title: "You have been loggedIn Successfully.",
-              text: "",
-              icon: "success",
-              showCloseButton: true,
-              focusConfirm: false,
-            });
+          Swal.fire({
+            title: "You have been successfully Logged In .",
+            text: "",
+            icon: "success",
+            showCloseButton: true,
+            focusConfirm: false,
+          });
 
-            setTimeout(() => {
-              window.location.reload();
-            }, [1000]);
-            autoClose();
-          }
-          if (res?.data.message === "You are not authorised by admin") {
-            Swal.fire({
-              title: "You are not authorised by admin",
-              text: "Do you want to continue",
-              icon: "error",
-              confirmButtonText: "Cool",
-            });
-          }
-          if (res?.data.message === "Wrong Password") {
-            Swal.fire({
-              title: "Wrong Password",
-              width: 600,
-              text: "Do you want to continue",
-              icon: "error",
-              confirmButtonText: "Cool",
-            });
-          }
-          if (res?.data.message === "Error in Loggin in") {
-            Swal.fire({
-              title: "Invalid Email and Password",
-              width: 600,
-              icon: "error",
-              confirmButtonText: "Ok",
-            });
-          }
-        });
-    };
-    LoginUser();
+          setTimeout(() => {
+            window.location.reload();
+          }, [1000]);
+          autoClose();
+        }
+        if (res?.data.message === "You are not authorised by admin") {
+          Swal.fire({
+            title: "You are not authorised by admin",
+            text: "Do you want to continue",
+            icon: "error",
+            confirmButtonText: "Cool",
+          });
+        }
+        if (res?.data.message === "Wrong Password") {
+          Swal.fire({
+            title: "Wrong Password",
+            width: 600,
+            text: "Do you want to continue",
+            icon: "error",
+            confirmButtonText: "Cool",
+          });
+        }
+        if (res?.data.message === "Email is not registered") {
+          Swal.fire({
+            title: "Email is not registered",
+            width: 600,
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        }
+      });
   };
-    onSubmit();
-  
+  onSubmit();
 
   return (
     <div>

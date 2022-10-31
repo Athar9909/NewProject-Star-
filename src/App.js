@@ -12,8 +12,6 @@ import {
 
 import Homepage from "./buyerComponent/Homepage/Homepage";
 import MyAccount from "./buyerComponent/MyAccount/MyAccount";
-import Orders from "./buyerComponent/MyAccount/Orders";
-import PaymentMethod from "./buyerComponent/MyAccount/PaymentMethod";
 import Address from "./buyerComponent/MyAccount/Address";
 import Account from "./buyerComponent/MyAccount/Account";
 import Favourites from "./buyerComponent/MyAccount/Favourites";
@@ -21,10 +19,10 @@ import Contact from "./buyerComponent/Contact/Contact";
 import SignUp from "./buyerComponent/LoginRegister/SignUp";
 import AdminLogin from "./AdminComponent/AdminLogin/AdminLogin";
 import Dashboard from "./AdminComponent/AdminDashboard/Dashboard";
-import CategorySub from "./AdminComponent/AdminDashboard/CategorySub";
+import CategorySub from "./AdminComponent/AdminDashboard/Category&SubCategory/CategorySub";
 import Inventory from "./AdminComponent/AdminDashboard/Inventory";
 import UserManage from "./AdminComponent/AdminDashboard/UserManage/UserManage";
-import BrandsManage from "./AdminComponent/AdminDashboard/BrandsManage";
+import BrandsManage from "./AdminComponent/AdminDashboard/BrandsManage/BrandsManage";
 import Cms from "./AdminComponent/AdminDashboard/ContentManage/Cms"
 import OrderReq from "./AdminComponent/AdminDashboard/OrderReq"
 import AgeVerification from "./buyerComponent/AgeVerification";
@@ -36,6 +34,11 @@ import ReturnedView from "./AdminComponent/AdminDashboard/UserManage/RetunedView
 import ApprovedView from "./AdminComponent/AdminDashboard/UserManage/ApprovedView";
 import EditUser from "./AdminComponent/AdminDashboard/UserManage/EditUser";
 import AddUser from "./AdminComponent/AdminDashboard/UserManage/AddUser";
+import EditProfile from "./AdminComponent/AdminDashboard/EditProfile";
+import ChangePassword from "./AdminComponent/AdminDashboard/ChangePassword";
+import Test from "./tempCode/Test";
+import RequestOrders from "./buyerComponent/MyAccount/RequestOrder";
+import MainMenu from "./buyerComponent/MyAccount/MainMenu";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -55,8 +58,8 @@ function App() {
             path="/MyAccount"
             element={<MyAccount newData={getData} apiData={apiData} />}
           />
-          <Route path="/Order" element={<Orders />} />
-          <Route path="/Payment" element={<PaymentMethod />} />
+          <Route path="/RequestOrder" element={<RequestOrders />} />
+          <Route path="/MainMenu" element={<MainMenu />} />
           <Route path="/Address" element={<Address />} />
           <Route path="/Account" element={<Account />} />
           <Route path="/Favourites" element={<Favourites />} />
@@ -65,10 +68,13 @@ function App() {
 
           {/* admin Routes */}
           <Route path="/AdminLogin" element={<AdminLogin />} />
+          <Route path="/test" element={<Test/>} />
           <Route path="/AdminForgotPassword" element={<AdminForgotPassword />} />
           <Route path="/AdminVerifyOtp" element={<AdminSendOtp />} />
           <Route path="/AdminResetPassword" element={<AdminResetPassword />} />
           <Route path="/AdminDashboard" element={<Dashboard />} />
+          <Route path="/AdminDashboard/EditProfile" element={<EditProfile />} />
+          <Route path="/AdminDashboard/ChangePassword" element={<ChangePassword />} />
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/UserManage/PendingView" element={<PendingView />} />
           <Route path="/UserManage/ReturnedView" element={<ReturnedView />} />

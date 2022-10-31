@@ -1,104 +1,121 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../AdminDashboard/dashboard.css";
+import "../../assets/css/adminMain.css";
+
 import Starlogo from "../../assets/img/logo.png";
 import profile from "../../assets/img/profile_img1.png";
 import { HiMenuAlt1 } from "react-icons/hi";
-import $ from 'jquery'; 
+import $ from "jquery";
 
 const Dashboard = () => {
   $(document).ready(function () {
-    $('.sidebar_btn').on('click', function () { 
-        $('.siderbar_section').toggleClass('hide_sidebar'); 
-        $('.admin_main').toggleClass('admin_full'); 
-    })
-});
+    $(".sidebar_btn").on("click", function () {
+      $(".siderbar_section").toggleClass("hide_sidebar");
+      $(".admin_main").toggleClass("admin_full");
+    });
+  });
+
+  const handleClick = () => {
+    localStorage.removeItem("AdminData");
+    localStorage.removeItem("AdminLogToken");
+    localStorage.removeItem("AdminEmail");
+  };
   return (
     <div>
       <div className="siderbar_section">
         <div className="siderbar_inner">
-
           <div className="sidebar_logo">
             <Link to="" className="">
               <img src={Starlogo} alt="Logo" />{" "}
             </Link>
           </div>
           <div className="sidebar_menus">
-            <ul className="list-unstyled ps-1 m-0">
+          <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className=" fw-bold bg-white"
+                  className="bg-white "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
                     fontSize: "18px",
-                    color: "#3e4093",
+                  color: "#3e4093",
+
                   }}
                 >
-                  Dashboard
+                 <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/UserManage"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none", fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif",
+                }}
                 >
-                  User Management
+                 <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/CategorySub"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif",
+                 }}
                 >
-                  Category &amp; Sub Category
+                 <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Inventory"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Inventory Management
+                <i class="far fa-building"></i>  Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/brandsManage"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Brands Management
+                <i class="fa fa-ship"></i>  Brands Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/OrderRequest"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Order request
+                 <i class="fa fa-layer-group"></i>  Order request
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Cms"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  CMS
+                 <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/AdminLogin"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  onClick={handleClick}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -110,35 +127,52 @@ const Dashboard = () => {
           <div className="row align-items-center mx-0 justify-content-between w-100">
             <div className="col">
               <a className="sidebar_btn" href="javscript:;">
-                <p>☰</p>
+                <p></p>
               </a>
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary p-0"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+
+            <div className="col-auto d-flex ml-5">
+              <div className="d-flex flex-column mt-2">
+                <Link
+                  className="text-decoration-none text-white"
+                  to="/AdminDashboard/EditProfile"
                 >
-                  <img className="" src={profile} alt="" width={50} />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
+                  Edit Profile
+                </Link>
+                <Link
+                  className="text-decoration-none text-white"
+                  to="/AdminDashboard/changePassword"
                 >
-                  <li>
-                    <a className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </a>
-                  </li>
-                </ul>
+                  Change Password
+                </Link>
+              </div>
+              <div className="dropdown mx-2">
+                <div>
+                  <button
+                    className="btn btn-secondary p-0"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img className="" src={profile} alt="" width={50} />
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <a className="dropdown-item" href="edit-profile.html">
+                        Edit Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="change-password.html">
+                        Change Password
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

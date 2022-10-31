@@ -1,5 +1,5 @@
 import React from "react";
-import "./Footer.css";
+import "../../assets/css/main.css";
 import { BsFacebook } from "react-icons/bs";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { FaInstagramSquare } from "react-icons/fa";
@@ -56,9 +56,9 @@ const Footer = () => {
               <div className="col-lg-3 col-md-12 text-white text-lg-start text-md-center">
                 <div className="widget">
                   <div className="footer_logo">
-                    <a href="javascript:;">
+                    <Link className="text-decoration-none" to ="">
                       <img src={require("../../assets/img/logo.png")} width={100} alt="logo" />
-                    </a>
+                     </Link>
                   </div>
                   <p>
                     If you are going to use of Lorem Ipsum need to be sure there
@@ -71,22 +71,22 @@ const Footer = () => {
                   <h6 className="widget_title">Useful Links</h6>
                   <ul className="widget_links">
                     <li>
-                      <a href="javascript:;">Home</a>
+                      <Link className="text-decoration-none" to ="">Home </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Top Selling</a>
+                      <Link className="text-decoration-none" to ="">Top Selling </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">New Arrivals</a>
+                      <Link className="text-decoration-none" to ="">New Arrivals </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Product</a>
+                      <Link className="text-decoration-none" to ="">Product </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Brands</a>
+                      <Link className="text-decoration-none" to ="">Brands </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Contact Us</a>
+                      <Link className="text-decoration-none" to ="">Contact Us </Link>
                     </li>
                   </ul>
                 </div>
@@ -96,19 +96,19 @@ const Footer = () => {
                   <h6 className="widget_title">Category</h6>
                   <ul className="widget_links">
                     <li>
-                      <a href="javascript:;">Vape</a>
+                      <Link className="text-decoration-none" to ="">Vape </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Smoke</a>
+                      <Link className="text-decoration-none" to ="">Smoke </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Kids</a>
+                      <Link className="text-decoration-none" to ="">Kids </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">C-Store &amp; Novelty</a>
+                      <Link className="text-decoration-none" to ="">C-Store &amp; Novelty </Link>
                     </li>
                     <li>
-                      <a href="javascript:;">Glass &amp; Sillicone</a>
+                      <Link className="text-decoration-none" to ="">Glass &amp; Sillicone </Link>
                     </li>
                   </ul>
                 </div>
@@ -123,7 +123,7 @@ const Footer = () => {
                     </li>
                     <li>
                       <i className="fal fa-envelope-open-text" />
-                      <a href="mailto:info@sitename.com">info@sitename.com</a>
+                      <Link to="mailto:info@sitename.com">info@sitename.com </Link>
                     </li>
                     <li>
                       <i className="fas fa-phone-alt" />
@@ -146,32 +146,32 @@ const Footer = () => {
               <div className="col-md-6">
                 <ul className="footer_payment text-center text-lg-end mb-0">
                   <li>
-                    <a href="javascript:;">
+                    <Link className="text-decoration-none" to ="">
                       <img src={require("../../assets/img/visa.png")} alt="visa" />
-                    </a>
+                     </Link>
                   </li>
                   <li>
-                    <a href="javascript:;">
+                    <Link className="text-decoration-none" to ="">
                       <img src={require("../../assets/img/discover.png")} alt="discover" />
-                    </a>
+                     </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <Link className="text-decoration-none" to ="">
                       <img src={require("../../assets/img/master_card.png")} alt="master_card" />
-                    </a>
+                     </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <Link href="#">
                       <img src={require("../../assets/img/paypal.png")} alt="paypal" />
-                    </a>
+                     </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <Link href="#">
                       <img
                         src={require("../../assets/img/amarican_express.png")}
                         alt="amarican_express"
                       />
-                    </a>
+                     </Link>
                   </li>
                 </ul>
               </div>

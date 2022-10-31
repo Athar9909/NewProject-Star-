@@ -1,44 +1,172 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../dashboard.css";
+import "../../../assets/css/adminMain.css";
+
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
 import { post } from "jquery";
-
+import { useForm } from "react-hook-form";
 const Cms = () => {
   const [sideBar, setSideBar] = useState("");
-  const [slideData,setSlideData] = useState([])
+  const [disabled, setDisabled] = useState(true);
+  const [Tdisabled, setTDisabled] = useState(true);
+  const [Pdisabled, setPDisabled] = useState(true);
+  const [aboutHidden, setAboutHidden] = useState(true);
+  const [termsHidden, setTermsHidden] = useState(true);
+  const [privacyHidden, setPrivacyHidden] = useState(true);
+  const [slideData, setSlideData] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [aboutUs, setAboutUs] = useState("");
+  const [terms, setTerms] = useState("");
+  const [privacy, setPrivacy] = useState("");
+  const [editedAbout, setEditedAbout] = useState("");
+  const [editedTerms, setEditedTerms] = useState("");
+  const [editedPrivacy, setEditedPrivacy] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const AllSlides = "http://localhost:7000/api/admin/cms/getAllSlides";
   const EditSlide = "http://localhost:7000/api/admin/cms/editSlide";
   const AddSlide = "http://localhost:7000/api/admin/cms/addSlide";
   const DeleteSlide = "http://localhost:7000/api/admin/cms/deleteSlide";
+  const getAbout = "http://localhost:7000/api/admin/cms/aboutus";
+  const getTerms = "http://localhost:7000/api/admin/cms/TAndC";
+  const getPrivacy = "http://localhost:7000/api/admin/cms/privacyPolicy";
+  const editAboutUs = "http://localhost:7000/api/admin//cms/editAbout";
+  const editTerms = "http://localhost:7000/api/admin//cms/editTnC";
+  const editPrivacy = "http://localhost:7000/api/admin//cms/editPrivacyPolicy";
 
-  const slide1Img = slideData[0]?.banner
-  console.log(slide1Img);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    trigger,
+    reset,
+  } = useForm();
+
+  const onFileSelection = (e, key) => {
+   
+    setFiles({ ...files, [key]: e.target.files[0] });
+  };
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
 
   useEffect(() => {
     getSlides();
+    getAboutUs();
+    getTermsCondition();
+    getPrivacyPolicy();
   }, []);
+  console.log(files?.slideImg);
 
-  
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("title", data.slideTitle);
+    formData.append("description", data.slideDesc);
+    formData.append("banner", files?.slideImg);
+    await axios
+      .post(EditSlide + "/" + slideData[0]?._id, formData)
+      .then((res) => {
+        console.log(res);
+        if(res?.data.message === "Slide Modified Successfully"){
+          window.location.reload()
+        }
+      });
+  };
 
   const getSlides = async () => {
     await axios.get(AllSlides).then((res) => {
-      console.log(res);
-      setSlideData(res?.data.results)
+      console.log(res?.data.results);
+      setSlideData(res?.data.results);
+      let results = res?.data.results;
+      let defalutValues = {};
+      defalutValues.slides = results[0]?.banner;
+      defalutValues.slideTitle = results[0]?.title;
+      defalutValues.slideDesc = results[0]?.description;
+
+      reset({ ...defalutValues });
+      return res.data;
     });
-    
   };
 
+  const getAboutUs = async () => {
+    await axios.get(getAbout).then((res) => {
+      setAboutUs(res?.data.results[0].description);
+    });
+  };
+  const getPrivacyPolicy = async () => {
+    await axios.get(getPrivacy).then((res) => {
+      setPrivacy(res?.data.results[0].description);
+    });
+  };
+  const getTermsCondition = async () => {
+    await axios.get(getTerms).then((res) => {
+      setTerms(res?.data.results[0].description);
+    });
+  };
   const handleClick = () => {
     localStorage.removeItem("AdminData");
     localStorage.removeItem("AdminLogToken");
     localStorage.removeItem("AdminEmail");
   };
+
+  const onEdit = (e) => {
+    e.preventDefault();
+    setDisabled(!disabled);
+    setAboutHidden(!aboutHidden);
+  };
+  const onTermEdit = (e) => {
+    e.preventDefault();
+    setTDisabled(!Tdisabled);
+    setTermsHidden(!termsHidden);
+  };
+  const onPrivacyEdit = (e) => {
+    e.preventDefault();
+    setPDisabled(!Pdisabled);
+    setPrivacyHidden(!privacyHidden);
+  };
+  const onSaveAbout = async (e) => {
+    await axios
+      .post(editAboutUs, {
+        description: editedAbout,
+      })
+      .then((res) => {
+        if ((res.data.message = '"About Us" added successfully')) {
+          console.log("okk");
+          setDisabled(true);
+          setAboutHidden(true);
+        }
+      });
+  };
+  const onSaveTerms = async (e) => {
+    await axios
+      .post(editTerms, {
+        description: editedTerms,
+      })
+      .then((res) => {
+        if ((res.data.message = '"About Us" added successfully')) {
+          console.log("okk");
+          setTDisabled(true);
+          setTermsHidden(true);
+        }
+      });
+  };
+
+  const onSavePrivacy = async (e) => {
+    await axios
+      .post(editPrivacy, {
+        description: editedPrivacy,
+      })
+      .then((res) => {
+        if ((res.data.message = '"Privacy Policy" Modified Successfully')) {
+          setPDisabled(true);
+          setPrivacyHidden(true);
+        }
+      });
+  };
+
   return (
     <div className="admin_main">
       <div className="siderbar_section">
@@ -54,9 +182,12 @@ const Cms = () => {
                 <Link
                   className=" "
                   to="/AdminDashboard"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                  }}
                 >
-                  Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
@@ -66,67 +197,90 @@ const Cms = () => {
                   style={{
                     textDecoration: "none",
                     fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/CategorySub"
-                  to=""
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  className=""
+                  to="/CategorySub"
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                  Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Inventory"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
-                  to="/BrandsManage"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  to="/brandsManage"
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/OrderRequest"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
                 <Link
-                  className="fw-bold bg-white"
+                  className="bg-white"
                   to="/Cms"
                   style={{
                     textDecoration: "none",
                     fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
                     color: "#3e4093",
                   }}
                 >
-                  CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/AdminLogin"
-                  style={{ textDecoration: "none", fontSize: "18px" }}
+                  onClick={handleClick}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -137,9 +291,7 @@ const Cms = () => {
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
             <div className="col">
-              <h1 className="sidebar_btn">
-                <button>☰</button>
-              </h1>
+              <h1 className="sidebar_btn"></h1>
             </div>
             <div className="col-auto">
               <div className="dropdown Profile_dropdown">
@@ -285,7 +437,6 @@ const Cms = () => {
                                     aria-selected="false"
                                   >
                                     {slideData[1]?.slide}
-                                    
                                   </button>
                                 </li>
                                 <li
@@ -303,7 +454,6 @@ const Cms = () => {
                                     aria-selected="false"
                                   >
                                     {slideData[2]?.slide}
-                                    
                                   </button>
                                 </li>
                               </ul>
@@ -319,26 +469,32 @@ const Cms = () => {
                                       <form
                                         className="form-design row"
                                         action=""
+                                        onSubmit={handleSubmit(onSubmit)}
                                       >
                                         <div className="form-group col-12 slide_img">
                                           <label htmlFor="" className="labels">
                                             Slide Image
                                           </label>
-                                         
+
                                           <div className="account_profile position-relative d-inline-block">
                                             <div className="circle">
                                               <img
                                                 className="profile-pic"
-
-                                                src={slide1Img}
-                                                
+                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[0]?.banner}`}
+                                                alt=""
                                               />
                                             </div>
                                             <div className="p-image">
                                               <i className="upload-button fas fa-camera" />
                                               <input
-                                                className="file-upload"
+                                                className="file-uploads"
                                                 type="file"
+                                                name="slideImg"
+                                                accept="image/*"
+                                                {...register("slides")}
+                                                onChange={(e) =>
+                                                  onFileSelection(e, "slideImg")
+                                                }
                                               />
                                             </div>
                                           </div>
@@ -350,9 +506,8 @@ const Cms = () => {
                                           <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue="Cherry E-Juice , New Taste new Experience"
-                                            name="name"
-                                            id="name"
+                                            name="slideTitle"
+                                            {...register("slideTitle")}
                                           />
                                         </div>
                                         <div className="form-group col-12">
@@ -361,17 +516,18 @@ const Cms = () => {
                                           </label>
                                           <textarea
                                             className="form-control"
-                                            name=""
+                                            name="slideDesc"
                                             id=""
+                                            {...register("slideDesc")}
                                           />
                                         </div>
                                         <div className="form-group col-12 text-start">
-                                          <Link
-                                            className="comman_btn  text-decoration-none"
-                                            href="javscript:;"
+                                          <button
+                                            className="comman_btn"
+                                            type="submit"
                                           >
                                             Save
-                                          </Link>
+                                          </button>
                                         </div>
                                       </form>
                                     </div>
@@ -397,14 +553,22 @@ const Cms = () => {
                                             <div className="circle">
                                               <img
                                                 className="profile-pic"
-                                                src={require("../../../assets/img/banner_img1.jpg")}
+                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[1]?.banner}`}
                                               />
+ 
+                  
+            
                                             </div>
                                             <div className="p-image">
                                               <i className=" fas fa-camera" />
                                               <input
-                                                className="file-upload"
+                                                className="file-uploads"
+                                                name="slideImg"
                                                 type="file"
+                                                {...register("slides")}
+                                                onChange={(e) =>
+                                                  onFileSelection(e, "slideImg")
+                                                }
                                               />
                                             </div>
                                           </div>
@@ -416,9 +580,9 @@ const Cms = () => {
                                           <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue="Cherry E-Juice , New Taste new Experience"
-                                            name="name"
-                                            id="name"
+                                          
+                                            name="slideTitle"
+                                            {...register("slideTitle")}
                                           />
                                         </div>
                                         <div className="form-group col-12">
@@ -427,14 +591,16 @@ const Cms = () => {
                                           </label>
                                           <textarea
                                             className="form-control"
-                                            name=""
+                                            name="slideDesc"
                                             id=""
+                                            {...register("slideDesc")}
                                           />
                                         </div>
                                         <div className="form-group col-12 text-start">
                                           <Link
                                             className="comman_btn  text-decoration-none"
                                             href="javscript:;"
+                                            type="submit"
                                           >
                                             Save
                                           </Link>
@@ -463,14 +629,20 @@ const Cms = () => {
                                             <div className="circle">
                                               <img
                                                 className="profile-pic"
-                                                src={require("../../../assets/img/banner_img1.jpg")}
+                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[2]?.banner}`}
                                               />
                                             </div>
                                             <div className="p-image">
                                               <i className="upload-button fas fa-camera" />
                                               <input
-                                                className="file-upload"
+                                                className="file-uploads"
+                                                name = "slideImg"
+                                            
                                                 type="file"
+                                                {...register("slides")}
+                                                onChange={(e) =>
+                                                  onFileSelection(e, "slideImg")
+                                                }
                                               />
                                             </div>
                                           </div>
@@ -482,9 +654,9 @@ const Cms = () => {
                                           <input
                                             type="text"
                                             className="form-control"
-                                            defaultValue="Cherry E-Juice , New Taste new Experience"
-                                            name="name"
-                                            id="name"
+                                            
+                                            name="slideTitle"
+                                            {...register("slideTitle")}
                                           />
                                         </div>
                                         <div className="form-group col-12">
@@ -493,14 +665,16 @@ const Cms = () => {
                                           </label>
                                           <textarea
                                             className="form-control"
-                                            name=""
+                                            name="slideDesc"
                                             id=""
+                                            {...register("slideDesc")}
                                           />
                                         </div>
                                         <div className="form-group col-12 text-start">
                                           <Link
                                             className="comman_btn  text-decoration-none"
                                             href="javscript:;"
+                                            type="submit"
                                           >
                                             Save
                                           </Link>
@@ -521,32 +695,36 @@ const Cms = () => {
                         >
                           <div className="row py-5 px-4 mx-0">
                             <div className="col-12">
-                              <div className="  content_management_box">
+                              <div className="  content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between">
                                   <h2>About Us</h2>
                                   <Link
                                     className="edit_content_btn mt-2 "
                                     href="javscript:;"
+                                    onClick={onEdit}
                                   >
                                     <i className="far fa-edit me-2" />
                                     Edit
                                   </Link>
                                 </div>
 
-                                <p className="bg-light p-3">
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit. Aenean euismod bibendum
-                                  laoreet. Proin gravida dolor sit amet lacus
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit. Aenean euismod bibendum
-                                  laoreet. Proin gravida dolor sit amet lacus
-                                  accumsan et viverra justo commodo. Proin
-                                  sodales pulvinar sic tempor. Sociis natoque
-                                  penatibus et magnis dis parturient montes,
-                                  nascetur ridiculus mus. Proin sodales pulvinar
-                                  sic tempor. Sociis natoque penatibus et magnis
-                                  dis parturient montes, nascetur ridiculus mus.
-                                </p>
+                                <textarea
+                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5 "
+                                  disabled={disabled}
+                                  id="aboutField"
+                                  defaultValue={aboutUs}
+                                  onChange={(e) => {
+                                    setEditedAbout(e.target.value);
+                                  }}
+                                ></textarea>
+                                <button
+                                  className="comman_btn2 mt-4"
+                                  id="saveAbout"
+                                  onClick={onSaveAbout}
+                                  hidden={aboutHidden}
+                                >
+                                  Save
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -559,21 +737,35 @@ const Cms = () => {
                         >
                           <div className="row py-5 px-4 mx-0">
                             <div className="col-12">
-                              <div className="row content_management_box">
+                              <div className="row content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between ">
                                   <h2>Terms & Condition</h2>
                                   <Link
                                     className="edit_content_btn mt-2 "
                                     href="javscript:;"
+                                    onClick={onTermEdit}
                                   >
                                     <i className="far fa-edit me-2" />
                                     Edit
                                   </Link>
                                 </div>
-                                <p className="bg-light p-3">
-                                
-                                </p>
+                                <textarea
+                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5"
+                                  disabled={Tdisabled}
+                                  defaultValue={terms}
+                                  onChange={(e) => {
+                                    setEditedTerms(e.target.value);
+                                  }}
+                                ></textarea>
                               </div>
+                              <button
+                                className="comman_btn2 mt-4"
+                                id="saveAbout"
+                                onClick={onSaveTerms}
+                                hidden={termsHidden}
+                              >
+                                Save
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -587,30 +779,33 @@ const Cms = () => {
                             <div className="col-12">
                               <div className="row content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between">
-                                  <h2>Terms & Condition</h2>
+                                  <h2>Privacy Policies</h2>
                                   <Link
-                                    className="edit_content_btn mb-4"
+                                    className="edit_content_btn mt-2 "
                                     href="javscript:;"
+                                    onClick={onPrivacyEdit}
                                   >
                                     <i className="far fa-edit me-2" />
                                     Edit
                                   </Link>
                                 </div>
-                                <p>
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit. Aenean euismod bibendum
-                                  laoreet. Proin gravida dolor sit amet lacus
-                                  Lorem ipsum dolor sit amet, consectetur
-                                  adipiscing elit. Aenean euismod bibendum
-                                  laoreet. Proin gravida dolor sit amet lacus
-                                  accumsan et viverra justo commodo. Proin
-                                  sodales pulvinar sic tempor. Sociis natoque
-                                  penatibus et magnis dis parturient montes,
-                                  nascetur ridiculus mus. Proin sodales pulvinar
-                                  sic tempor. Sociis natoque penatibus et magnis
-                                  dis parturient montes, nascetur ridiculus mus.
-                                </p>
+                                <textarea
+                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5 "
+                                  disabled={Pdisabled}
+                                  defaultValue={privacy}
+                                  onChange={(e) => {
+                                    setEditedPrivacy(e.target.value);
+                                  }}
+                                ></textarea>
                               </div>
+                              <button
+                                className="comman_btn2 mt-4"
+                                id="saveAbout"
+                                onClick={onSavePrivacy}
+                                hidden={privacyHidden}
+                              >
+                                Save
+                              </button>
                             </div>
                           </div>
                         </div>

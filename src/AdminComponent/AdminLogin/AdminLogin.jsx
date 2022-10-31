@@ -1,6 +1,6 @@
 import React from "react";
-import "../AdminLogin/adminLogin.css";
 import Starlogo from "../../assets/img/logo.png";
+import '../../assets/css/adminMain.css'
 import classNames from "classnames";
 import { Link,  useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -49,7 +49,7 @@ const AdminLogin = () => {
   return (
     <div>
       <section className="login_page">
-        <div className="container-fluid px-0">
+        <div className="container-fluid mx-0">
           <div className="row justify-content-start">
             <div className="col-4">
               <div className="login_page_form shadow">
@@ -58,8 +58,8 @@ const AdminLogin = () => {
                     <div className="text-center mb-5">
                       <img
                         src={Starlogo}
-                        width="170"
-                        height="80"
+                        width={300}
+                        height="100"
                         alt="Brand"
                       ></img>
                     </div>
@@ -69,7 +69,7 @@ const AdminLogin = () => {
                   <div className="col-12">
                   <form
                     action=""
-                    className="col-12 form-design"
+                    className="col-12"
                     onSubmit={handleSubmit(onSubmit)}
                     autoComplete="off"
                   >

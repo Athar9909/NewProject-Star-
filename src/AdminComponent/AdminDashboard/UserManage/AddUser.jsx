@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "../dashboard.css";
+import "../../../assets/css/adminMain.css";
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
@@ -15,6 +15,7 @@ const AddUser = () => {
   const [files, setFiles] = useState([]);
   const apiUrl = "http://localhost:7000/api/admin/addUser";
   const navigate = useNavigate();
+  const [emailErr,setEmailErr] = useState("")
 
   const {
     register,
@@ -56,6 +57,9 @@ const AddUser = () => {
       if (res?.data.message === "User Deatils Updated Successfully") {
         navigate("/UserManage/ApprovedView");
       }
+      if (res?.data.message === "Email is already registered") {
+        setEmailErr("Email is already registered")
+      }
     });
   
   };
@@ -75,97 +79,79 @@ const AddUser = () => {
             </Link>
           </div>
           <div className="sidebar_menus">
-            <ul className="list-unstyled ps-1 m-0">
+          <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className=""
+                  className=" "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
+                    fontSize: "18px",
                   }}
                 >
-                  Dashboard
+                 <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
                 <Link
                   className="fw-bold bg-white"
                   to="/UserManage"
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                    color: "#3e4093",
-                  }}
+                  style={{ textDecoration: "none", fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif",
+                  color: "#3e4093",
+                }}
                 >
-                  User Management
+                 <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/CategorySub"
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Category &amp; Sub Category
+                 <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Inventory"
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Inventory Management
+                <i class="far fa-building"></i>  Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/brandsManage"
-                  to=""
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  className=""
+                  to="/brandsManage"
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Brands Management
+                <i class="fa fa-ship"></i>  Brands Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/OrderRequest"
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Order request
+                 <i class="fa fa-layer-group"></i>  Order request
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Cms"
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  CMS
+                 <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -173,13 +159,10 @@ const AddUser = () => {
                   className=""
                   to="/AdminLogin"
                   onClick={handleClick}
-                  style={{
-                    textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                  }}
+                  style={{ textDecoration: "none",  fontSize: "18px",
+                  fontFamily: "'Rubik', sans-serif", }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -261,14 +244,14 @@ const AddUser = () => {
                       <div className="col-4 text-center mb-2 mt-2">
                         <div className="form-group col-auto choose_fil">
                           <div className="account_profile position-relative d-inline-block">
-                            <div className="form-group mt-4 choose_fil ">
-                              <label htmlFor="upload1 bg-dark">
-                                <i className="fal fa-file me-1" />
+                            <div className="form-group mt-4 ">
+                              <label htmlFor="" className="">
+                                <i className="fa fa-file me-1" />
                                 Choose File
                               </label>
                               <input
                                 className={classNames(
-                                  "form-control  border border-secondary",
+                                  "form-control",
                                   { "is-invalid": errors.imageProfile }
                                 )}
                                 type="file"
@@ -400,7 +383,7 @@ const AddUser = () => {
                         </label>
                         <select
                           className={classNames(
-                            "form-select border border-secondary signup_fields fw-bolder",
+                            "form-select border border-secondary",
                             { "is-invalid": errors.state }
                           )}
                           aria-label="Default select example"
@@ -754,6 +737,7 @@ const AddUser = () => {
                         {errors.email && (
                           <small className="errorText mx-1 fw-bold">
                             {errors.email?.message}
+                            {emailErr}
                           </small>
                         )}
                       </div>

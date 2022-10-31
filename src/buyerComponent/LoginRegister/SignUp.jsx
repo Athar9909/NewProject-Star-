@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../Homepage/Navbar";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "./SignUp.css";
+import "../../assets/css/main.css";
 import axios from "axios";
 import classNames from "classnames";
 import Swal from "sweetalert2";
@@ -73,7 +73,7 @@ const SignUp = () => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="row">
-                <h4 className=" mt-4 mb-3 fw-bold  fs-1 text-center text-dark">
+                <h4 className=" mt-1 mb-3 fw-bold  fs-1 text-center text-dark">
                   CREATE MY ACCOUNT
                 </h4>
 
@@ -85,7 +85,7 @@ const SignUp = () => {
                   <input
                     type="text"
                     className={classNames(
-                      "form-control  border border-secondary  signup_fields",
+                      "form-control  border border-secondary",
                       { "is-invalid": errors.email }
                     )}
                     id="floatingInput3"
@@ -330,14 +330,14 @@ const SignUp = () => {
                   </div>
                   <div className="form-group col-6 mb-4 choose_file position-relative">
                     <span className="fw-bolder">Federal Tax ID *</span>
-                    <label htmlFor="upload1 bg-dark">
-                      <i className="fal fa-file me-1" />
+                    <label htmlFor="upload1">
+                      <i className="fa fa-file me-1  " />
                       Choose File
                     </label>
                     <input
                       type="file"
                       className={classNames(
-                        "form-control  border border-secondary signup_fields",
+                        "form-control  border border-secondary",
                         { "is-invalid": errors.federalTaxId }
                       )}
                       defaultValue=""
@@ -357,7 +357,7 @@ const SignUp = () => {
                   <div className="form-group col-6 mb-4 choose_file position-relative">
                     <span className="fw-bolder">Tobacco License*</span>
                     <label htmlFor="upload2">
-                      <i className="fal fa-file me-1" />
+                      <i className="fa fa-file me-1" />
                       Choose File
                     </label>
                     <input
@@ -383,7 +383,7 @@ const SignUp = () => {
                   <div className="form-group col-6 mb-4 choose_file position-relative">
                     <span className="fw-bolder">Sales Tax ID*</span>
                     <label htmlFor="upload3">
-                      <i className="fal fa-file me-1" />
+                      <i className="fa fa-file me-1" />
                       Choose File
                     </label>
                     <input
@@ -409,7 +409,7 @@ const SignUp = () => {
                   <div className="form-group col-6 mb-5 choose_file position-relative">
                     <span className="fw-bolder ">Business License*</span>
                     <label htmlFor="upload4">
-                      <i className="fal fa-file me-1" />
+                      <i className="fa fa-file me-1" />
                       Choose File
                     </label>
                     <input
@@ -482,7 +482,7 @@ const SignUp = () => {
                   <div className="form-group col-12 mb-4 choose_file position-relative">
                     <span className="fw-bolder">Account Owner ID*</span>
                     <label htmlFor="upload5">
-                      <i className="fal fa-file me-1" />
+                      <i className="fa fa-file me-1" />
                       Choose File
                     </label>
                     <input
@@ -507,8 +507,8 @@ const SignUp = () => {
                   </div>
                   <div className="form-floating col-6 mb-4">
                     <input
-                      type="text"
-                      className="form-control shadow-none border border-secondar"
+                      type="email"
+                      className="form-control shadow-none border border-secondary"
                       id="floatingPassword4"
                       name="email"
                       placeholder="name@example.com"

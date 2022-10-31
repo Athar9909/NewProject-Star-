@@ -1,5 +1,5 @@
 import React from "react";
-import "../Contact/Contact.css";
+import "../../assets/css/main.css";
 import Navbar from "../Homepage/Navbar";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";

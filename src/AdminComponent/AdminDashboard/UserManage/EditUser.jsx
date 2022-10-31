@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "../dashboard.css";
+import "../../../assets/css/adminMain.css";
+
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
@@ -790,7 +791,7 @@ const EditUser = () => {
                               <input
                                 className="d-none"
                                 type="radio"
-                                id="sh"
+                                id="sh"                       
                                 data-val="false"
                                  value="false"
                                 name="quotation"

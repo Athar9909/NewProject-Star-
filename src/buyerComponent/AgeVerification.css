@@ -15,7 +15,6 @@
     bottom: 0;
     height: 100%;
     width: 100%;
-    opacity: 0.7;
   }
   .age_verification .container {
     z-index: 1;
@@ -39,6 +38,7 @@
   .verification_content .checkbox{
     position: relative
     ;
+    color: #eb3237;
     top: 2px;
     font-size: 20px;
   }

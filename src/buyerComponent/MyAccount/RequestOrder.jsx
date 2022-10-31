@@ -6,23 +6,22 @@ import "../../assets/css/main.css";
 import axios from "axios";
 import Profile from "./Profile";
 
-const MyAccount = () => {
-  const [users, setUsers] = useState([]);
-  const userApi = "http://localhost:7000/user/getUserProfile"
+const RequestOrders = () => {
+  const [users, setUsers] = useState();
+  const userApi = "http://localhost:7000/user/getUserProfile";
 
   axios.defaults.headers.common["x-auth-token-user"] =
-  localStorage.getItem("loginToken");
- 
-  
+    localStorage.getItem("loginToken");
+
   useEffect(() => {
-    getUser()
+    getUser();
   }, []);
 
-  const getUser = async()=>{
-   await axios.get(userApi).then((res)=>{
-     setUsers(res?.data.results)
-   })
-  }
+  const getUser = async () => {
+    await axios.get(userApi).then((res) => {
+      setUsers(res?.data.results);
+    });
+  };
   return (
     <div className="main_myaccount">
       <Navbar />
@@ -60,7 +59,7 @@ const MyAccount = () => {
 
       <div className="myaccount mb-4 ">
         <div className="container-lg position-relative">
-          <Profile/>
+          <Profile />
         </div>
         <div className="container container-sm">
           <div className="row mt-5  justify-content-center">
@@ -74,7 +73,7 @@ const MyAccount = () => {
                     className="nav-link"
                   >
                     <div
-                      className="  nav-active flex-coloumn text-white  px-3 py-2 border  "
+                      className="  nav flex-coloumn text-white  px-3 py-2 border  "
                       role=""
                     >
                       <h4 className="mt-1">
@@ -88,7 +87,10 @@ const MyAccount = () => {
                     style={{ textDecoration: "none", fontSize: "15px" }}
                     className="nav-link"
                   >
-                    <div className="nav px-3 py-2 border   " role="tablist">
+                    <div
+                      className="nav-active  text-white px-3 py-2 border   "
+                      role="tablist"
+                    >
                       <h4 className="">
                         <i className="fas fa-file mt-1" />
                         <span className="fs-6 mx-2">REQUEST ORDER</span>
@@ -120,7 +122,7 @@ const MyAccount = () => {
                     </div>
                   </Link>
                   <Link
-                    to="/Account"
+                    to="/Favourites"
                     style={{ textDecoration: "none", fontSize: "15px" }}
                     className="nav-link"
                   >
@@ -132,7 +134,7 @@ const MyAccount = () => {
                     </div>
                   </Link>
                   <Link
-                    to="/Favourites"
+                    to="/MainMenu"
                     style={{ textDecoration: "none", fontSize: "15px" }}
                     className="nav-link"
                   >
@@ -158,7 +160,7 @@ const MyAccount = () => {
                     <div className="row">
                       <div className="col-12 mb-3">
                         <div className="order_heading">
-                          <h2>My Order :</h2>
+                          <h2>Request Order :</h2>
                         </div>
                       </div>
                       <div className="col-6 mb-3 d-flex">
@@ -171,7 +173,7 @@ const MyAccount = () => {
                               Status: Pending
                             </div>
                             <div className="order_id d-block mb-1">
-                              Order ID: <strong>12312</strong>
+                              Request ID: <strong>12312</strong>
                             </div>
                             <div className="date_box">
                               Sep 21, 2022 | <span>03:45 PM</span>
@@ -198,7 +200,7 @@ const MyAccount = () => {
                               Status: Pending
                             </div>
                             <div className="order_id d-block mb-1">
-                              Order ID: <strong>234234</strong>
+                              Request ID: <strong>234234</strong>
                             </div>
                             <div className="date_box">
                               Sep 21, 2022 | <span>03:45 PM</span>
@@ -270,7 +272,20 @@ const MyAccount = () => {
                         </Link>
                       </div>
                     </div>
-                  </div>  
+                  </div>
+
+                  <div
+                    className="tab-pane fade"
+                    id="nav-contact"
+                    role="tabpanel"
+                    aria-labelledby="nav-contact-tab"
+                  ></div>
+                  <div
+                    className="tab-pane fade"
+                    id="nav-contact1"
+                    role="tabpanel"
+                    aria-labelledby="nav-contact1-tab"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -283,4 +298,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default RequestOrders;

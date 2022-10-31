@@ -1,5 +1,5 @@
 import React from "react";
-import "../AdminLogin/adminLogin.css";
+import "../../assets/css/adminMain.css";
 import Starlogo from "../../assets/img/logo.png";
 import classNames from "classnames";
 import { Link,  useNavigate } from "react-router-dom";

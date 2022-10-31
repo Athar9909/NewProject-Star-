@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import "../dashboard.css";
+import "../../../assets/css/adminMain.css";
+
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { HiMenu } from "react-icons/hi";
@@ -10,18 +11,24 @@ import { BiEdit } from "react-icons/bi";
 import { useEffect } from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
+import { post } from "jquery";
 const UserManage = () => {
   const apiUrl = "http://localhost:7000/api/admin/allUsersList";
   const uploadUrl = "http://localhost:7000/api/admin/importUsers";
+  const userStatus = "http://localhost:7000/api/admin/userStatus";
   const [values, setValues] = useState({ from: "", to: "" });
   const [search, setSearch] = useState();
+  const [statsIndex, setStatsIndex] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [impFile, setImpFile] = useState([]);
+  const [userId, setUserId] = useState();
   const [ux, setUx] = useState("");
   const [sideBar, setSideBar] = useState("");
   const [uploadError, setUploadError] = useState("");
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [rejectedUsers, setRejectedUsers] = useState([]);
+  const [enableUser, setEnableUser] = useState();
   const importInput = document.getElementById("fileID");
   const dropArea = document.getElementById("dropBox");
   const navigate = useNavigate();
@@ -127,32 +134,37 @@ const UserManage = () => {
   };
   const onApprovedView = (index) => {
     localStorage.setItem("objectId", approvedUsers[index]?._id);
+    setStatsIndex(approvedUsers[index]?._id);
   };
 
+  const UserStatus = async (index) => {
+    await axios
+      .post(userStatus + "/" + approvedUsers[index]?._id)
+      .then((res) => {
+        console.log(res);
+      });
+  };
   return (
     <div className={sideBar === "" ? "admin_main" : "expanded_main"}>
-      <div className={sideBar === "" ? "siderbar_section" : "hide_sidebar"}>
+      <div className="siderbar_section">
         <div className="siderbar_inner">
-          <div
-            className={sideBar === "" ? "siderbar_logo mt-5 mb-4" : "hide_logo"}
-          >
-            <Link to="" className="sidebar_logo mx-4 mt-5">
-              <img src={Starlogo} className="mx-2 " alt="Logo" />
+          <div className="sidebar_logo">
+            <Link to="" className=" ">
+              <img src={Starlogo} className="" alt="Logo" />
             </Link>
           </div>
           <div className="sidebar_menus">
             <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className=""
+                  className=" "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
+                    fontSize: "18px",
                   }}
                 >
-                  Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
@@ -161,12 +173,12 @@ const UserManage = () => {
                   to="/UserManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                     color: "#3e4093",
                   }}
                 >
-                  User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
@@ -175,11 +187,11 @@ const UserManage = () => {
                   to="/CategorySub"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
@@ -188,24 +200,24 @@ const UserManage = () => {
                   to="/Inventory"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/brandsManage"
-                  to=""
+                  className=""
+                  to="/brandsManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
@@ -214,11 +226,11 @@ const UserManage = () => {
                   to="/OrderRequest"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
@@ -227,11 +239,11 @@ const UserManage = () => {
                   to="/Cms"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -241,11 +253,11 @@ const UserManage = () => {
                   onClick={handleClick}
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -264,9 +276,7 @@ const UserManage = () => {
                       console.log("yello");
                       setSideBar("yesx");
                     }}
-                  >
-                    ☰
-                  </h1>
+                  ></h1>
                 </div>
               ) : (
                 <div>
@@ -349,10 +359,13 @@ const UserManage = () => {
                         <div className="form-group mb-0 position-relative icons_set">
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control bg-white"
                             placeholder="Search"
                             name="name"
                             id="name"
+                            onChange={(e) => {
+                              setSearchTerm(e.target.value);
+                            }}
                           />
                         </div>
                       </form>
@@ -466,28 +479,42 @@ const UserManage = () => {
                                   </thead>
 
                                   <tbody>
-                                    {(pendingUsers || []).map((User, index) => (
-                                      <tr className="fw-bold" key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{User?.createdAt.slice(0, 10)}</td>
-                                        <td>{User?.firstName}</td>
-                                        <td>{User?.email}</td>
-                                        <td>{User?.phoneNumber}</td>
-                                        <td>{User?.isVerified}</td>
-                                        <td>
-                                          <Link
-                                            className="comman_btn table_viewbtn text-decoration-none"
-                                            to="/UserManage/PendingView"
-                                            id={index}
-                                            onClick={() => {
-                                              onPendingView(index);
-                                            }}
-                                          >
-                                            View
-                                          </Link>
-                                        </td>
-                                      </tr>
-                                    ))}
+                                    {(pendingUsers || [])
+                                      .filter((User) => {
+                                        if (searchTerm == "") {
+                                          return User;
+                                        } else if (
+                                          User?.firstName
+                                            .toLowerCase()
+                                            .includes(searchTerm.toLowerCase())
+                                        ) {
+                                          return User;
+                                        }
+                                      })
+                                      .map((User, index) => (
+                                        <tr className="" key={index}>
+                                          <td>{index + 1}</td>
+                                          <td>
+                                            {User?.createdAt.slice(0, 10)}
+                                          </td>
+                                          <td>{User?.firstName}</td>
+                                          <td>{User?.email}</td>
+                                          <td>{User?.phoneNumber}</td>
+                                          <td>{User?.isVerified}</td>
+                                          <td>
+                                            <Link
+                                              className="comman_btn table_viewbtn text-decoration-none"
+                                              to="/UserManage/PendingView"
+                                              id={index}
+                                              onClick={() => {
+                                                onPendingView(index);
+                                              }}
+                                            >
+                                              View
+                                            </Link>
+                                          </td>
+                                        </tr>
+                                      ))}
                                   </tbody>
                                 </table>
                               </div>
@@ -550,20 +577,53 @@ const UserManage = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {(approvedUsers || []).map(
-                                        (User, index) => (
-                                          <tr key={index} className="fw-bold">
-                                            <td>{index + 1}</td>
+                                      {(approvedUsers || [])
+                                        .filter((User) => {
+                                          if (searchTerm == "") {
+                                            return User;
+                                          } else if (
+                                            User?.firstName
+                                              .toLowerCase()
+                                              .includes(
+                                                searchTerm.toLowerCase()
+                                              )
+                                          ) {
+                                            return User;
+                                          }
+                                        })
+                                        .map((User, index) => (
+                                          <tr key={index} className="">
+                                            <td>{index + 1}.</td>
                                             <td>
                                               {User?.createdAt.slice(0, 10)}
                                             </td>
                                             <td>{User?.firstName}</td>
                                             <td>{User?.email}</td>
                                             <td>{User?.phoneNumber}</td>
-                                            <td>{User?.isVerified}</td>
+                                            <td>
+                                              {" "}
+                                              <div className="toggle-switch">
+                                                <input
+                                                  type="checkbox"
+                                                  className="checkbox"
+                                                  id={index + 1}
+                                                  defaultChecked={User?.status}
+                                                  onClick={() => {
+                                                    UserStatus(index);
+                                                  }}
+                                                />
+                                                <label
+                                                  className="label"
+                                                  htmlFor={index + 1}
+                                                >
+                                                  <span className="inner" />
+                                                  <span className="switch" />
+                                                </label>
+                                              </div>
+                                            </td>
                                             <td>
                                               <Link
-                                                className="comman_btn table_viewbtn text-decoration-none"
+                                                className="comman_btn text-decoration-none"
                                                 to="/UserManage/ApprovedView"
                                                 id={index}
                                                 onClick={() => {
@@ -574,8 +634,7 @@ const UserManage = () => {
                                               </Link>
                                             </td>
                                           </tr>
-                                        )
-                                      )}
+                                        ))}
                                     </tbody>
                                   </table>
                                 </div>
@@ -641,17 +700,30 @@ const UserManage = () => {
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {(rejectedUsers || []).map(
-                                      (User, index) => (
-                                        <tr key={index} className="fw-bold">
-                                          <td>{index + 1}</td>
+                                    {(rejectedUsers || [])
+                                      .filter((User) => {
+                                        if (searchTerm == "") {
+                                          return User;
+                                        } else if (
+                                          User?.firstName
+                                            .toLowerCase()
+                                            .includes(searchTerm.toLowerCase())
+                                        ) {
+                                          return User;
+                                        }
+                                      })
+                                      .map((User, index) => (
+                                        <tr key={index} className="">
+                                          <td>{index + 1}.</td>
                                           <td>
                                             {User?.createdAt.slice(0, 10)}
                                           </td>
                                           <td>{User?.firstName}</td>
                                           <td>{User?.email}</td>
                                           <td>{User?.phoneNumber}</td>
-                                          <td>{User?.isVerified}</td>
+                                          <td className="fs-6 text-danger">
+                                            {User?.isVerified}
+                                          </td>
                                           <td>
                                             <Link
                                               className="comman_btn table_viewbtn text-decoration-none"
@@ -665,8 +737,7 @@ const UserManage = () => {
                                             </Link>
                                           </td>
                                         </tr>
-                                      )
-                                    )}
+                                      ))}
                                   </tbody>
                                 </table>
                               </div>

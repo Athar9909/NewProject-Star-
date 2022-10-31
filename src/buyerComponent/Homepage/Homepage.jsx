@@ -1,7 +1,6 @@
 import React from "react";
 import Footer from "../Footer/Footer";
 import Navbar from "./Navbar";
-import Products from "./Products";
 import { useForm } from "react-hook-form";
 import { BsFillStarFill } from "react-icons/bs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,24 +16,31 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import "./Homepage.css";
+import "../../assets/css/main.css";
 import AgeVerification from "../AgeVerification";
 import { useEffect } from "react";
+import TermsCondition from "./Terms&Condition";
 
 const Homepage = () => {
-  const modalClose = document.getElementById("age_close")
-  useEffect(()=>{
+  const modalClose = document.getElementById("age_close");
+  const modalCloseTerms = document.getElementById("terms_close");
+  useEffect(() => {
     let x = document.cookie;
-    console.log(x);
-    if(x === ""){
-      const modal= document.getElementById("age_modal")
-      setTimeout(()=>{
-        modal.click()
+    let y = document.cookie;
 
-      },4000)
+    console.log(x);
+    if (x === "") {
+      const modal = document.getElementById("age_modal");
+      setTimeout(() => {
+        modal.click();
+      }, 1000);
+    } else if  ( y === "" && x!=="") {
+      const modal = document.getElementById("terms_modal");
+      setTimeout(() => {
+        modal.click();
+      }, 5000);
     }
-    
-  },[])
+  }, []);
   const {
     register,
     handleSubmit,
@@ -742,12 +748,16 @@ const Homepage = () => {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog  modal-fullscreen" >
+        <div class="modal-dialog  modal-fullscreen">
           <div class="modal-content modalContent">
             <div class="modal-header ">
               <h2 className="fw-bold mt-1 mx-2">
-            <img src={require("../../assets/img/logo.png")} width="170" height="80" alt="Brand"></img>
-
+                <img
+                  src={require("../../assets/img/logo.png")}
+                  width="170"
+                  height="80"
+                  alt="Brand"
+                ></img>
               </h2>
 
               <button
@@ -759,7 +769,41 @@ const Homepage = () => {
               ></button>
             </div>
             <div class="modal-body">
-             <AgeVerification modalClose={modalClose} />
+              <AgeVerification modalClose={modalClose} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        id="terms_modal"
+        class="btn btn-primary d-none"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal2"
+      >
+        Launch demo modal
+      </button>
+
+      <div
+        class="modal "
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModal2Label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content p-5 mb-3">
+            <div class="modal-header ">
+              <button
+                type="button"
+                class="btn-close "
+                id="terms_close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="">
+              <TermsCondition modalCloseTerms={modalCloseTerms} />
             </div>
           </div>
         </div>
