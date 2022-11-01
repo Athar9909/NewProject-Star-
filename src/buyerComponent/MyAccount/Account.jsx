@@ -30,11 +30,12 @@ const Account = () => {
   };
   console.log(editedName);
   const SaveProfile = async (e) => {
+
+    const formData = new FormData();
+    formData.append("firstName", editedName);
+    formData.append("phoneNumber",editedPhone)
     await axios
-      .post(editProfile, {
-        firstName:editedName,
-        phoneNumber:editedPhone
-      })
+      .post(editProfile,formData)
       .then((res) => {
         if ((res.data.message === "Profile updated Successfully")) {
           setDisable(true);
@@ -78,7 +79,7 @@ const Account = () => {
     </section>
 
     <div className="myaccount mb-4 ">
-      <div className="container-lg position-relative">
+      <div className="container-lg">
        <Profile/>
       </div>
       <div className="container container-sm">

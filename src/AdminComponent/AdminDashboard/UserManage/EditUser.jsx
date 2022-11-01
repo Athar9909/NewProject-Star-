@@ -306,7 +306,7 @@ const EditUser = () => {
                             </div>
                             <div className="p-image bg-dark">
                               <input
-                                className="file-upload bg-dark"
+                                className="file-uploads"
                                 type="file"
                                 name="imageProfile"
                                 accept="image/*"

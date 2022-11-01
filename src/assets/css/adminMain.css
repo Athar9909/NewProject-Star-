@@ -739,17 +739,18 @@ h1 h2 p label {
   font-weight: 600 !important;
   font-family: "Poppins", sans-serif;
 }
-
 .account_profile .file-uploads {
-  opacity: 0 !important;
+  opacity:  0%!important;
   position: relative;
-  left: -8px;
+  left: -5px;
   font-size: 20px;
+  
 }
+
 .upload-icon{
   position: relative;
   object-fit: cover;
-  left: 3px !important;
+  left: 1px !important;
   font-size: 10px;
   color: #081424;
 }

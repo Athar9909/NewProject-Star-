@@ -211,7 +211,7 @@ const ApprovedView = () => {
                   <div className="row py-2">
                     <div className="col-12 text-center mb-4">
                       <div className="Pending-view_img">
-                        <img src={profile} alt="" />
+                        <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${user?.profileImage}`} alt="" />
                       </div>
                       <h4 className="user_name">{user?.firstName}</h4>
                     </div>

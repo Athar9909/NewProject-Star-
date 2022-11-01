@@ -1585,15 +1585,25 @@ footer .widget_title {
 
 }
 .myaccount_profile{
-  height: 24vh !important;
+  height: 10rem !important;
 }
-.account_profile .profile-pic {
-  max-height: 100%;
+.account_profile .file-uploadsNew {
+  opacity:  1%!important;
+  position: relative;
+  width: 135px;
+  height: 50px;
+  left: 10px;
+  top: -150px;
+  font-size: 100px;
+  
+}
+.account_profile{
+  position: relative;
+  height: 10rem !important;
 }
 .account_profile .circle {
   overflow: hidden;
   width: 130px;
-  height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1612,12 +1622,8 @@ footer .widget_title {
   justify-content: center;
   cursor: pointer;
 }
-.account_profile .file-upload {
-  display: none;
-}
-.account_profile .p-image img {
-  max-width: 75%;
-}
+
+
 .account_detailss h2 {
   font-weight: 700;
   font-size: 20px;
