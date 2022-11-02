@@ -1445,6 +1445,21 @@ div#google_translate_element {
   font-size: 13px !important;
   cursor: pointer;
 }
+.choose_file .inputText{
+  position: absolute;
+  top: 28px;
+  background-color:#3e4093;
+  height: 52px;
+  color: #fff;
+  display: flex !important;
+  align-items: center;
+  width: 100px !important;
+  justify-content: center;
+  text-align: center;
+  border-radius: 8px 0 0 8px;
+  font-size: 12px !important;
+  cursor: pointer;
+}
 .choose_file span {
   display: block;
   margin: 0 0 8px 0;

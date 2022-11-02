@@ -17,6 +17,7 @@ const BrandsManage = () => {
   const [brandId, setBrandId] = useState();
   const [files, setFiles] = useState([]);
   const [editBrandName, setEditBrandsName] = useState();
+  const [sideBar, setSideBar] = useState(true);
   const [Index,setIndex] = useState()
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
@@ -75,8 +76,8 @@ const BrandsManage = () => {
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div className="admin_main">
-      <div className="siderbar_section">
+    <div className={sideBar? "admin_main" : "expanded_main"}>
+    <div className={sideBar? "siderbar_section": "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -179,17 +180,31 @@ const BrandsManage = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-            <div className="col">
-              <Link
-                href="javscript:;"
-                style={{
-                  textDecoration: "none",
-                  fontSize: "16px",
-                  fontFamily: "'Rubik', sans-serif",
-                }}
-              >
-                <h1 className="sidebar_btn"></h1>
-              </Link>
+          <div className="col">
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  ><i className="fa fa-bars"></i></h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar)
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
             <div className="col-auto">
               <div className="dropdown Profile_dropdown">

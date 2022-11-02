@@ -2226,13 +2226,52 @@ section {
   padding: 0%;
   width: 45%;
 }
+.banner-titles{
+  position: relative;
+  text-align: center;
+  top: 250px;
+  left: 400px !important;
+  padding: 0%;
+  width: 45%;
+}
+
+.bannerTitle2{
+  
+  top: 250px;
+  left: 600px !important;
+  padding: 0%;
+  width: 45%;
+}
+
 .Bannertext {
   color: #fff;
-  font-weight: 800;
+  position: relative;
+  z-index: 1;
+  font-weight: bolder;
   font-size: 50px;
-  text-transform: capitalize;
-  margin-bottom: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  top: -70px;
+  font-family: "Popins" sans-serif;
+}
+.bannerTxt{
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  font-weight: bolder;
+  top: -70px;
+  font-family: "Popins" sans-serif;
+}
+.comman_btn22{
+  background-color: #eb3237;
+  position: relative;
+  top: -60px;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.5s all;
+  color: #fff;
+  border-radius: 50px;
+  border: 0;
+  display: inline-flex;
 }
 .slideBtn {
   opacity: 100% !important;

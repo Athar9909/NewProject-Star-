@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/css/adminMain.css";
 
@@ -8,6 +8,8 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import $ from "jquery";
 
 const Dashboard = () => {
+  const [sideBar, setSideBar] = useState(true);
+
   $(document).ready(function () {
     $(".sidebar_btn").on("click", function () {
       $(".siderbar_section").toggleClass("hide_sidebar");
@@ -21,8 +23,8 @@ const Dashboard = () => {
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div>
-      <div className="siderbar_section">
+    <div className={sideBar? "admin_main" : "expanded_main"}>
+    <div className={sideBar? "siderbar_section": "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -125,12 +127,32 @@ const Dashboard = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-            <div className="col">
-              <a className="sidebar_btn" href="javscript:;">
-                <p></p>
-              </a>
+          <div className="col">
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  ><i className="fa fa-bars"></i></h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar)
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
-
             <div className="col-auto d-flex ml-5">
               <div className="d-flex flex-column mt-2">
                 <Link

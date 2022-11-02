@@ -20,10 +20,20 @@ import "../../assets/css/main.css";
 import AgeVerification from "../AgeVerification";
 import { useEffect } from "react";
 import TermsCondition from "./Terms&Condition";
+import axios from "axios";
+import { useState } from "react";
 
 const Homepage = () => {
+  const [allSlides , setAllSlides] = useState([])
+  const slidesApi = "http://localhost:7000/user/homeBanner/getSlides"
+  const categoryApi = "http://localhost:7000/user/category/getCategories";
+  const [category, setCategory] = useState([]);
   const modalClose = document.getElementById("age_close");
   const modalCloseTerms = document.getElementById("terms_close");
+
+  
+  axios.defaults.headers.common["x-auth-token-user"] =
+    localStorage.getItem("loginToken"); 
   useEffect(() => {
     let x = document.cookie;
     let y = document.cookie;
@@ -40,35 +50,26 @@ const Homepage = () => {
         modal.click();
       }, 5000);
     }
+getSlides();
+getCategory();
   }, []);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-    trigger,
-  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+ const getSlides = async ()=> {
+   await axios.get(slidesApi).then((res)=>{
+    setAllSlides(res?.data.results)
+   })
+  
+ }
+ const getCategory = async () => {
+  await axios.get(categoryApi).then((res) => {
+    setCategory(res?.data.results);
+  });
+};
 
   return (
     <div className="home_page">
       <Navbar />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="d-none">
-        <input
-          type="file"
-          className="mb-5 mt-5 mx-5 border "
-          name="import"
-          {...register("import")}
-        />
-        <button className="btn btn-primary" type="submit">
-          {" "}
-          submit
-        </button>
-      </form>
 
       <section className="">
         <div
@@ -76,56 +77,53 @@ const Homepage = () => {
           class="carousel slide"
           data-bs-ride="carousel"
         >
-          <div className="carousel-inner ">
-            <div className="carousel-item active">
-              <img src={banner3} class="d-block w-100 d" alt="..." />
-              <div className="carousel-caption">
+          <div className="carousel-inner banner_sider">
+            <div className="carousel-item active ">
+              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[0]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <div className="carousel-caption ">
                 <h5 className="d-flex text-start  Bannertext">
-                  Cherry E-Juice , New Taste New Experience
+                {allSlides[0]?.title}
                 </h5>
-                <p className="d-flex text-start fs-5">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic,
-                  saepe error ea tempore officia a reprehenderit id corrupti.
+                <p className="d-flex text-start fs-6 bannerTxt">
+                 {allSlides[0]?.description}
                 </p>
 
                 <Link to="/Register" className="text-decoration-none ">
-                  <button className="comman_btn2 d-flex">SignUp</button>
+                  <button className="comman_btn22 d-flex">SignUp</button>
                 </Link>
               </div>
             </div>
-            <div class="carousel-item ">
-              <img src={banner2} class="d-block w-100" alt="..." />
-              <div className="carousel-caption">
-                <h5 className="d-flex text-start  Bannertext">
-                  Cherry E-Juice , New Taste New Experience
+            <div className="carousel-item ">
+              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[1]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <div className="carousel-caption banner-titles">
+                <h5 className="d-flex text-center  Bannertext">
+                {allSlides[1]?.title}
                 </h5>
-                <p className="d-flex text-start fs-5">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic,
-                  saepe error ea tempore officia a reprehenderit id corrupti.
+                <p className="fs-6 bannerTxt">
+                 {allSlides[1]?.description}
                 </p>
 
                 <Link to="/Register" className="text-decoration-none ">
-                  <button className="comman_btn2 d-flex">SignUp</button>
+                  <button className="comman_btn22  ">SignUp</button>
                 </Link>
               </div>
             </div>
-            <div class="carousel-item">
-              <img src={banner1} class="d-block w-100" alt="..." />
-              <div className="carousel-caption">
-                <h5 className="d-flex text-start  Bannertext">
-                  Custom Wood vape Mod
+            <div className="carousel-item ">
+              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[2]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <div className="carousel-caption bannerTitle2">
+                <h5 className=" text-end  Bannertext">
+                {allSlides[2]?.title}
                 </h5>
-                <p className="d-flex text-start fs-5">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic,
-                  saepe error ea tempore officia a reprehenderit id corrupti.
+                <p className="d-flex text-end fs-6 bannerTxt">
+                 {allSlides[2]?.description}
                 </p>
 
-                <Link to="/Register" className="text-decoration-none ">
-                  <button className="comman_btn2 d-flex">SignUp</button>
+                <Link to="/Register" className="d-flex justify-content-end text-decoration-none ">
+                  <button className="comman_btn22">SignUp</button>
                 </Link>
               </div>
             </div>
-          </div>
+            </div>
           <button
             className="carousel-control-prev"
             type="button"
@@ -136,7 +134,7 @@ const Homepage = () => {
               className="carousel-control-prev-icon py-4 slideBtn"
               aria-hidden="true"
             ></span>
-            <span className="visually-hidden">Previous</span>
+            <span className="visually-hidden py-4">Previous</span>
           </button>
           <button
             class="carousel-control-next"
@@ -166,18 +164,39 @@ const Homepage = () => {
           className="mySwiper"
         >
           <SwiperSlide>
+
             <div className="p-3">
               <Link
                 href="product.html"
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new1.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[0]?.categoryImage}`}
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[0]?.categoryName}
+                </span>
+              </Link>
+            </div>
+
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <div className="p-3">
+              <Link
+                href="product.html"
+                className="featured__box text-center mt-5  text-decoration-none"
+              >
+                <img
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[1]?.categoryImage}`}
+                  
+                  className="mx-1"
+                  alt="lorem"
+                />
+                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
+                  {category[0]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -189,12 +208,13 @@ const Homepage = () => {
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new3.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[2]?.categoryImage}`}
+                  
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[1]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -206,12 +226,13 @@ const Homepage = () => {
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new2.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[3]?.categoryImage}`}
+                  
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[2]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -223,12 +244,13 @@ const Homepage = () => {
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new4.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[4]?.categoryImage}`}
+                  
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[3]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -240,12 +262,13 @@ const Homepage = () => {
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new5.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[5]?.categoryImage}`}
+                  
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[4]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -257,29 +280,13 @@ const Homepage = () => {
                 className="featured__box text-center mt-5  text-decoration-none"
               >
                 <img
-                  src={require("../../assets/img/product_new6.png")}
-                  className="mx-5"
+                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[5]?.categoryImage}`}
+                  
+                  className="mx-1"
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={require("../../assets/img/product_new7.png")}
-                  className="mx-5"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  {category[5]?.categoryName}
                 </span>
               </Link>
             </div>
@@ -296,7 +303,7 @@ const Homepage = () => {
                   alt="lorem"
                 />
                 <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
+                  BLVK FORES
                 </span>
               </Link>
             </div>

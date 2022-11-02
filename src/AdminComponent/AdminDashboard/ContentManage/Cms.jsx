@@ -9,7 +9,8 @@ import axios from "axios";
 import { post } from "jquery";
 import { useForm } from "react-hook-form";
 const Cms = () => {
-  const [sideBar, setSideBar] = useState("");
+  const [sideBar, setSideBar] = useState(true);
+  const [change,setChange] = useState(false)
   const [disabled, setDisabled] = useState(true);
   const [Tdisabled, setTDisabled] = useState(true);
   const [Pdisabled, setPDisabled] = useState(true);
@@ -58,20 +59,53 @@ const Cms = () => {
     getAboutUs();
     getTermsCondition();
     getPrivacyPolicy();
-  }, []);
+  }, [change]);
   console.log(files?.slideImg);
 
+  const onSubmitSecond = async (data) => {
+    const formData = new FormData();
+    formData.append("title", data.slide2Title);
+    formData.append("description", data.slide2Desc);
+    formData.append("banner", files?.slide2Img);
+    await axios
+      .post(EditSlide + "/" + slideData[1]?._id, formData)
+      .then((res) => {
+        console.log(res);
+        if(res?.data.message === "Slide Modified Successfully"){
+          setChange(!change)
+        }
+      });
+  };
+  const onSubmitThird = async (data) => {
+
+    const formData = new FormData();
+    formData.append("title", data.slide3Title);
+    formData.append("description", data.slide3Desc);
+    formData.append("banner", files?.slide3Img);
+    await axios
+      .post(EditSlide + "/" + slideData[2]?._id, formData)
+      .then((res) => {
+        console.log(res);
+        if(res?.data.message === "Slide Modified Successfully"){
+          setChange(!change)
+          
+        }
+      });
+  };
   const onSubmit = async (data) => {
+    console.log(data , "joi");
+
     const formData = new FormData();
     formData.append("title", data.slideTitle);
     formData.append("description", data.slideDesc);
-    formData.append("banner", files?.slideImg);
+    formData.append("banner", files?.slide1Img);
     await axios
       .post(EditSlide + "/" + slideData[0]?._id, formData)
       .then((res) => {
         console.log(res);
         if(res?.data.message === "Slide Modified Successfully"){
-          window.location.reload()
+          setChange(!change)
+          
         }
       });
   };
@@ -85,6 +119,11 @@ const Cms = () => {
       defalutValues.slides = results[0]?.banner;
       defalutValues.slideTitle = results[0]?.title;
       defalutValues.slideDesc = results[0]?.description;
+      defalutValues.slides = results[1]?.banner;
+      defalutValues.slide2Title = results[1]?.title;
+      defalutValues.slide2Desc = results[1]?.description;
+      defalutValues.slide3Title = results[2]?.title;
+      defalutValues.slide3Desc = results[2]?.description;
 
       reset({ ...defalutValues });
       return res.data;
@@ -168,8 +207,8 @@ const Cms = () => {
   };
 
   return (
-    <div className="admin_main">
-      <div className="siderbar_section">
+    <div className={sideBar? "admin_main" : "expanded_main"}>
+    <div className={sideBar? "siderbar_section": "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -290,8 +329,31 @@ const Cms = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-            <div className="col">
-              <h1 className="sidebar_btn"></h1>
+          <div className="col">
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  ><i className="fa fa-bars"></i></h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar)
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
             <div className="col-auto">
               <div className="dropdown Profile_dropdown">
@@ -489,11 +551,11 @@ const Cms = () => {
                                               <input
                                                 className="file-uploads"
                                                 type="file"
-                                                name="slideImg"
+                                                name="slide1Img"
                                                 accept="image/*"
                                                 {...register("slides")}
                                                 onChange={(e) =>
-                                                  onFileSelection(e, "slideImg")
+                                                  onFileSelection(e, "slide1Img")
                                                 }
                                               />
                                             </div>
@@ -506,7 +568,7 @@ const Cms = () => {
                                           <input
                                             type="text"
                                             className="form-control"
-                                            name="slideTitle"
+                                            name="slide1Title"
                                             {...register("slideTitle")}
                                           />
                                         </div>
@@ -515,8 +577,8 @@ const Cms = () => {
                                             Paragraph
                                           </label>
                                           <textarea
-                                            className="form-control"
-                                            name="slideDesc"
+                                            className="form-control p-3"
+                                            name="slide1Desc"
                                             id=""
                                             {...register("slideDesc")}
                                           />
@@ -544,6 +606,8 @@ const Cms = () => {
                                       <form
                                         className="form-design row"
                                         action=""
+                                        onSubmit={handleSubmit(onSubmitSecond)}
+
                                       >
                                         <div className="form-group col-12 slide_img">
                                           <label htmlFor="" className="labels">
@@ -563,11 +627,11 @@ const Cms = () => {
                                               <i className=" fas fa-camera" />
                                               <input
                                                 className="file-uploads"
-                                                name="slideImg"
+                                                name="slide2Img"
                                                 type="file"
                                                 {...register("slides")}
                                                 onChange={(e) =>
-                                                  onFileSelection(e, "slideImg")
+                                                  onFileSelection(e, "slide2Img")
                                                 }
                                               />
                                             </div>
@@ -581,8 +645,8 @@ const Cms = () => {
                                             type="text"
                                             className="form-control"
                                           
-                                            name="slideTitle"
-                                            {...register("slideTitle")}
+                                            name="slide2Title"
+                                            {...register("slide2Title")}
                                           />
                                         </div>
                                         <div className="form-group col-12">
@@ -591,19 +655,18 @@ const Cms = () => {
                                           </label>
                                           <textarea
                                             className="form-control"
-                                            name="slideDesc"
+                                            name="slide2Desc"
                                             id=""
-                                            {...register("slideDesc")}
+                                            {...register("slide2Desc")}
                                           />
                                         </div>
                                         <div className="form-group col-12 text-start">
-                                          <Link
+                                          <button
                                             className="comman_btn  text-decoration-none"
-                                            href="javscript:;"
                                             type="submit"
                                           >
                                             Save
-                                          </Link>
+                                          </button>
                                         </div>
                                       </form>
                                     </div>
@@ -620,6 +683,8 @@ const Cms = () => {
                                       <form
                                         className="form-design row"
                                         action=""
+                                        onSubmit={handleSubmit(onSubmitThird)}
+
                                       >
                                         <div className="form-group col-12 slide_img">
                                           <label htmlFor="" className="labels">
@@ -636,12 +701,12 @@ const Cms = () => {
                                               <i className="upload-button fas fa-camera" />
                                               <input
                                                 className="file-uploads"
-                                                name = "slideImg"
+                                                name = "slide3Img"
                                             
                                                 type="file"
                                                 {...register("slides")}
                                                 onChange={(e) =>
-                                                  onFileSelection(e, "slideImg")
+                                                  onFileSelection(e, "slide3Img")
                                                 }
                                               />
                                             </div>
@@ -655,8 +720,8 @@ const Cms = () => {
                                             type="text"
                                             className="form-control"
                                             
-                                            name="slideTitle"
-                                            {...register("slideTitle")}
+                                            name="slide3Title"
+                                            {...register("slide3Title")}
                                           />
                                         </div>
                                         <div className="form-group col-12">
@@ -665,19 +730,18 @@ const Cms = () => {
                                           </label>
                                           <textarea
                                             className="form-control"
-                                            name="slideDesc"
+                                            name="slide3Desc"
                                             id=""
-                                            {...register("slideDesc")}
+                                            {...register("slide3Desc")}
                                           />
                                         </div>
                                         <div className="form-group col-12 text-start">
-                                          <Link
+                                          <button
                                             className="comman_btn  text-decoration-none"
-                                            href="javscript:;"
                                             type="submit"
                                           >
                                             Save
-                                          </Link>
+                                          </button>
                                         </div>
                                       </form>
                                     </div>

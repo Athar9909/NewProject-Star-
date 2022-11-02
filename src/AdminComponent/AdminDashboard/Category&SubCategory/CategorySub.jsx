@@ -9,15 +9,14 @@ import axios from "axios";
 import { useEffect } from "react";
 const CategorySub = () => {
   const addCategory = "http://localhost:7000/api/admin/category/addCategory";
-  const addSubCategory =
-    "http://localhost:7000/api/admin/subCategory/addSubCategory";
+  const addSubCategory ="http://localhost:7000/api/admin/subCategory/addSubCategory";
   const categoryApi = "http://localhost:7000/api/admin/category/getCategories";
-  const SubCategoryApi =
-    "http://localhost:7000/api/admin/subCategory/getSubCategories";
+  const SubCategoryApi ="http://localhost:7000/api/admin/subCategory/getSubCategories";
   const editCategory = "http://localhost:7000/api/admin/category/editCategory";
   const editSubCategory = "http://localhost:7000/api/admin/subCategory/editSubCategory";
 
-
+  const [sideBar, setSideBar] = useState(true);
+  const [change, setChange] = useState(false);
   const [allCategories, setAllCategories] = useState([]);
   const [allSubCategories, setAllSubCategories] = useState([]);
   console.log(allCategories);
@@ -35,6 +34,41 @@ const CategorySub = () => {
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
 
+  
+  const onFileSelection = (e, key) => {
+    console.log(e);
+    setFiles({ ...files, [key]: e.target.files[0] });
+  };
+  const saveCategory = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("categoryImage", files?.cateImg);
+    formData.append("categoryName", categoryName);
+
+    await axios.post(addCategory, formData).then((res) => {
+      console.log(res);
+      if (res?.data.message === "Category added") {
+        setChange(!change)
+        
+      }
+    });
+  };
+  const saveSubCategory = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("subCategoryImage", files?.subCateImg);
+    formData.append("subCategoryName", subCategory);
+    formData.append("categoryName", category);
+
+    await axios.post(addSubCategory, formData).then((res) => {
+      console.log(res);
+      if (res?.data.message === "Sub Category added") {
+        setChange(!change)
+        
+
+      }
+    });
+  };
   useEffect(() => {
     const getCategories = async () => {
       await axios.get(categoryApi).then((res) => {
@@ -49,38 +83,7 @@ const CategorySub = () => {
     };
     getCategories();
     getSubCategories();
-  }, []);
-  const onFileSelection = (e, key) => {
-    console.log(e);
-    setFiles({ ...files, [key]: e.target.files[0] });
-  };
-  const saveCategory = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("categoryImage", files?.cateImg);
-    formData.append("categoryName", categoryName);
-
-    await axios.post(addCategory, formData).then((res) => {
-      console.log(res);
-      if (res?.data.message === "Category added") {
-        window.location.reload();
-      }
-    });
-  };
-  const saveSubCategory = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("subCategoryImage", files?.subCateImg);
-    formData.append("subCategoryName", subCategory);
-    formData.append("categoryName", category);
-
-    await axios.post(addSubCategory, formData).then((res) => {
-      console.log(res);
-      if (res?.data.message === "Sub Category added") {
-        window.location.reload();
-      }
-    });
-  };
+  }, [change]);
   const EditCategory = (index) => {
     setCategoryId(allCategories[index]?._id);
     setCategoryIndex(index)
@@ -98,7 +101,9 @@ const CategorySub = () => {
     await axios.post(editCategory + "/" + categoryId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Modified Successfully") {
-        window.location.reload();
+        setChange(!change)
+          
+          
       }
     });
   };
@@ -110,7 +115,9 @@ const CategorySub = () => {
     await axios.post(editSubCategory + "/" + subCategoryId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Sub Category Modified") {
-        window.location.reload();
+        setChange(!change)
+        
+        
       }
     });
   };
@@ -121,8 +128,8 @@ const CategorySub = () => {
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div className="admin_main">
-      <div className="siderbar_section">
+     <div className={sideBar? "admin_main" : "expanded_main"}>
+    <div className={sideBar? "siderbar_section": "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -224,17 +231,31 @@ const CategorySub = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-            <div className="col">
-              <Link
-                href="javscript:;"
-                style={{
-                  textDecoration: "none",
-                  fontSize: "16px",
-                  fontFamily: "'Rubik', sans-serif",
-                }}
-              >
-                <h1 className="sidebar_btn"></h1>
-              </Link>
+          <div className="col">
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  ><i className="fa fa-bars"></i></h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar)
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
             <div className="col-auto">
               <div className="dropdown Profile_dropdown">

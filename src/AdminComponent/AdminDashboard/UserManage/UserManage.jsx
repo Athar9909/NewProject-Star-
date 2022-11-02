@@ -23,7 +23,8 @@ const UserManage = () => {
   const [impFile, setImpFile] = useState([]);
   const [userId, setUserId] = useState();
   const [ux, setUx] = useState("");
-  const [sideBar, setSideBar] = useState("");
+
+  const [sideBar, setSideBar] = useState(true);
   const [uploadError, setUploadError] = useState("");
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
@@ -145,8 +146,8 @@ const UserManage = () => {
       });
   };
   return (
-    <div className={sideBar === "" ? "admin_main" : "expanded_main"}>
-      <div className="siderbar_section">
+    <div className={sideBar? "admin_main" : "expanded_main"}>
+      <div className={sideBar? "siderbar_section": "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className=" ">
@@ -268,15 +269,15 @@ const UserManage = () => {
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
             <div className="col">
-              {sideBar === "" ? (
+              {sideBar ? (
                 <div>
                   <h1
-                    className=""
+                    className="mt-2 text-white"
                     onClick={() => {
                       console.log("yello");
-                      setSideBar("yesx");
+                      setSideBar(!sideBar);
                     }}
-                  ></h1>
+                  ><i className="fa fa-bars"></i></h1>
                 </div>
               ) : (
                 <div>
@@ -284,7 +285,7 @@ const UserManage = () => {
                     <button
                       onClick={(e) => {
                         console.log(e);
-                        setSideBar("NO");
+                        setSideBar(!sideBar)
                       }}
                     >
                       X
