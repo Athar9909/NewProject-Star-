@@ -24,16 +24,15 @@ import axios from "axios";
 import { useState } from "react";
 
 const Homepage = () => {
-  const [allSlides , setAllSlides] = useState([])
-  const slidesApi = "http://localhost:7000/user/homeBanner/getSlides"
-  const categoryApi = "http://localhost:7000/user/category/getCategories";
+  const [allSlides, setAllSlides] = useState([]);
+  const slidesApi = "http://localhost:7000/user/homeBanner/getSlides";
+  const categoryApi = "http://localhost:7000/user/category/getCategory";
   const [category, setCategory] = useState([]);
-  const modalClose = document.getElementById("age_close");
+  const ModalClose = document.getElementById("age_close");
   const modalCloseTerms = document.getElementById("terms_close");
 
-  
   axios.defaults.headers.common["x-auth-token-user"] =
-    localStorage.getItem("loginToken"); 
+    localStorage.getItem("loginToken");
   useEffect(() => {
     let x = document.cookie;
     let y = document.cookie;
@@ -44,48 +43,51 @@ const Homepage = () => {
       setTimeout(() => {
         modal.click();
       }, 1000);
-    } else if  ( y === "" && x!=="") {
+    } else if (y === "") {
       const modal = document.getElementById("terms_modal");
       setTimeout(() => {
         modal.click();
       }, 5000);
     }
-getSlides();
-getCategory();
+    getSlides();
+    getCategory();
   }, []);
 
- const getSlides = async ()=> {
-   await axios.get(slidesApi).then((res)=>{
-    setAllSlides(res?.data.results)
-   })
-  
- }
- const getCategory = async () => {
-  await axios.get(categoryApi).then((res) => {
-    setCategory(res?.data.results);
-  });
-};
+  const getSlides = async () => {
+    await axios.get(slidesApi).then((res) => {
+      setAllSlides(res?.data.results);
+    });
+  };
+  const getCategory = async () => {
+    await axios.get(categoryApi).then((res) => {
+      setCategory(res?.data.results);
+    });
+  };
 
   return (
     <div className="home_page">
       <Navbar />
 
-
-      <section className="">
+      <section className="home">
         <div
           id="carouselExampleControls"
-          class="carousel slide"
+          className="carousel slide auto"
           data-bs-ride="carousel"
+          data-interval="3000"
         >
-          <div className="carousel-inner banner_sider">
+          <div className="carousel-inner">
             <div className="carousel-item active ">
-              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[0]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <img
+                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[0]?.banner}`}
+                className="d-block w-100 banner_slide"
+                alt="..."
+              />
               <div className="carousel-caption ">
                 <h5 className="d-flex text-start  Bannertext">
-                {allSlides[0]?.title}
+                  {allSlides[0]?.title}
                 </h5>
-                <p className="d-flex text-start fs-6 bannerTxt">
-                 {allSlides[0]?.description}
+                <p className="d-flex text-start bannerTxt">
+                  {allSlides[0]?.description}
                 </p>
 
                 <Link to="/Register" className="text-decoration-none ">
@@ -94,14 +96,16 @@ getCategory();
               </div>
             </div>
             <div className="carousel-item ">
-              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[1]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <img
+                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[1]?.banner}`}
+                className="d-block w-100 banner_slide"
+                alt="..."
+              />
               <div className="carousel-caption banner-titles">
                 <h5 className="d-flex text-center  Bannertext">
-                {allSlides[1]?.title}
+                  {allSlides[1]?.title}
                 </h5>
-                <p className="fs-6 bannerTxt">
-                 {allSlides[1]?.description}
-                </p>
+                <p className="fs-6 bannerTxt">{allSlides[1]?.description}</p>
 
                 <Link to="/Register" className="text-decoration-none ">
                   <button className="comman_btn22  ">SignUp</button>
@@ -109,32 +113,37 @@ getCategory();
               </div>
             </div>
             <div className="carousel-item ">
-              <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[2]?.banner}`} className="d-block w-100 banner_slide" alt="..." />
+              <img
+                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[2]?.banner}`}
+                className="d-block w-100 banner_slide"
+                alt="..."
+              />
               <div className="carousel-caption bannerTitle2">
-                <h5 className=" text-end  Bannertext">
-                {allSlides[2]?.title}
-                </h5>
+                <h5 className=" text-end  Bannertext">{allSlides[2]?.title}</h5>
                 <p className="d-flex text-end fs-6 bannerTxt">
-                 {allSlides[2]?.description}
+                  {allSlides[2]?.description}
                 </p>
 
-                <Link to="/Register" className="d-flex justify-content-end text-decoration-none ">
+                <Link
+                  to="/Register"
+                  className="d-flex justify-content-end text-decoration-none "
+                >
                   <button className="comman_btn22">SignUp</button>
                 </Link>
               </div>
             </div>
-            </div>
+          </div>
           <button
             className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleControls"
             data-bs-slide="prev"
           >
-            <span
-              className="carousel-control-prev-icon py-4 slideBtn"
+            <button
+              className="carousel-control-prev-icon p-4 slideBtn"
               aria-hidden="true"
-            ></span>
-            <span className="visually-hidden py-4">Previous</span>
+            ></button>
+            <span className="visually-hidden ">Previous</span>
           </button>
           <button
             class="carousel-control-next"
@@ -143,7 +152,7 @@ getCategory();
             data-bs-slide="next"
           >
             <span
-              class="carousel-control-next-icon py-4 slideBtn"
+              class="carousel-control-next-icon p-4 slideBtn"
               aria-hidden="true"
             ></span>
             <span class="visually-hidden">Next</span>
@@ -163,168 +172,28 @@ getCategory();
           modules={[FreeMode, Pagination, Autoplay]}
           className="mySwiper"
         >
-          <SwiperSlide>
+         
+          {(category || [])?.map((item,index) => (
+            <SwiperSlide key={index}>
+              <div className="p-3">
+                <Link
+                  href="product.html"
+                  className="featured__box text-center mt-5  text-decoration-none"
+                >
+                  <img
+                    src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.categoryImage}`}
+                    className="mx-2"
+                    alt="lorem"
+                  />
+                  <span className="d-flex justify-content-center w-100 mx-2 mt-3">
+                    {item?.categoryName}
+                  </span>
+                </Link>
+              </div>
+            </SwiperSlide>
+          ))}
 
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[0]?.categoryImage}`}
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[0]?.categoryName}
-                </span>
-              </Link>
-            </div>
-
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[1]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[0]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[2]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[1]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[3]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[2]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[4]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[3]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[5]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[4]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={`${process.env.REACT_APP_APIENDPOINTNEW}/${category[5]?.categoryImage}`}
-                  
-                  className="mx-1"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  {category[5]?.categoryName}
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={require("../../assets/img/product_new8.png")}
-                  className="mx-5"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK FORES
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="p-3">
-              <Link
-                href="product.html"
-                className="featured__box text-center mt-5  text-decoration-none"
-              >
-                <img
-                  src={require("../../assets/img/product_new9.png")}
-                  className="mx-5"
-                  alt="lorem"
-                />
-                <span className="d-flex justify-content-center w-100 mx-2 mt-3">
-                  BLVK Frznberry
-                </span>
-              </Link>
-            </div>
-          </SwiperSlide>
+         
         </Swiper>
       </section>
       <section className="features_products py-5 bg-white">
@@ -756,8 +625,8 @@ getCategory();
         aria-hidden="true"
       >
         <div class="modal-dialog  modal-fullscreen">
-          <div class="modal-content modalContent">
-            <div class="modal-header ">
+          <div class="modal-content">
+            <div class="modal-header modalHeadBg">
               <h2 className="fw-bold mt-1 mx-2">
                 <img
                   src={require("../../assets/img/logo.png")}
@@ -769,14 +638,14 @@ getCategory();
 
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close fs-2 bg-white mx-0"
                 id="age_close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <AgeVerification modalClose={modalClose} />
+            <div className="modalContent">
+              <AgeVerification ModalClose={ModalClose} />
             </div>
           </div>
         </div>

@@ -39,6 +39,7 @@ import ChangePassword from "./AdminComponent/AdminDashboard/ChangePassword";
 import Test from "./tempCode/Test";
 import RequestOrders from "./buyerComponent/MyAccount/RequestOrder";
 import MainMenu from "./buyerComponent/MyAccount/MainMenu";
+import PrivacyPolicies from "./buyerComponent/Homepage/PrivacyPolicies";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -65,6 +66,7 @@ function App() {
           <Route path="/Favourites" element={<Favourites />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/AgeVerified" element={<AgeVerification />} />
+          <Route path="/PrivacyPolicies" element={<PrivacyPolicies />} />
 
           {/* admin Routes */}
           <Route path="/AdminLogin" element={<AdminLogin />} />

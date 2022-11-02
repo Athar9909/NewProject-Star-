@@ -8,7 +8,7 @@ import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
-import { FaFileUpload } from "react-icons/fa";
+import { FaFileDownload } from "react-icons/fa";
 import fileDownload from 'js-file-download'
 const ApprovedView = () => {
   const [msg, setMsg] = useState("");
@@ -256,7 +256,7 @@ const ApprovedView = () => {
                         <div className="Pending-view_img">
                           <img
                             src={`${process.env.REACT_APP_APIENDPOINTNEW}/${user?.profileImage}`}
-                            alt=""
+                            alt="Image not Uploaded"
                           />
                         </div>
                         <h4 className="user_name">{user?.firstName}</h4>
@@ -335,7 +335,7 @@ const ApprovedView = () => {
                             <label htmlFor="file1">
                               <div className="">
                               <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.federalTaxId,"federalTaxId.jpg")}}>
-                                <FaFileUpload size={25} />
+                                <FaFileDownload size={25} />
                                 {user?.federalTaxId}
                                 </Link>
                               </div>
@@ -357,7 +357,7 @@ const ApprovedView = () => {
                             <label htmlFor="file1">
                               <div className="">
                               <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.tobaccoLicence,"tobaccoLicence.jpg")}}>
-                                <FaFileUpload size={25} />
+                                <FaFileDownload size={25} />
                                 {user?.tobaccoLicence}
                                 </Link>
                               </div>
@@ -379,7 +379,7 @@ const ApprovedView = () => {
                             <label htmlFor="file1">
                               <div className="">
                               <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.salesTaxId,"salesTaxId.jpg")}}>
-                                <FaFileUpload size={25} />
+                                <FaFileDownload size={25} />
                                 {user?.salesTaxId}
                                 </Link>
                               </div>
@@ -401,7 +401,7 @@ const ApprovedView = () => {
                             <label htmlFor="file1">
                               <div className="">
                               <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.businessLicense,"businessLicense.jpg")}}>
-                                <FaFileUpload size={25} />
+                                <FaFileDownload size={25} />
                                 {user?.businessLicense}
                                 </Link>
                               </div>
@@ -439,7 +439,7 @@ const ApprovedView = () => {
                             <label htmlFor="file1">
                               <div className="">
                                 <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.accountOwnerId,"accountOwnerId.jpg")}}>
-                                <FaFileUpload size={25} />
+                                <FaFileDownload size={25} />
                                 {user?.accountOwnerId}
                                 </Link>
                               </div>

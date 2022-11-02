@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/adminMain.css";
 import profile from "../../../assets/img/profile_img1.png";
-
+import { useForm } from "react-hook-form";
 import Starlogo from "../../../assets/img/logo.png";
 import { useState } from "react";
 import axios from "axios";
@@ -12,25 +12,39 @@ const BrandsManage = () => {
   const editBrands = "http://localhost:7000/api/admin/brands/editBrand";
   const addBrands = "http://localhost:7000/api/admin/brands/addBrand";
   const [searchTerm, setSearchTerm] = useState("");
+  
   const [allBrands, setAllBrands] = useState([]);
   const [brandName, setBrandName] = useState();
   const [brandId, setBrandId] = useState();
   const [files, setFiles] = useState([]);
   const [editBrandName, setEditBrandsName] = useState();
   const [sideBar, setSideBar] = useState(true);
+  
   const [Index,setIndex] = useState()
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
+
+    const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+      trigger,
+      reset,
+    } = useForm();
 
   useEffect(() => {
     const getBrands = async () => {
       await axios.get(brandsApi).then((res) => {
         setAllBrands(res?.data.results);
+      
+      
+      return res.data;
       });
     };
 
     getBrands();
-  }, []);
+  }, [Index]);
 
   console.log(allBrands[Index]?.brandName);
   const onFileSelection = (e, key) => {
@@ -55,14 +69,19 @@ const BrandsManage = () => {
   const EditBrands = (index) => {
     setBrandId(allBrands[index]?._id);
     setIndex(index)
+    let defalutValues = {};
+      defalutValues.BrandName = allBrands[index]?.brandName;
+      defalutValues.brandImage = allBrands[index]?.brandImage;
+      
+
+      reset({ ...defalutValues });
   };
   console.log(files?.newBrandImg,editBrandName);
 
-  const onEditBrand = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("brandImage", files?.newBrandImg);
-    formData.append("brandName", editBrandName);
+    formData.append("brandName", data.BrandName);
     await axios.post(editBrands + "/" + brandId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Modified Successfullt") {
@@ -402,6 +421,7 @@ const BrandsManage = () => {
               <form
                 className="form-design px-3 py-2 help-support-form row align-items-end justify-content-center"
                 action=""
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="form-group col-auto">
                   <label htmlFor="">brand Image</label>
@@ -420,6 +440,7 @@ const BrandsManage = () => {
                         type="file"
                         accept="image/*"
                         name="newBrandImg"
+                        {...register("newBrandImg")}
                         onChange={(e) => onFileSelection(e, "newBrandImg")}
                       />
                     </div>
@@ -429,15 +450,13 @@ const BrandsManage = () => {
                   <label htmlFor="">Brand Name</label>
                   <input
                     type="text"
-                    defaultValue={allBrands[Index]?.brandName}
                     className="form-control"
-                    onChange={(e) => {
-                      setEditBrandsName(e.target.value);
-                    }}
+                    name="BrandName"
+                    {...register("BrandName")}
                   />
                 </div>
                 <div className="form-group mb-0 col-auto mt-3">
-                  <button className="comman_btn" onClick={onEditBrand}>
+                  <button className="comman_btn" type="submit">
                     Save
                   </button>
                 </div>

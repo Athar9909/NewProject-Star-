@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/adminMain.css";
-
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect } from "react";
+
 const CategorySub = () => {
   const addCategory = "http://localhost:7000/api/admin/category/addCategory";
   const addSubCategory ="http://localhost:7000/api/admin/subCategory/addSubCategory";
@@ -16,7 +16,7 @@ const CategorySub = () => {
   const editSubCategory = "http://localhost:7000/api/admin/subCategory/editSubCategory";
 
   const [sideBar, setSideBar] = useState(true);
-  const [change, setChange] = useState(false);
+  const [change,setChange] = useState(false)
   const [allCategories, setAllCategories] = useState([]);
   const [allSubCategories, setAllSubCategories] = useState([]);
   console.log(allCategories);
@@ -64,7 +64,6 @@ const CategorySub = () => {
       console.log(res);
       if (res?.data.message === "Sub Category added") {
         setChange(!change)
-        
 
       }
     });
@@ -101,9 +100,7 @@ const CategorySub = () => {
     await axios.post(editCategory + "/" + categoryId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Modified Successfully") {
-        setChange(!change)
-          
-          
+        window.location.reload();
       }
     });
   };
@@ -115,9 +112,7 @@ const CategorySub = () => {
     await axios.post(editSubCategory + "/" + subCategoryId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Sub Category Modified") {
-        setChange(!change)
-        
-        
+        window.location.reload();
       }
     });
   };

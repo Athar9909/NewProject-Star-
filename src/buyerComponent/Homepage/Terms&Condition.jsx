@@ -40,7 +40,7 @@ const TermsCondition = () => {
           <div classname="container__nav">
             <small className="">
               By clicking 'Accept' you are agreeing to our terms and conditions
-              and Our <Link>PRIVACY POLICIES</Link>
+              and Our <Link to="/PrivacyPolicies">PRIVACY POLICIES</Link>
             </small>
           </div>
           <button className="TAccept mt-3"  onClick={handleClick}>

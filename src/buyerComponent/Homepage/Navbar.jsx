@@ -14,11 +14,13 @@ import UpdatePassword from "../LoginRegister/UpdatePassword";
 import axios from "axios";
 
 const Navbar = () => {
-  const categoryApi = "http://localhost:7000/user/category/getCategories";
+  const categoryApi = "http://localhost:7000/user/category/getCatAndSubCat";
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const [otpEmail, setOtpEmail] = useState();
   const [UserAuth, setUserAuth] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+
   const getEmail = (data) => {
     setOtpEmail(data);
   };
@@ -30,6 +32,7 @@ const Navbar = () => {
   };
   useEffect(() => {
     getCategory();
+    handleScroll();
   }, []);
   useEffect(() => {
     // if (window.localStorage !== undefined) {
@@ -43,10 +46,17 @@ const Navbar = () => {
     setUserAuth(localStorage.removeItem("UserData"));
     window.location.reload();
   };
-
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 40) {
+      setScrolled(!scrolled);
+    } else {
+      setScrolled(false);
+    }
+  };
   return (
-    <div>
-      <header className="header_main">
+    <div className="header_main">
+      <header className="">
         <div className="row header_top py-3 px-4 align-items-center justify-content-between">
           <div className="col-auto">
             <Link className="header_logo" href="index.html">
@@ -138,171 +148,38 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link className="text-decoration-none" to="">
-                  Top Selling
-                </Link>
-              </li>
-              <li>
-                <Link className="text-decoration-none" to="">
-                  New Arrivals
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
+              {(category || [])?.map((item, index) => (
+                <li key={index}
                 >
-                  {category[0]?.categoryName}
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-lg-4 py-md-3 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-5">
-                      {(category[0]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
+                  <Link
+                    className="dropdown-toggle text-decoration-none"
+                    href="Javascript:;"
+                  >
+                    {item?.categoryName}
+                  </Link>
+                  <div className="dropdown-menu maga_drop_down py-lg-4 py-md-3 shadow">
+                    <div className="container-fluid px-0">
+                      <div className="row w-100 mx-5">
+                        {(item?.subcategories || []).map(
+                          (item, index) => (
+                            <div className="col-lg-2 col-md-6" key={index}>
+                              <div className="maga_drop__menus">
+                                <Link>
+                                  <h3 className="dropdown_heading">
+                                    {item?.subCategoryName}
+                                  </h3>
+                                </Link>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
-                >
-                  {category[1]?.categoryName}
-                  
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-4 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-0">
-                      {(category[1]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
-                >
-                  {category[3]?.categoryName}
-                  
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-4 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-0">
-                    {(category[3]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                      </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
-                >
-                  {category[2]?.categoryName}
-                  
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-4 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-0">
-                    {(category[2]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                      </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
-                >
-                  {category[5]?.categoryName}
-                  
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-4 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-0">
-                    {(category[5]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                      </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-toggle text-decoration-none"
-                  href="Javascript:;"
-                >
-                  {category[4]?.categoryName}
-                  
-                </Link>
-                <div className="dropdown-menu maga_drop_down py-4 shadow">
-                  <div className="container-fluid px-0">
-                    <div className="row w-100 mx-0">
-                    {(category[4]?.subcategories || []).map((item, index) => (
-                        <div className="col-lg-2 col-md-6" key={index}>
-                          <div className="maga_drop__menus">
-                            <Link>
-                              <h3 className="dropdown_heading">
-                                {item?.subCategoryName}
-                              </h3>
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                      </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
+
+              
               <li>
                 <Link className="text-decoration-none" to="">
                   Brands
