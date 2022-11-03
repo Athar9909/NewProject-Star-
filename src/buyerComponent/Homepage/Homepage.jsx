@@ -179,11 +179,15 @@ const Homepage = ({ GetData }) => {
             <SwiperSlide key={index}>
               <div className="p-3">
                 <Link
-                to="/CategoryProducts"
+                 to={{
+                  pathname: "/CategoryProducts",
+                  search: "?sort=name",
+                  hash: "#the-hash",
+                  state: { categoryName }
+                }}
                   className="featured__box text-center mt-5  text-decoration-none"
                   onClick={() => {
                     CateProducts(index);
-                    navigate("/CategoryProducts");
                   }}
                 >
                   <img
