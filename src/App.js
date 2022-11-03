@@ -36,28 +36,32 @@ import EditUser from "./AdminComponent/AdminDashboard/UserManage/EditUser";
 import AddUser from "./AdminComponent/AdminDashboard/UserManage/AddUser";
 import EditProfile from "./AdminComponent/AdminDashboard/EditProfile";
 import ChangePassword from "./AdminComponent/AdminDashboard/ChangePassword";
-import Test from "./tempCode/Test";
 import RequestOrders from "./buyerComponent/MyAccount/RequestOrder";
 import MainMenu from "./buyerComponent/MyAccount/MainMenu";
 import PrivacyPolicies from "./buyerComponent/Homepage/PrivacyPolicies";
+import ProductByCate from "./buyerComponent/AllProducts/ProductByCate";
 
 function App() {
   const [apiData, setApiData] = useState([]);
+  const [cateName,setCateName] = useState()
 
-  const getData = (data) => {};
-
+  const GetData = (data) => {
+    console.log(data);
+    setCateName(data)
+  };
+  
   return (
     <div className="App">
       
 
       <Router>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage  GetData={GetData}/>} />
           <Route path="/Register" element={<SignUp />} />
-          <Route path="/login" element={<Login newData={getData} />} />
+          <Route path="/login" element={<Login newData={GetData} />} />
           <Route
             path="/MyAccount"
-            element={<MyAccount newData={getData} apiData={apiData} />}
+            element={<MyAccount newData={GetData} apiData={apiData} />}
           />
           <Route path="/RequestOrder" element={<RequestOrders />} />
           <Route path="/MainMenu" element={<MainMenu />} />
@@ -67,10 +71,10 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/AgeVerified" element={<AgeVerification />} />
           <Route path="/PrivacyPolicies" element={<PrivacyPolicies />} />
+          <Route path="/CategoryProducts" element={<ProductByCate CateName={cateName} />} />
 
           {/* admin Routes */}
           <Route path="/AdminLogin" element={<AdminLogin />} />
-          <Route path="/test" element={<Test/>} />
           <Route path="/AdminForgotPassword" element={<AdminForgotPassword />} />
           <Route path="/AdminVerifyOtp" element={<AdminSendOtp />} />
           <Route path="/AdminResetPassword" element={<AdminResetPassword />} />

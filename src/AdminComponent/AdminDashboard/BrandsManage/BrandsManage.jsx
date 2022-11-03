@@ -12,7 +12,7 @@ const BrandsManage = () => {
   const editBrands = "http://localhost:7000/api/admin/brands/editBrand";
   const addBrands = "http://localhost:7000/api/admin/brands/addBrand";
   const [searchTerm, setSearchTerm] = useState("");
-  
+  const[change ,setChange] = useState("")
   const [allBrands, setAllBrands] = useState([]);
   const [brandName, setBrandName] = useState();
   const [brandId, setBrandId] = useState();
@@ -44,7 +44,7 @@ const BrandsManage = () => {
     };
 
     getBrands();
-  }, [Index]);
+  }, [change]);
 
   console.log(allBrands[Index]?.brandName);
   const onFileSelection = (e, key) => {
@@ -61,7 +61,7 @@ const BrandsManage = () => {
     await axios.post(addBrands, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Brand Added Successfully") {
-        window.location.reload();
+        setChange(!change)
       }
     });
   };
@@ -86,6 +86,7 @@ const BrandsManage = () => {
       console.log(res);
       if (res?.data.message === "Modified Successfullt") {
         window.location.reload();
+        setChange(!change)
       }
     });
   };
@@ -304,7 +305,7 @@ const BrandsManage = () => {
                                   }}
                                 />
                               </div>
-                              <div className="form-group mb-0 col choose_file position-relative">
+                              <div className="form-group mb-0 col choose_fileAdmin position-relative">
                                 <span>Brand Image </span>{" "}
                                 <label htmlFor="upload_video">
                                   <i class="fa fa-camera me-1"></i>
@@ -312,7 +313,7 @@ const BrandsManage = () => {
                                 </label>{" "}
                                 <input
                                   type="file"
-                                  className="form-control mx-3"
+                                  className="form-control "
                                   defaultValue=""
                                   name="brandImg"
                                   id="upload_video"
@@ -367,7 +368,7 @@ const BrandsManage = () => {
                                             <Link
                                               data-bs-toggle="modal"
                                               data-bs-target="#staticBackdrop"
-                                              className="comman_btn2 table_viewbtn"
+                                              className="comman_btn2 "
                                               href="javascript:;"
                                               key={index}
                                               onClick={() => {

@@ -8,7 +8,9 @@ import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
-import {FaFileUpload} from "react-icons/fa"
+import fileDownload from 'js-file-download'
+import { FaFileDownload } from "react-icons/fa";
+
 
 
 const PendingView = () => {
@@ -314,11 +316,14 @@ const PendingView = () => {
                               type="file"
                               id="file1"
                               name="file"
+                              disabled
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.federalTaxId,"federalTaxId.jpg")}}>
+                                <FaFileDownload size={25} />
                                 {user?.federalTaxId}
+                                </Link>
                               </div>
                             </label>
                           </div>
@@ -333,11 +338,14 @@ const PendingView = () => {
                               type="file"
                               id="file1"
                               name="file"
+                              disabled
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.tobaccoLicence,"tobaccoLicence.jpg")}}>
+                                <FaFileDownload size={25} />
                                 {user?.tobaccoLicence}
+                                </Link>
                               </div>
                             </label>
                           </div>
@@ -352,11 +360,14 @@ const PendingView = () => {
                               type="file"
                               id="file1"
                               name="file"
+                              disabled
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.salesTaxId,"salesTaxId.jpg")}}>
+                                <FaFileDownload size={25} />
                                 {user?.salesTaxId}
+                                </Link>
                               </div>
                             </label>
                           </div>
@@ -371,11 +382,14 @@ const PendingView = () => {
                               type="file"
                               id="file1"
                               name="file"
+                              disabled
                             />
-                            <label htmlFor="file1">
+                            <label htmlFor="file1" >
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.businessLicense,"businessLicense.jpg")}}>
+                                <FaFileDownload size={25} />
                                 {user?.businessLicense}
+                                </Link>
                               </div>
                             </label>
                           </div>
@@ -406,11 +420,14 @@ const PendingView = () => {
                               type="file"
                               id="file1"
                               name="file"
+                              disabled
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                 <FaFileUpload size={25}/>
+                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.accountOwnerId,"accountOwnerId.jpg")}}>
+                                <FaFileDownload size={25} />
                                 {user?.accountOwnerId}
+                                </Link>
                               </div>
                             </label>
                           </div>
@@ -454,6 +471,7 @@ const PendingView = () => {
                           href="javascript:;"
                           className="comman_btn2 ms-2 text-decoration-none"
                           onClick={rejectUser}
+                          
                         >
                           Return
                         </Link>

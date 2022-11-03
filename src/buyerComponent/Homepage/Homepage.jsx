@@ -4,9 +4,7 @@ import Navbar from "./Navbar";
 import { useForm } from "react-hook-form";
 import { BsFillStarFill } from "react-icons/bs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import banner1 from "../../assets/img/banner_img1.jpg";
-import banner2 from "../../assets/img/banner_img2.jpg";
-import banner3 from "../../assets/img/banner_img3.jpg";
+
 import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
@@ -23,21 +21,21 @@ import TermsCondition from "./Terms&Condition";
 import axios from "axios";
 import { useState } from "react";
 
-const Homepage = () => {
+const Homepage = ({ GetData }) => {
   const [allSlides, setAllSlides] = useState([]);
   const slidesApi = "http://localhost:7000/user/homeBanner/getSlides";
   const categoryApi = "http://localhost:7000/user/category/getCategory";
   const [category, setCategory] = useState([]);
+  const [productsByCate, setProductsByCate] = useState("");
   const ModalClose = document.getElementById("age_close");
   const modalCloseTerms = document.getElementById("terms_close");
-
+  const navigate = useNavigate();
   axios.defaults.headers.common["x-auth-token-user"] =
     localStorage.getItem("loginToken");
   useEffect(() => {
     let x = document.cookie;
     let y = document.cookie;
 
-    console.log(x);
     if (x === "") {
       const modal = document.getElementById("age_modal");
       setTimeout(() => {
@@ -62,6 +60,11 @@ const Homepage = () => {
     await axios.get(categoryApi).then((res) => {
       setCategory(res?.data.results);
     });
+  };
+  console.log(productsByCate, "hiiiiiiiiiiiiiiiiiiiiii");
+
+  const CateProducts = (index) => {
+    GetData(category[index]?.categoryName);
   };
 
   return (
@@ -172,13 +175,16 @@ const Homepage = () => {
           modules={[FreeMode, Pagination, Autoplay]}
           className="mySwiper"
         >
-         
-          {(category || [])?.map((item,index) => (
+          {(category || [])?.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="p-3">
                 <Link
-                  href="product.html"
+                to="/CategoryProducts"
                   className="featured__box text-center mt-5  text-decoration-none"
+                  onClick={() => {
+                    CateProducts(index);
+                    navigate("/CategoryProducts");
+                  }}
                 >
                   <img
                     src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.categoryImage}`}
@@ -192,8 +198,6 @@ const Homepage = () => {
               </div>
             </SwiperSlide>
           ))}
-
-         
         </Swiper>
       </section>
       <section className="features_products py-5 bg-white">

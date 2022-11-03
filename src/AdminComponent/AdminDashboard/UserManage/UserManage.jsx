@@ -504,7 +504,7 @@ const UserManage = () => {
                                           <td>{User?.isVerified}</td>
                                           <td>
                                             <Link
-                                              className="comman_btn table_viewbtn text-decoration-none"
+                                              className="comman_btn2  text-decoration-none"
                                               to="/UserManage/PendingView"
                                               id={index}
                                               onClick={() => {
@@ -624,7 +624,7 @@ const UserManage = () => {
                                             </td>
                                             <td>
                                               <Link
-                                                className="comman_btn text-decoration-none"
+                                                className="comman_btn2 text-decoration-none"
                                                 to="/UserManage/ApprovedView"
                                                 id={index}
                                                 onClick={() => {
@@ -727,7 +727,7 @@ const UserManage = () => {
                                           </td>
                                           <td>
                                             <Link
-                                              className="comman_btn table_viewbtn text-decoration-none"
+                                              className="comman_btn2  text-decoration-none"
                                               to="/UserManage/ReturnedView"
                                               id={index}
                                               onClick={() => {

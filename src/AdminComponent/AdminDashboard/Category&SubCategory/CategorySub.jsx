@@ -351,7 +351,7 @@ const CategorySub = () => {
                                     }}
                                   />
                                 </div>
-                                <div className="form-group mb-0 col choose_file position-relative">
+                                <div className="form-group mb-0 col choose_fileAdmin position-relative">
                                   <span>Category Image </span>{" "}
                                   <label htmlFor="upload_video">
                                     <i class="fa fa-camera me-1"></i>
@@ -359,7 +359,7 @@ const CategorySub = () => {
                                   </label>{" "}
                                   <input
                                     type="file"
-                                    className="form-control mx-3 shadow-none"
+                                    className="form-control shadow-none"
                                     defaultValue=""
                                     name="cateImg"
                                     id="upload_video"
@@ -409,7 +409,7 @@ const CategorySub = () => {
                                                 <Link
                                                   data-bs-toggle="modal"
                                                   data-bs-target="#staticBackdrop"
-                                                  className="comman_btn2 table_viewbtn"
+                                                  className="comman_btn2"
                                                   href="javascript:;"
                                                   key={index}
                                                   onClick={() => {
@@ -472,7 +472,7 @@ const CategorySub = () => {
                                     }}
                                   />
                                 </div>
-                                <div className="form-group mb-0 col choose_file position-relative">
+                                <div className="form-group mb-0 col choose_fileAdmin position-relative">
                                   <span>Sub Category Image </span>{" "}
                                   <label htmlFor="upload_video">
                                     <i className="fa fa-camera me-1" />
@@ -480,7 +480,7 @@ const CategorySub = () => {
                                   </label>{" "}
                                   <input
                                     type="file"
-                                    className="form-control  mx-3 shadow-none"
+                                    className="form-control  shadow-none"
                                     defaultValue=""
                                     name="subCateImg"
                                     id="upload_video"
@@ -533,7 +533,7 @@ const CategorySub = () => {
                                                 <Link
                                                   data-bs-toggle="modal"
                                                   data-bs-target="#staticBackdrop2"
-                                                  className="comman_btn2 table_viewbtn"
+                                                  className="comman_btn2"
                                                   href="javascript:;"
                                                   
                                                   key={index}

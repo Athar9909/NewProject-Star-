@@ -1430,11 +1430,11 @@ div#google_translate_element {
   display: block;
   margin-bottom: 8px;
 }
-.choose_file label {
+.choose_fileAdmin label {
   position: absolute;
-  top: 30px;
-  background-color: #eb3237;
-  height: 48px;
+  top: 29px;
+  background-color:#3e4093;
+  height: 50px;
   color: #fff;
   display: flex !important;
   align-items: center;
@@ -1460,7 +1460,7 @@ div#google_translate_element {
   font-size: 12px !important;
   cursor: pointer;
 }
-.choose_file span {
+.choose_fileAdmin span {
   display: block;
   margin: 0 0 8px 0;
   font-size: 14px;
