@@ -761,7 +761,7 @@ const Cms = () => {
                             <div className="col-12">
                               <div className="  content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between">
-                                  <h2>About Us</h2>
+                                  <h2 className="fs-4">About Us</h2>
                                   <Link
                                     className="edit_content_btn mt-2 "
                                     href="javscript:;"
@@ -773,7 +773,7 @@ const Cms = () => {
                                 </div>
 
                                 <textarea
-                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5 "
+                                  className="textArea bg-light p-3 mt-1  w-100 pb-5 "
                                   disabled={disabled}
                                   id="aboutField"
                                   defaultValue={aboutUs}
@@ -803,7 +803,7 @@ const Cms = () => {
                             <div className="col-12">
                               <div className="row content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between ">
-                                  <h2>Terms & Condition</h2>
+                                  <h2 className="fs-4">Terms & Condition</h2>
                                   <Link
                                     className="edit_content_btn mt-2 "
                                     href="javscript:;"
@@ -814,7 +814,7 @@ const Cms = () => {
                                   </Link>
                                 </div>
                                 <textarea
-                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5"
+                                  className="bg-light p-3 mt-1  w-100 pb-5 textArea"
                                   disabled={Tdisabled}
                                   defaultValue={terms}
                                   onChange={(e) => {
@@ -843,7 +843,7 @@ const Cms = () => {
                             <div className="col-12">
                               <div className="row content_management_box bg-light p-3">
                                 <div className="d-flex justify-content-between">
-                                  <h2>Privacy Policies</h2>
+                                  <h2 className="fs-4">Privacy Policies</h2>
                                   <Link
                                     className="edit_content_btn mt-2 "
                                     href="javscript:;"
@@ -854,7 +854,7 @@ const Cms = () => {
                                   </Link>
                                 </div>
                                 <textarea
-                                  className="bg-light p-3 mt-4 fw-bold border border-none w-100 pb-5 "
+                                  className="bg-light p-3 mt-1 w-100 pb-5 textArea"
                                   disabled={Pdisabled}
                                   defaultValue={privacy}
                                   onChange={(e) => {

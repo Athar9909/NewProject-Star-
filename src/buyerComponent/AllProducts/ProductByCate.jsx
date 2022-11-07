@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 import Navbar from "../Homepage/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import Footer from "../Footer/Footer";
 
-const ProductByCate = ({ CateName }) => {
-    const [categoryName ,setCategoryName] = useState("")
+const ProductByCate = () => {
+  const location = useLocation();
+  console.log(location.state.name);
+  const [category, setCategory] = useState({});
   const getProduct = "http://localhost:7000/user/products/getByCategory";
   const [products, setProducts] = useState([]);
+  axios.defaults.headers.common["x-auth-token-user"] =
+    localStorage.getItem("loginToken");
+   
   useEffect(() => {
-    GetProducts();
-    setCategoryName(CateName)
-  }, []);
+    setCategory(location?.state.name);
+    getProducts();
+  }, [location]);
 
-  const GetProducts = async () => {
-    await axios
-      .get(getProduct, {
-        category: categoryName
-      })
-      .then((res) => {
-        setProducts(res?.data.results);
-      });
+  const getProducts = async () => {
+    await axios.post(getProduct, {
+      category:location.state?.name
+    }).then((res) => {
+      setProducts(res.data?.results);
+    });
   };
 
   return (
@@ -30,7 +34,7 @@ const ProductByCate = ({ CateName }) => {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <h1>{categoryName}</h1>
+              <h1>{location.state.name}</h1>
               <div className="breadcrumbs mt-2">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb mb-0">
@@ -47,7 +51,7 @@ const ProductByCate = ({ CateName }) => {
                         to=""
                         className="text-decoration-none text-white fs-6 mx-2"
                       >
-                        My Account
+                        {location.state.name}
                       </Link>
                     </li>
                   </ol>
@@ -75,6 +79,7 @@ const ProductByCate = ({ CateName }) => {
                           aria-controls="collapse3"
                         >
                           Product Brands
+
                         </button>
                       </h2>
                       <div
@@ -311,18 +316,20 @@ const ProductByCate = ({ CateName }) => {
               </div>
               <div className="col width_adjust_right">
                 <div className="product_single_right row p-4">
-                  <div className="col-xl-4 col-lg-6 col-md-6">
-                    <div className="product_parts_box">
-                      <div className="partsproduct_img">
-                        <img src="assets/img/product_1.png" alt="Product" />
+                    {(products || [])?.map((item,index)=>(
+                  <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
+
+                    <div className="product_parts_box"  >
+                      <div className="partsproduct_img" >
+                        <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item.products?.productImage}`} alt="Product" />
                       </div>
                       <div className="product_content mt-3 text-center">
-                        <Link href="product-single.html">BLVK Frznberry</Link>
+                        <Link to="" className="text-decoration-none">{item?.products?.unitName}</Link>
                         <Link className="fav_btn" href="javscript:;" />
                         <div className="rating_box mt-2 mb-1">
                           <Link href="javasript:;">
                             <i className="fa fa-star" />
-                          </Link>
+                          </Link> 
                           <Link href="javasript:;">
                             <i className="fa fa-star" />
                           </Link>
@@ -339,12 +346,16 @@ const ProductByCate = ({ CateName }) => {
                       </div>
                     </div>
                   </div>
+
+                    ))}
+
                 </div>
               </div>
             </div>
           </div>
         </section>
       </>
+      <Footer/>
     </div>
   );
 };

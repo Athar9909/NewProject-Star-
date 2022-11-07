@@ -1,44 +1,20 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const PrivacyPolicies = () => {
+  const [data , setData] = useState("")
+  const TermsCond = "http://localhost:7000/user/welcome/privacyPolicy"
+  useEffect(()=>{
+    axios.get(TermsCond).then((res)=>{
+      setData(res.data?.results)
+    })
+  },[])
   return (
     <div className=" bg-whitem-2 p-5" >
       <>
-  <h1> Privacy Policy for [YOUR SITE TITLE]</h1>
-  <p>
-    {" "}
-    If you require any more information or have any questions about our privacy
-    policy, please feel free to contact us by email at [CONTACT@YOUREMAIL.COM].
-  </p>
-  <p>
-    At [YOUR SITE URL] we consider the privacy of our visitors to be extremely
-    important. This privacy policy document describes in detail the types of
-    personal information is collected and recorded by [YOUR SITE URL] and how we
-    use it.{" "}
-  </p>
-  <p>
-    {" "}
-    <b>Log Files</b>
-    <br /> Like many other Web sites, [YOUR SITE URL] makes use of log files.
-    These files merely logs visitors to the site – usually a standard procedure
-    for hosting companies and a part of hosting services's analytics. The
-    information inside the log files includes internet protocol (IP) addresses,
-    browser type, Internet Service Provider (ISP), date/time stamp,
-    referring/exit pages, and possibly the number of clicks. This information is
-    used to analyze trends, administer the site, track user's movement around
-    the site, and gather demographic information. IP addresses, and other such
-    information are not linked to any information that is personally
-    identifiable.{" "}
-  </p>
-  <p>
-    {" "}
-    <b>Cookies and Web Beacons</b>
-    <br />
-    [YOUR SITE URL] uses cookies to store information about visitors'
-    preferences, to record user-specific information on which pages the site
-    visitor accesses or visits, and to personalize or customize our web page
-    content based upon visitors' browser type or other information that the
-    visitor sends via their browser.{" "}
+  <h1> Privacy Policy STAR IMPORTERS</h1>
+  <p className='text-info'>
+   {data[0]?.description}
   </p>
   <p>
     <b>DoubleClick DART Cookie</b>

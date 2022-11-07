@@ -20,7 +20,7 @@ import SignUp from "./buyerComponent/LoginRegister/SignUp";
 import AdminLogin from "./AdminComponent/AdminLogin/AdminLogin";
 import Dashboard from "./AdminComponent/AdminDashboard/Dashboard";
 import CategorySub from "./AdminComponent/AdminDashboard/Category&SubCategory/CategorySub";
-import Inventory from "./AdminComponent/AdminDashboard/Inventory";
+import Inventory from "./AdminComponent/AdminDashboard/Inventory/Inventory";
 import UserManage from "./AdminComponent/AdminDashboard/UserManage/UserManage";
 import BrandsManage from "./AdminComponent/AdminDashboard/BrandsManage/BrandsManage";
 import Cms from "./AdminComponent/AdminDashboard/ContentManage/Cms"
@@ -40,6 +40,11 @@ import RequestOrders from "./buyerComponent/MyAccount/RequestOrder";
 import MainMenu from "./buyerComponent/MyAccount/MainMenu";
 import PrivacyPolicies from "./buyerComponent/Homepage/PrivacyPolicies";
 import ProductByCate from "./buyerComponent/AllProducts/ProductByCate";
+import AllBrands from "./buyerComponent/AllProducts/AllBrands";
+import ProductBySubCate from "./buyerComponent/AllProducts/ProductBySub";
+import ProductByBrand from "./buyerComponent/AllProducts/ProductByBrand";
+import TermsCondition from "./buyerComponent/Homepage/Terms&Condition";
+import AboutUs from "./buyerComponent/Homepage/AboutUs";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -71,7 +76,12 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/AgeVerified" element={<AgeVerification />} />
           <Route path="/PrivacyPolicies" element={<PrivacyPolicies />} />
+          <Route path="/Terms&Condition" element={<TermsCondition />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/CategoryProducts" element={<ProductByCate CateName={cateName} />} />
+          <Route path="/SubCategory/Products" element={<ProductBySubCate/>} />
+          <Route path="/Brands/Products" element={<ProductByBrand/>} />
+          <Route path="/AllBrands" element={<AllBrands />} />
 
           {/* admin Routes */}
           <Route path="/AdminLogin" element={<AdminLogin />} />

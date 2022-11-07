@@ -60,6 +60,7 @@ const AddUser = () => {
       }
       if (res?.data.message === "Email is already registered") {
         setEmailErr("Email is already registered")
+        
       }
     });
   

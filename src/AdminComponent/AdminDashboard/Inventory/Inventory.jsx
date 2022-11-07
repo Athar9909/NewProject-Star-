@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../assets/css/adminMain.css";
+import "../../../assets/css/adminMain.css";
 import { useForm } from "react-hook-form";
-import Starlogo from "../../assets/img/logo.png";
+import Starlogo from "../../../assets/img/logo.png";
 import axios from "axios";
+import { useEffect } from "react";
 
 const Inventory = () => {
   const [files, setFiles] = useState([]);
-   const addProduct = "http://localhost:7000/api/admin/inventory/addProduct"
+  const [values, setValues] = useState({ from: "", to: "" });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [allProducts, setAllProducts] = useState([]);
+  const [type, setType] = useState("");
+  const [flavour, setFlavour] = useState("");
+  const [flavourImage, setFlavourImage] = useState([]);
+  const [formValues, setFormValues] = useState([
+    { type: "", flavour: "", flavourImg: "" },
+   
+  ]);
+
+  const [dataType,setDataType] = useState([ { type: "", flavour: "", flavourImg: "" }])
+  const addProduct = "http://localhost:7000/api/admin/inventory/addProduct";
+  const getProducts = "http://localhost:7000/api/admin/inventory/allProducts";
+ console.log(formValues);
   const {
     register,
     handleSubmit,
@@ -16,35 +31,83 @@ const Inventory = () => {
     trigger,
   } = useForm();
 
+ 
+  useEffect(() => {
+    GetProducts();
+  }, []);
   axios.defaults.headers.common["x-auth-token-admin"] =
-  localStorage.getItem("AdminLogToken");
+    localStorage.getItem("AdminLogToken");
 
-  const onFileSelection = (e, key) => {
-    console.log(e);
-    setFiles({ ...files, [key]: e.target.files[0] });
+  const GetProducts = async () => {
+    await axios.post(getProducts).then((res) => {
+      setAllProducts(res.data?.results);
+    });
   };
 
-   const onSubmit = async(data) =>{
-        console.log(data,files);
-        const formData = new FormData();
-        formData.append("productImage", files?.productImage);
-        formData.append("flavourImage", files?.flavourImg);
-        formData.append("unitName", data?.productName);
-        formData.append("category", data?.category);
-        formData.append("quantity", data?.quantity);
-        formData.append("subCategory", data?.subCategory);
-        formData.append("brand", data?.brands);
-        formData.append("productType", data?.type);
-        formData.append("flavour", data?.flavour);
-        formData.append("description", "temp");
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues);
+ }
+ let handleChangeImg = (i, e) => {
+  let newFormValues = [...formValues];
+  newFormValues[i][e.target.id] = e.target.files;
+  setFormValues(newFormValues);
+}   
+ 
+  const addFormFields = () => {
+    setFormValues([...formValues,{ type: "", flavour: "", flavourImg: "" }])
+    
+  }
+  const removeFormFields = (index) => {
+    console.log(index-1);
+    let newFormValues = [...formValues];
+    newFormValues?.splice(index,1);
+    setFormValues(newFormValues)
+}
+  const onFileSelection = (e, i) => {
+    let newFile = {...files}
+    newFile[i][e.target.name] = e.target.files[0];
+      setFiles(newFile)
+  };
 
+  const onSubmit = async (data) => {
+    console.log(data, files);
+    const formData = new FormData();
+    formData.append("productImage", files?.productImage);
+    formData.append("flavourImage", files?.flavourImg);
+    formData.append("unitName", data?.productName);
+    formData.append("category", data?.category);
+    formData.append("quantity", data?.quantity);
+    formData.append("subCategory", data?.subCategory);
+    formData.append("brand", data?.brands);
+    formData.append("productType", data?.type);
+    formData.append("flavour", data?.flavour);
+    formData.append("description", "temp");
 
-        await axios.post(addProduct, formData).then((res) => {
-          console.log(res);
-         
-        });
-
-   }
+    await axios.post(addProduct, formData).then((res) => {
+      console.log(res);
+    });
+  };
+  const onSearch = async (e) => {
+    e.preventDefault();
+    const res = await axios.post(getProducts, {
+      from: values.from,
+      to: values.to,
+    });
+    setAllProducts(res?.data.results);
+    return res.data;
+  };
+  const onView = (index) => {
+    localStorage.setItem("objectIdProduct", allProducts[index]?._id);
+  };
+  const handleDate = (e) => {
+    const value = e.target.value;
+    setValues({
+      ...values,
+      [e.target.name]: value,
+    });
+  };
   const handleClick = () => {
     localStorage.removeItem("AdminData");
     localStorage.removeItem("AdminLogToken");
@@ -227,16 +290,19 @@ const Inventory = () => {
                     className="form-design py-4 px-3 help-support-form row align-items-end justify-content-between"
                     action=""
                     onSubmit={handleSubmit(onSubmit)}
-
                   >
                     <div className="form-group col-4">
                       <label htmlFor="">Product Name</label>
-                      <input type="text" className="form-control" name="productName" {...register("productName", {
-                            required: "Product Name is Required*",
-                          })}  />
-                          
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="productName"
+                        {...register("productName", {
+                          required: "Product Name is Required*",
+                        })}
+                      />
                     </div>
-                    <div className="form-group col-4 choose_file position-relative">
+                    <div className="form-group col-4 choose_fileInvent position-relative">
                       <span>Product Image </span>
                       <label htmlFor="upload_video" className="inputText">
                         <i className="fa fa-camera me-1" />
@@ -247,11 +313,8 @@ const Inventory = () => {
                         className="form-control "
                         defaultValue=""
                         name="productImage"
-                        onChange={(e) =>
-                          onFileSelection(e, "productImage")
-                        }
+                        onChange={(e) => onFileSelection(e, "productImage")}
                       />
-                       
                     </div>
                     <div className="form-group col-4">
                       <label htmlFor="">Category</label>
@@ -267,9 +330,7 @@ const Inventory = () => {
                         <option value="vaoe">Vape</option>
                         <option value="smoke">Smoke</option>
                         <option value="mnew">Kratom</option>
-                    
                       </select>
-                    
                     </div>
                     <div className="form-group col-4">
                       <label htmlFor="">Sub Category</label>
@@ -285,16 +346,18 @@ const Inventory = () => {
                         <option value="blue">Blue Kratom</option>
                         <option value="royal">Royal Relex</option>
                         <option value="mit">MIT-45 Kratom</option>
-                       
                       </select>
-                     
                     </div>
                     <div className="form-group col-4">
                       <label htmlFor="">Quantity</label>
-                      <input type="text" className="form-control"  name="quantity" {...register("quantity", {
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="quantity"
+                        {...register("quantity", {
                           required: "quantity is Required*",
-                        })} />
-                        
+                        })}
+                      />
                     </div>
                     <div className="form-group col-4">
                       <label htmlFor="">Brands</label>
@@ -310,45 +373,85 @@ const Inventory = () => {
                         <option value="Horxon">Horizon</option>
                         <option value="Hude">Hyde</option>
                         <option value="mondder">Monster Vape</option>
-                        
                       </select>
-                     
                     </div>
-                    <div className="form-group col mt-2 mb-4">
-                      <div className="row flavour_box align-items-end mx-0 py-4 px-3">
-                        <div className="form-group mb-0 col">
-                          <label htmlFor="">Type</label>
-                          <input type="text" className="form-control" name="type" {...register("type")} />
+                    <div className="form-group col-12 mt-2 mb-4">
+                      <form className="">
+                        <div className="row flavour_box align-items-end mx-0 py-4 px-3">
+                          {formValues.map((element, index) => (
+                            <div className="form-group mb-0 col-12">
+                              <div className="row" key={index}>
+                                <div className="form-group col-2">
+                                  <label htmlFor="">Type</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    name="type"
+                                    defaultValue={element.type || ""}
+                                    onChange={e => handleChange(index, e)}
+                                  />
+                                </div>
+                                <div className="form-group mb-0 col-2">
+                                  <label htmlFor="">Flavour</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    name="flavour"
+                                    defaultValue={element.flavour || ""}
+                                    onChange={e => handleChange(index, e)}
+
+                                  />
+                                </div> <div className="form-group mb-0 col-2">
+                                  <label htmlFor="">Barcode</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    name="Barcode"
+                                    defaultValue={element.Barcode || ""}
+                                    onChange={e => handleChange(index, e)}
+
+                                  />
+                                </div>
+                                <div className="form-group mb-0 col-4 mt-1 choose_fileInvent position-relative">
+                                  <span>Flavour Image </span>{" "}
+                                  <label
+                                    htmlFor="upload_video"
+                                    className="inputText"
+                                  >
+                                    <i className="fa fa-camera me-1" />
+                                    Choose File
+                                  </label>{" "}
+                                  <input
+                                    type="file"
+                                    className="form-control"
+                                    
+                                    id="flavourImg"
+                                    defaultValue={element.flavourImg || ""}
+                                    onChange={e => handleChangeImg(index, e)}
+                                    
+                                   
+                                  />
+                                </div>
+                                {index ? (
+                                  <div className="form-group col-2  add_btn">
+                                    <button className="comman_btn " type="button" onClick={() => removeFormFields(index)}>Remove</button>
+                                  </div>
+                                ) : <div className="form-group mb-0 col-2 add_btn">
+                                <button className="comman_btn mb-4" type="button" onClick={() => addFormFields()}>
+                                  <i className="fa fa-plus mt-1 mx-1" /> Add More
+                                </button>
+                              </div>}
+                              </div>
+                            </div>
+                          ))}
+                          
                         </div>
-                        <div className="form-group mb-0 col">
-                          <label htmlFor="">Flavour</label>
-                          <input type="text" className="form-control" name="flavour" {...register("flavour")}  />
-                        </div>
-                        <div className="form-group mb-0 col choose_file position-relative">
-                          <span>Flavour Image </span>{" "}
-                          <label htmlFor="upload_video" className="inputText">
-                            <i className="fa fa-camera me-1" />
-                            Choose File
-                          </label>{" "}
-                          <input
-                            type="file"
-                            className="form-control"
-                            defaultValue=""
-                            name="flavourImg"
-                            onChange={(e) =>
-                              onFileSelection(e, "flavourImg")
-                            }
-                          />
-                        </div>
-                        <div className="form-group mb-0 col-auto">
-                          <button className="comman_btn">
-                            <i className="fa fa-plus mt-1 mx-1" /> Add More
-                          </button>
-                        </div>
-                      </div>
+                      </form>
                     </div>
                     <div className="form-group mb-0 col-12 text-center mt-2">
-                      <button className="comman_btn" type="submit">Save</button>
+                      <button className="comman_btn" type="submit">
+                        Save
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -366,6 +469,9 @@ const Inventory = () => {
                             placeholder="Search"
                             name="name"
                             id="name"
+                            onChange={(e) => {
+                              setSearchTerm(e.target.value);
+                            }}
                           />
                           <i className="far fa-search" />
                         </div>
@@ -378,14 +484,28 @@ const Inventory = () => {
                   >
                     <div className="form-group mb-0 col-5">
                       <label htmlFor="">From</label>
-                      <input type="date" className="form-control" />
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="from"
+                        value={values.from}
+                        onChange={handleDate}
+                      />
                     </div>
                     <div className="form-group mb-0 col-5">
                       <label htmlFor="">To</label>
-                      <input type="date" className="form-control" />
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="to"
+                        value={values.to}
+                        onChange={handleDate}
+                      />
                     </div>
                     <div className="form-group mb-0 col-auto">
-                      <button className="comman_btn">Search</button>
+                      <button className="comman_btn" onClick={onSearch}>
+                        Search
+                      </button>
                     </div>
                   </form>
                   <div className="row">
@@ -398,184 +518,50 @@ const Inventory = () => {
                               <th>Date</th>
                               <th>Product Name</th>
                               <th>Product Image</th>
-                              <th>Status</th>
+                              <th>Brand</th>
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>26/09/2022</td>
-                              <td>Kado Bar 5000puff</td>
-                              <td>
-                                <img
-                                  className="table_img"
-                                  src="assets/img/verification_bg.jpg"
-                                  alt=""
-                                />
-                              </td>
-                              <td>
-                                <form className="table_btns d-flex align-items-center">
-                                  <div className="check_toggle">
-                                    {" "}
-                                    <input
-                                      type="checkbox"
-                                      name="check2"
-                                      id="check2"
-                                      className="d-none"
-                                    />{" "}
-                                    <label htmlFor="check2" />{" "}
-                                  </div>
-                                </form>
-                              </td>
-                              <td>
-                                <a
-                                  className="comman_btn table_viewbtn"
-                                  href="inventory-view.html"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>26/09/2022</td>
-                              <td>Kado Bar 5000puff</td>
-                              <td>
-                                <img
-                                  className="table_img"
-                                  src="assets/img/verification_bg.jpg"
-                                  alt=""
-                                />
-                              </td>
-                              <td>
-                                <form className="table_btns d-flex align-items-center">
-                                  <div className="check_toggle">
-                                    {" "}
-                                    <input
-                                      type="checkbox"
-                                      name="check3"
-                                      id="check3"
-                                      className="d-none"
-                                    />{" "}
-                                    <label htmlFor="check3" />{" "}
-                                  </div>
-                                </form>
-                              </td>
-                              <td>
-                                <a
-                                  className="comman_btn table_viewbtn"
-                                  href="inventory-view.html"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>26/09/2022</td>
-                              <td>Kado Bar 5000puff</td>
-                              <td>
-                                <img
-                                  className="table_img"
-                                  src="assets/img/verification_bg.jpg"
-                                  alt=""
-                                />
-                              </td>
-                              <td>
-                                <form className="table_btns d-flex align-items-center">
-                                  <div className="check_toggle">
-                                    {" "}
-                                    <input
-                                      defaultChecked=""
-                                      type="checkbox"
-                                      name="check4"
-                                      id="check4"
-                                      className="d-none"
-                                    />{" "}
-                                    <label htmlFor="check4" />{" "}
-                                  </div>
-                                </form>
-                              </td>
-                              <td>
-                                <a
-                                  className="comman_btn table_viewbtn"
-                                  href="inventory-view.html"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>4</td>
-                              <td>26/09/2022</td>
-                              <td>Kado Bar 5000puff</td>
-                              <td>
-                                <img
-                                  className="table_img"
-                                  src="assets/img/verification_bg.jpg"
-                                  alt=""
-                                />
-                              </td>
-                              <td>
-                                <form className="table_btns d-flex align-items-center">
-                                  <div className="check_toggle">
-                                    {" "}
-                                    <input
-                                      defaultChecked=""
-                                      type="checkbox"
-                                      name="check5"
-                                      id="check5"
-                                      className="d-none"
-                                    />{" "}
-                                    <label htmlFor="check5" />{" "}
-                                  </div>
-                                </form>
-                              </td>
-                              <td>
-                                <a
-                                  className="comman_btn table_viewbtn"
-                                  href="inventory-view.html"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>5</td>
-                              <td>26/09/2022</td>
-                              <td>Kado Bar 5000puff</td>
-                              <td>
-                                <img
-                                  className="table_img"
-                                  src="assets/img/verification_bg.jpg"
-                                  alt=""
-                                />
-                              </td>
-                              <td>
-                                <form className="table_btns d-flex align-items-center">
-                                  <div className="check_toggle">
-                                    {" "}
-                                    <input
-                                      defaultChecked=""
-                                      type="checkbox"
-                                      name="check6"
-                                      id="check6"
-                                      className="d-none"
-                                    />{" "}
-                                    <label htmlFor="check6" />{" "}
-                                  </div>
-                                </form>
-                              </td>
-                              <td>
-                                <a
-                                  className="comman_btn table_viewbtn"
-                                  href="inventory-view.html"
-                                >
-                                  View
-                                </a>
-                              </td>
-                            </tr>
+                            {(allProducts || [])
+                              .filter((User) => {
+                                if (searchTerm == "") {
+                                  return User;
+                                } else if (
+                                  User?.unitName
+                                    .toLowerCase()
+                                    .includes(searchTerm?.toLowerCase())
+                                ) {
+                                  return User;
+                                }
+                              })
+                              .map((User, index) => (
+                                <tr key={index} className="">
+                                  <td>{index + 1}.</td>
+                                  <td>{User?.createdAt.slice(0, 10)}</td>
+                                  <td>{User?.unitName}</td>
+                                  <td>
+                                    <img
+                                      width={40}
+                                      src={`${process.env.REACT_APP_APIENDPOINTNEW}/${User?.productImage}`}
+                                    />
+                                  </td>
+                                  <td>{User?.quantity}</td>
+
+                                  <td>
+                                    <Link
+                                      className="comman_btn2  text-decoration-none"
+                                      to="/Inventory/View"
+                                      id={index}
+                                      onClick={() => {
+                                        onView(index);
+                                      }}
+                                    >
+                                      View
+                                    </Link>
+                                  </td>
+                                </tr>
+                              ))}
                           </tbody>
                         </table>
                       </div>

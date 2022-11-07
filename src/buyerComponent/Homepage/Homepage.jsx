@@ -25,8 +25,10 @@ const Homepage = ({ GetData }) => {
   const [allSlides, setAllSlides] = useState([]);
   const slidesApi = "http://localhost:7000/user/homeBanner/getSlides";
   const categoryApi = "http://localhost:7000/user/category/getCategory";
+  const brandApi = "http://localhost:7000/user/brands/getBrands";
   const [category, setCategory] = useState([]);
-  const [productsByCate, setProductsByCate] = useState("");
+  const [brands, setBrands] = useState([]);
+  const [productsCate, setProductsCate] = useState("hello");
   const ModalClose = document.getElementById("age_close");
   const modalCloseTerms = document.getElementById("terms_close");
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const Homepage = ({ GetData }) => {
     }
     getSlides();
     getCategory();
+    getBrands();
   }, []);
 
   const getSlides = async () => {
@@ -61,12 +64,13 @@ const Homepage = ({ GetData }) => {
       setCategory(res?.data.results);
     });
   };
-  console.log(productsByCate, "hiiiiiiiiiiiiiiiiiiiiii");
-
-  const CateProducts = (index) => {
-    GetData(category[index]?.categoryName);
+  const getBrands = async () => {
+    await axios.get(brandApi).then((res) => {
+      setBrands(res?.data.results);
+    });
   };
 
+  
   return (
     <div className="home_page">
       <Navbar />
@@ -183,12 +187,10 @@ const Homepage = ({ GetData }) => {
                   pathname: "/CategoryProducts",
                   search: "?sort=name",
                   hash: "#the-hash",
-                  state: { categoryName }
                 }}
+                state={{name:item?.categoryName}}
                   className="featured__box text-center mt-5  text-decoration-none"
-                  onClick={() => {
-                    CateProducts(index);
-                  }}
+                  
                 >
                   <img
                     src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.categoryImage}`}
@@ -583,32 +585,14 @@ const Homepage = ({ GetData }) => {
               modules={[FreeMode, Pagination, Autoplay]}
               className="mySwiper row"
             >
-              <SwiperSlide>
-                <Link className="brand_box col-sm-12 p-sm-4" to="">
-                  <img src={require("../../assets/img/brand_1.png")} alt="" />
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link className="brand_box col-sm-12 p-sm-4" to="">
-                  <img src={require("../../assets/img/brand_2.png")} alt="" />
-                </Link>
-              </SwiperSlide>
+          {(brands || [])?.map((item, index) => (
 
-              <SwiperSlide>
-                <Link className="brand_box col-sm-12" to="">
-                  <img src={require("../../assets/img/brand_4.png")} alt="" />
+              <SwiperSlide key={index}>
+                <Link to="/AllBrands" className="brand_box col-sm-12 p-sm-4">
+                  <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.brandImage}`} alt="" />
                 </Link>
               </SwiperSlide>
-              <SwiperSlide>
-                <Link className="brand_box col-sm-12" to="">
-                  <img src={require("../../assets/img/brand_5.png")} alt="" />
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link className="brand_box col-sm-12" to="">
-                  <img src={require("../../assets/img/brand_6.png")} alt="" />
-                </Link>
-              </SwiperSlide>
+          ))} 
             </Swiper>
           </div>
         </div>

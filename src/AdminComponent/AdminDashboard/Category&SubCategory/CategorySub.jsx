@@ -397,7 +397,7 @@ const CategorySub = () => {
                                             <tr className="" key={index}>
                                               <td>{index + 1}</td>
                                               <td>
-                                                {item?.updatedAt.slice(0, 10)}
+                                                {item?.updatedAt?.slice(0, 10)}
                                               </td>
                                               <td>{item?.categoryName}</td>
                                               <td><img width={35} src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.categoryImage}`}></img></td>
@@ -518,16 +518,16 @@ const CategorySub = () => {
                                             <tr className="" key={index}>
                                               <td>{index + 1}</td>
                                               <td>
-                                                {item?.updatedAt.slice(0, 10)}
+                                                {item?.updatedAt?.slice(0, 10)}
                                               </td>
                                               <td>
                                                 {
-                                                  item?.categoryName
-                                                    .categoryName
+                                                  item.categoryName?.categoryName
+                                                    
                                                 }
                                               </td>
                                               <td>{item?.subCategoryName}</td>
-                                              <td><img width={35} src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.subCategoryImage}`}></img></td>
+                                              <td><img width={40} src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.subCategoryImage}`}></img></td>
 
                                               <td>
                                                 <Link

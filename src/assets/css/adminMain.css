@@ -1430,6 +1430,20 @@ div#google_translate_element {
   display: block;
   margin-bottom: 8px;
 }
+.choose_fileInvent label {
+  position: absolute;
+  background-color:#eb3237;
+  height: 50px;
+  color: #fff;
+  display: flex !important;
+  align-items: center;
+  width: 120px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 8px 0 0 8px;
+  font-size: 13px !important;
+  cursor: pointer;
+}
 .choose_fileAdmin label {
   position: absolute;
   top: 29px;
@@ -1801,3 +1815,10 @@ font-size: 18px;
 font-weight: bold;
 }
 /*  */
+.textArea{
+  height : 15rem !important;
+}
+.add_btn{
+  
+  margin-top:28px !important;
+  }

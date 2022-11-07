@@ -71,22 +71,23 @@ const Footer = () => {
                   <h6 className="widget_title">Useful Links</h6>
                   <ul className="widget_links">
                     <li>
-                      <Link className="text-decoration-none" to ="">Home </Link>
+                      <Link className="text-decoration-none" to ="/">Home </Link>
+                    </li>
+                   
+                    <li>
+                      <Link className="text-decoration-none" to ="/AllBrands">Brands </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to ="">Top Selling </Link>
+                      <Link className="text-decoration-none" to ="/Terms&Condition">Terms & Conditions </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to ="">New Arrivals </Link>
+                      <Link className="text-decoration-none" to ="/PrivacyPolicies">Privacy Policies </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to ="">Product </Link>
+                      <Link className="text-decoration-none" to ="/AboutUs">About Us </Link>
                     </li>
                     <li>
-                      <Link className="text-decoration-none" to ="">Brands </Link>
-                    </li>
-                    <li>
-                      <Link className="text-decoration-none" to ="">Contact Us </Link>
+                      <Link className="text-decoration-none" to ="/Contact">Contact Us </Link>
                     </li>
                   </ul>
                 </div>

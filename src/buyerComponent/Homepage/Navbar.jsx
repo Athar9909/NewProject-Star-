@@ -59,7 +59,7 @@ const Navbar = () => {
       <header className="">
         <div className="row header_top py-3 px-4 align-items-center justify-content-between">
           <div className="col-auto">
-            <Link className="header_logo" href="index.html">
+            <Link className="header_logo" to="/">
               <img src={Starlogo} alt="" />
             </Link>
           </div>
@@ -152,6 +152,12 @@ const Navbar = () => {
                 <li key={index}
                 >
                   <Link
+                  to={{
+                  pathname: "/CategoryProducts",
+                  search: "?sort=name",
+                  hash: "#the-hash",
+                }}
+                state={{name:item?.categoryName}}
                     className="dropdown-toggle text-decoration-none"
                     href="Javascript:;"
                   >
@@ -164,7 +170,13 @@ const Navbar = () => {
                           (item, index) => (
                             <div className="col-lg-2 col-md-6" key={index}>
                               <div className="maga_drop__menus">
-                                <Link>
+                                <Link
+                                to={{
+                                pathname: "/SubCategory/Products",
+                                search: "",
+                              }}
+                              state={{name:item?.subCategoryName}} 
+                                >
                                   <h3 className="dropdown_heading">
                                     {item?.subCategoryName}
                                   </h3>

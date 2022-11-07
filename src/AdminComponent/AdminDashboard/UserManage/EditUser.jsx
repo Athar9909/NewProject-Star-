@@ -315,10 +315,10 @@ const EditUser = () => {
                       <div className="col-12 text-center mb-4">
                         <div className="form-group col-auto">
                           <div className="account_profile position-relative d-inline-block">
-                            <div className="circle">
-                              <img className="profile-pic" src={profile} />
+                            <div className="">
+                              <img className="" width={150} src={profile} />
                             </div>
-                            <div className="p-image bg-dark">
+                            <div className="p-image">
                               <input
                                 className="file-uploads"
                                 type="file"
