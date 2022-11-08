@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const SingleProduct = () => {
-  const getProduct = "http://localhost:7000/user/product/getProduct"
+  const getProduct =  `${process.env.REACT_APP_APIENDPOINTNEW}user/product/getProduct`
   const [product,setProduct] = useState([])
   let location = useLocation()
   let objectId = location.state.id

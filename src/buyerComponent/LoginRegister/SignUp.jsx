@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const SignUp = () => {
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
-  const apiUrl = "http://localhost:7000/user/register";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/register`
 
   const {
     register,

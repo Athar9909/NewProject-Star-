@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const EditProfile = () => {
-  const editProfil = "http://localhost:7000/api/admin/editProfile";
+  const editProfil =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editProfile`
   const [files, setFiles] = useState([]);
   const [adminData,setAdminData] = useState([])
   axios.defaults.headers.common["x-auth-token-admin"] =

@@ -27,16 +27,17 @@ const Cms = () => {
   const [editedPrivacy, setEditedPrivacy] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const AllSlides = "http://localhost:7000/api/admin/cms/getAllSlides";
-  const EditSlide = "http://localhost:7000/api/admin/cms/editSlide";
-  const AddSlide = "http://localhost:7000/api/admin/cms/addSlide";
-  const DeleteSlide = "http://localhost:7000/api/admin/cms/deleteSlide";
-  const getAbout = "http://localhost:7000/api/admin/cms/aboutus";
-  const getTerms = "http://localhost:7000/api/admin/cms/TAndC";
-  const getPrivacy = "http://localhost:7000/api/admin/cms/privacyPolicy";
-  const editAboutUs = "http://localhost:7000/api/admin//cms/editAbout";
-  const editTerms = "http://localhost:7000/api/admin//cms/editTnC";
-  const editPrivacy = "http://localhost:7000/api/admin//cms/editPrivacyPolicy";
+ 
+  const AllSlides =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/getAllSlides`
+  const EditSlide =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/editSlide`
+  const AddSlide =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/addSlide`
+  const DeleteSlide =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/deleteSlide`
+  const getAbout =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/aboutus`
+  const getTerms =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/TAndC`
+  const getPrivacy =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/cms/privacyPolicy`
+  const editAboutUs =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//cms/editAbout`
+  const editTerms =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//cms/editTnC`
+  const editPrivacy =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//cms/editPrivacyPolicy`
 
   const {
     register,

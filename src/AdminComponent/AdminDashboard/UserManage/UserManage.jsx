@@ -13,9 +13,9 @@ import axios from "axios";
 import { Modal } from "bootstrap";
 import { post } from "jquery";
 const UserManage = () => {
-  const apiUrl = "http://localhost:7000/api/admin/allUsersList";
-  const uploadUrl = "http://localhost:7000/api/admin/importUsers";
-  const userStatus = "http://localhost:7000/api/admin/userStatus";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/allUsersList`
+  const uploadUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/importUsers`
+  const userStatus =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/userStatus`
   const [values, setValues] = useState({ from: "", to: "" });
   const [search, setSearch] = useState();
   const [statsIndex, setStatsIndex] = useState();

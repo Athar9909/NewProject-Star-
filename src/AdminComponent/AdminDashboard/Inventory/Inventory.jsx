@@ -20,12 +20,11 @@ const Inventory = () => {
   const [formValues, setFormValues] = useState([
     { productType: [], flavour: [], flavourImg: [], barcode: [] },
   ]);
-  const addProduct = "http://localhost:7000/api/admin/inventory/addProduct";
-  const getProducts = "http://localhost:7000/api/admin/inventory/allProducts";
-  const categoryApi = "http://localhost:7000/api/admin/category/getCategories";
-  const SubCategoryApi =
-    "http://localhost:7000/api/admin/subCategory/getSubCategories";
-  const brandsApi = "http://localhost:7000/api/admin/brands/getBrands";
+  const addProduct = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/addProduct`;
+  const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/allProducts`;
+  const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
+  const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
+  const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
 
   console.log(formValues);
 
@@ -93,7 +92,6 @@ const Inventory = () => {
     setFiles({ ...files, [key]: e.target.files[0] });
   };
 
- 
   const onSubmit = async (data) => {
     let chnge = null;
     console.log(data);
@@ -105,7 +103,7 @@ const Inventory = () => {
         quantity: data?.quantity,
         subCategory: data?.subCategory,
         brand: data?.brands,
-        type:formValues,
+        type: formValues,
         // barcode: barcode,
         // productType: type,
         // flavour: flavour,

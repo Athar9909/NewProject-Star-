@@ -8,7 +8,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const AdminLogin = () => {
-  const apiUrl = "http://localhost:7000/api/admin/login"
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/login`
   const navigate = useNavigate();
   const[EmailError,setEmailError] = useState("")
   const[passError,setPassError] = useState("")

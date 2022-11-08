@@ -12,8 +12,8 @@ import { FaFileDownload } from "react-icons/fa";
 import fileDownload from 'js-file-download'
 const ApprovedView = () => {
   const [msg, setMsg] = useState("");
-  const apiUrl = "http://localhost:7000/api/admin/getUser";
-  const generatePass = "http://localhost:7000/api/admin/generatePassword";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
+  const generatePass =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/generatePassword`
   const [sideBar, setSideBar] = useState(true);
   const [user, setUser] = useState([]);
   const [editText, setEditText] = useState("Edit");

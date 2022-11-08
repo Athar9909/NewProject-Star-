@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 
 const AllBrands = () => {
   const [brands, setBrands] = useState([]);
-  const getBrands = "http://localhost:7000/user/brands/getBrands";
+  const getBrands = `${process.env.REACT_APP_APIENDPOINTNEW}user/brands/getBrands`
 
   useEffect(() => {
     GetBrands();

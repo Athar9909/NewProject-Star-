@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 
 const ProductByBrand = () => {
   const location = useLocation();
-  const getProduct = "http://localhost:7000/user/products/getByBrands";
+  const getProduct =  `${process.env.REACT_APP_APIENDPOINTNEW}user/products/getByBrands`
   const [products, setProducts] = useState([]);
  
   useEffect(() => {

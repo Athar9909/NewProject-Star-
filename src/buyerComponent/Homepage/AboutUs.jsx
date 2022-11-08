@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 const AboutUs = () => {
   const [data , setData] = useState("")
-  const about = "http://localhost:7000/user/welcome/aboutUs"
+  const about =  `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/aboutUs`
   useEffect(()=>{
     axios.get(about).then((res)=>{
       setData(res.data?.results)

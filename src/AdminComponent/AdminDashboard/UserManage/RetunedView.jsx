@@ -13,9 +13,9 @@ import { FaFileUpload } from "react-icons/fa";
 const ReturnedView = () => {
   const [sideBar, setSideBar] = useState(true);
 
-  const apiUrl = "http://localhost:7000/api/admin/getUser";
-  const approveUrl = "http://localhost:7000/api/admin//adminAuthorisedUser";
-  const rejectUrl = "http://localhost:7000/api/admin/rejectUser";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
+  const approveUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//adminAuthorisedUser`
+  const rejectUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/rejectUser`
 
   const [user, setUser] = useState([]);
   const [approveText, setApproveText] = useState("Approve");

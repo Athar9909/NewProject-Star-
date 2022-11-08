@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 const PrivacyPolicies = () => {
   const [data , setData] = useState("")
-  const TermsCond = "http://localhost:7000/user/welcome/privacyPolicy"
+  const TermsCond =  `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/privacyPolicy`
   useEffect(()=>{
     axios.get(TermsCond).then((res)=>{
       setData(res.data?.results)

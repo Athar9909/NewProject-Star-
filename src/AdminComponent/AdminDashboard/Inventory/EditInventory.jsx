@@ -12,14 +12,13 @@ const EditInventory = () => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const getProducts = "http://localhost:7000/api/admin/inventory/allProducts";
-  const categoryApi = "http://localhost:7000/api/admin/category/getCategories";
-  const SubCategoryApi =
-    "http://localhost:7000/api/admin/subCategory/getSubCategories";
-  const brandsApi = "http://localhost:7000/api/admin/brands/getBrands";
-  
-  const location = useLocation()
-  let index = location.state?.index
+  const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/allProducts`;
+  const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
+  const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
+  const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
+
+  const location = useLocation();
+  let index = location.state?.index;
   const {
     register,
     handleSubmit,
@@ -53,36 +52,35 @@ const EditInventory = () => {
     });
   };
 
-
   const onFileSelection = (e, key) => {
     console.log(e);
     setFiles({ ...files, [key]: e.target.files[0] });
   };
 
-//   let type = formValues?.map((a) => a.type);
-//   let flavour = formValues?.map((a) => a.flavour);
-//   let flavourImage = formValues?.map((a) => a.flavourImg);
-//   let barcode = formValues?.map((a) => a.Barcode);
-//   const onSubmit = async (data) => {
-//     console.log(data);
-//     const formData = new FormData();
-//     formData.append("productImage", files?.productImage);
-//     formData.append("unitName", data?.productName);
-//     formData.append("category", data?.category);
-//     formData.append("quantity", data?.quantity);
-//     formData.append("subCategory", data?.subCategory);
-//     formData.append("brand", data?.brands);
-//     formData.append("barcode", barcode);
-//     formData.append("productType", type);
-//     formData.append("flavour", flavour);
-//     formData.append("flavourImage", flavourImage);
-//     formData.append("description", "temp");
+  //   let type = formValues?.map((a) => a.type);
+  //   let flavour = formValues?.map((a) => a.flavour);
+  //   let flavourImage = formValues?.map((a) => a.flavourImg);
+  //   let barcode = formValues?.map((a) => a.Barcode);
+  //   const onSubmit = async (data) => {
+  //     console.log(data);
+  //     const formData = new FormData();
+  //     formData.append("productImage", files?.productImage);
+  //     formData.append("unitName", data?.productName);
+  //     formData.append("category", data?.category);
+  //     formData.append("quantity", data?.quantity);
+  //     formData.append("subCategory", data?.subCategory);
+  //     formData.append("brand", data?.brands);
+  //     formData.append("barcode", barcode);
+  //     formData.append("productType", type);
+  //     formData.append("flavour", flavour);
+  //     formData.append("flavourImage", flavourImage);
+  //     formData.append("description", "temp");
 
-//     await axios.post(addProduct, formData).then((res) => {
-//       console.log(res);
-//     });
-//   };
- 
+  //     await axios.post(addProduct, formData).then((res) => {
+  //       console.log(res);
+  //     });
+  //   };
+
   const handleClick = () => {
     localStorage.removeItem("AdminData");
     localStorage.removeItem("AdminLogToken");
@@ -275,7 +273,7 @@ const EditInventory = () => {
                           <i className="upload-iconIN fas fa-camera" />
                           <input
                             className="file-uploadIN"
-                            type="file" 
+                            type="file"
                             accept="image/*"
                           />
                         </div>
@@ -332,7 +330,9 @@ const EditInventory = () => {
                         className="form-select form-control"
                         aria-label="Default select example"
                       >
-                        <option selected="">{allProducts[index]?.subCategory}</option>
+                        <option selected="">
+                          {allProducts[index]?.subCategory}
+                        </option>
                         <option selected="" value={1}>
                           Blue Kratom
                         </option>

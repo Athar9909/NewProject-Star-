@@ -8,7 +8,7 @@ import Profile from "./Profile";
 
 const MyAccount = () => {
   const [users, setUsers] = useState([]);
-  const userApi = "http://localhost:7000/user/getUserProfile"
+  const userApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/getUserProfile`
 
   axios.defaults.headers.common["x-auth-token-user"] =
   localStorage.getItem("loginToken");

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 const TermsCondition = () => {
   const [data , setData] = useState("")
-  const TermsCond = "http://localhost:7000/user/welcome/tAndC"
+  const TermsCond =  `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/tAndC`
   useEffect(()=>{
     axios.get(TermsCond).then((res)=>{
       setData(res.data?.results)

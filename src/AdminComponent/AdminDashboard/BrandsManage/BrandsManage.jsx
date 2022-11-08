@@ -8,9 +8,9 @@ import { useState } from "react";
 import axios from "axios";
 
 const BrandsManage = () => {
-  const brandsApi = "http://localhost:7000/api/admin/brands/getBrands";
-  const editBrands = "http://localhost:7000/api/admin/brands/editBrand";
-  const addBrands = "http://localhost:7000/api/admin/brands/addBrand";
+  const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`
+  const editBrands = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/editBrand`
+  const addBrands = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/addBrand`
   const [searchTerm, setSearchTerm] = useState("");
   const[change ,setChange] = useState("")
   const [allBrands, setAllBrands] = useState([]);

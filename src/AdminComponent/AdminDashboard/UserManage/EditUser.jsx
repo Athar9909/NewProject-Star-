@@ -14,8 +14,8 @@ import { FaFileUpload } from "react-icons/fa";
 const EditUser = () => {
   const [files, setFiles] = useState([]);
   console.log(files);
-  const apiUrl = "http://localhost:7000/api/admin/getUser";
-  const apiUrl2 = "http://localhost:7000/api/admin/editUserProfile";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
+  const apiUrl2 =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editUserProfile`
   const [sideBar, setSideBar] = useState(true);
   const [user, setUser] = useState([]);
   axios.defaults.headers.common["x-auth-token-admin"] =

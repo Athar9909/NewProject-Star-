@@ -9,7 +9,7 @@ import axios from "axios";
 const ChangePassword = () => {
   const [adminData, setAdminData] = useState([]);
   const [message, setMessage] = useState("");
-  const changePassword = "http://localhost:7000/api/admin/changePassword";
+  const changePassword =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/changePassword`
 
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");

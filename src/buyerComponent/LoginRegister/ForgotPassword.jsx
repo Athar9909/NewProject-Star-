@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Swal from "sweetalert2";
 
 const ForgotPassword = ({ getEmail }) => {
-  const apiUrl = "http://localhost:7000/user/forgotPassword";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/forgotPassword`
   const {
     register,
     handleSubmit,

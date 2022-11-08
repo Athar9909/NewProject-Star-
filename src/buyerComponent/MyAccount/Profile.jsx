@@ -5,8 +5,8 @@ const Profile = () => {
   const [users, setUsers] = useState([]);
   const [files, setFiles] = useState();
 
-  const editImage = "http://localhost:7000/user/editProfile"
-  const userApi = "http://localhost:7000/user/getUserProfile";
+  const editImage =  `${process.env.REACT_APP_APIENDPOINTNEW}user/editProfile`
+  const userApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/getUserProfile`
 
   axios.defaults.headers.common["x-auth-token-user"] =
     localStorage.getItem("loginToken");

@@ -14,7 +14,7 @@ import UpdatePassword from "../LoginRegister/UpdatePassword";
 import axios from "axios";
 
 const Navbar = () => {
-  const categoryApi = "http://localhost:7000/user/category/getCatAndSubCat";
+  const categoryApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCatAndSubCat`
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const [otpEmail, setOtpEmail] = useState();

@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import axios from "axios";
 
 const Contact = () => {
-  const apiUrl = "http://localhost:7000/user/contact";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/contact`
 
   const {
     register,

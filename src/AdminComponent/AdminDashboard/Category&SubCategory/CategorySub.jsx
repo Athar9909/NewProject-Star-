@@ -8,12 +8,12 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const CategorySub = () => {
-  const addCategory = "http://localhost:7000/api/admin/category/addCategory";
-  const addSubCategory ="http://localhost:7000/api/admin/subCategory/addSubCategory";
-  const categoryApi = "http://localhost:7000/api/admin/category/getCategories";
-  const SubCategoryApi ="http://localhost:7000/api/admin/subCategory/getSubCategories";
-  const editCategory = "http://localhost:7000/api/admin/category/editCategory";
-  const editSubCategory = "http://localhost:7000/api/admin/subCategory/editSubCategory";
+  const addCategory = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/addCategory`
+  const addSubCategory =`${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/addSubCategory`
+  const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`
+  const SubCategoryApi =`${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`
+  const editCategory = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/editCategory`
+  const editSubCategory = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/editSubCategory`
   const [sideBar, setSideBar] = useState(true);
   const [change,setChange] = useState(false)
   const [allCategories, setAllCategories] = useState([]);

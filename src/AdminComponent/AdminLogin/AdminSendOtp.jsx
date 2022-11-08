@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const AdminSendOtp = ({AdminEmail}) => {
-  const apiUrl = "http://localhost:7000/api/admin/verifyOtp"
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/verifyOtp`
   const navigate = useNavigate();
   const[error,setError]=useState("")
   const [email,setEmail] = useState();

@@ -9,7 +9,7 @@ const ProductByCate = () => {
   const location = useLocation();
   console.log(location.state.name);
   const [category, setCategory] = useState({});
-  const getProduct = "http://localhost:7000/user/products/getByCategory";
+  const getProduct =  `${process.env.REACT_APP_APIENDPOINTNEW}user/products/getByCategory`
   const [products, setProducts] = useState([]);
   axios.defaults.headers.common["x-auth-token-user"] =
     localStorage.getItem("loginToken");

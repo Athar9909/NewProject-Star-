@@ -8,7 +8,7 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 
 const AdminResetPassword = () => {
-  const apiUrl = "http://localhost:7000/api/admin/updatePassword";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/updatePassword`
   const navigate = useNavigate();
   const [error, setError] = useState();
   const [email, setEmail] = useState();

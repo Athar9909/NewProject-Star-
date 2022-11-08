@@ -23,9 +23,9 @@ import { useState } from "react";
 
 const Homepage = ({ GetData }) => {
   const [allSlides, setAllSlides] = useState([]);
-  const slidesApi = "http://localhost:7000/user/homeBanner/getSlides";
-  const categoryApi = "http://localhost:7000/user/category/getCategory";
-  const brandApi = "http://localhost:7000/user/brands/getBrands";
+  const slidesApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/homeBanner/getSlides`
+  const categoryApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCategory`
+  const brandApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/brands/getBrands`
   const [category, setCategory] = useState([]);
   const [brands, setBrands] = useState([]);
   const [productsCate, setProductsCate] = useState("hello");

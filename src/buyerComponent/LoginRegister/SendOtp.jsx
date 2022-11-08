@@ -6,8 +6,8 @@ import classNames from "classnames";
 
 
 const SendOtp = (otpEmail) => {
-  const apiUrl = "http://localhost:7000/user/verifyOtp";
-  const sendOtp ="http://localhost:7000/user/forgotPassword"
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/verifyOtp`
+  const sendOtp = `${process.env.REACT_APP_APIENDPOINTNEW}user/forgotPassword`
   const[error,setError]=useState("")
   let email = otpEmail?.otpEmail;
   const {

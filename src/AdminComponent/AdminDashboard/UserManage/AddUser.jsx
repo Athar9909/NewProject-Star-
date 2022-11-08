@@ -13,7 +13,7 @@ import { data } from "jquery";
 
 const AddUser = () => {
   const [files, setFiles] = useState([]);
-  const apiUrl = "http://localhost:7000/api/admin/addUser";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/addUser`
   const navigate = useNavigate();
   const [emailErr,setEmailErr] = useState("")
   const [sideBar, setSideBar] = useState(true);

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Profile from './Profile';
 import axios from 'axios';
 const Account = () => {
-  const editProfile = "http://localhost:7000/user/editProfile"
+  const editProfile =  `${process.env.REACT_APP_APIENDPOINTNEW}user/editProfile`
   const [disable,setDisable] = useState(true)
   const [hideSave,setHideSave] = useState(true)
   const[editedName,setEditedName] = useState("")
@@ -17,7 +17,7 @@ const Account = () => {
 
   useEffect(()=>{
     const data = JSON.parse(localStorage.getItem("UserData"))
-    axios.get("http://localhost:7000/user/getUserProfile").then((res)=>{
+    axios.get(editProfile).then((res)=>{
     setUsers(res?.data.results)
 
     })

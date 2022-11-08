@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 const UpdatePassword = (otpEmail) => {
   const navigate = useNavigate();
 
-  const apiUrl = "http://localhost:7000/user/updatePassword";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/updatePassword`
   let email = otpEmail?.otpEmail;
   const[error,setError] = useState()
 

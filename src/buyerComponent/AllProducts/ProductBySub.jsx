@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 
 const ProductBySubCate = () => {
   const location = useLocation();
-  const getProduct = "http://localhost:7000/user/products/getBySubCategory";
+  const getProduct =  `${process.env.REACT_APP_APIENDPOINTNEW}user/products/getBySubCategory`
   const [products, setProducts] = useState([]);
  
   useEffect(() => {

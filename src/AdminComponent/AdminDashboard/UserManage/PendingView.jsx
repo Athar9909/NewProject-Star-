@@ -14,9 +14,9 @@ import { FaFileDownload } from "react-icons/fa";
 
 
 const PendingView = () => {
-  const apiUrl = "http://localhost:7000/api/admin/getUser";
-  const approveUrl = "http://localhost:7000/api/admin//adminAuthorisedUser";
-  const rejectUrl = "http://localhost:7000/api/admin/rejectUser";
+  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
+  const approveUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//adminAuthorisedUser`
+  const rejectUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/rejectUser`
   const [sideBar, setSideBar] = useState(true);
 
   const [user, setUser] = useState([]);
