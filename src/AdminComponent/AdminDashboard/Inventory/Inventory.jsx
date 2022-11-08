@@ -154,7 +154,7 @@ const Inventory = () => {
   }
 
   function removeTag(index) {
-    setBarcodes(barcodes.filter((el, i) => i !== index));
+    setFormValues(barcodes.filter((el, i) => i !== index));
   }
 
   const handleClick = () => {
