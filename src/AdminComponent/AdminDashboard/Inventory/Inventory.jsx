@@ -18,7 +18,7 @@ const Inventory = () => {
   const [change, setChange] = useState();
   const [Index, setIndex] = useState(0);
   const [formValues, setFormValues] = useState([
-    { type: [], flavour: [], flavourImg: ["ok"], Barcode: [] },
+    { productType: [], flavour: [], flavourImg: [], barcode: [] },
   ]);
   const addProduct = "http://localhost:7000/api/admin/inventory/addProduct";
   const getProducts = "http://localhost:7000/api/admin/inventory/allProducts";
@@ -78,7 +78,7 @@ const Inventory = () => {
     setIndex(Index + 1);
     setFormValues([
       ...formValues,
-      { type: [], flavour: [], flavourImg: [], Barcode: [] },
+      { productType: [], flavour: [], flavourImg: [], barcode: [] },
     ]);
   };
   const removeFormFields = (index) => {
@@ -93,10 +93,7 @@ const Inventory = () => {
     setFiles({ ...files, [key]: e.target.files[0] });
   };
 
-  let type = formValues?.map((a) => a.type);
-  let flavour = formValues?.map((a) => a.flavour);
-  let flavourImage = formValues?.map((a) => a.flavourImg);
-  let barcode = formValues?.map((a) => a.Barcode);
+ 
   const onSubmit = async (data) => {
     let chnge = null;
     console.log(data);
@@ -108,7 +105,7 @@ const Inventory = () => {
         quantity: data?.quantity,
         subCategory: data?.subCategory,
         brand: data?.brands,
-        type:formValues[0],
+        type:formValues,
         // barcode: barcode,
         // productType: type,
         // flavour: flavour,
@@ -150,7 +147,7 @@ const Inventory = () => {
     setBarcodes([...barcodes, value.replace(/(\r\n|\n|\r)/gm, "")]);
     let newFormValues = { ...formValues };
     newFormValues[i][e.target.name] = [
-      ...(formValues[i]?.Barcode || []),
+      ...(formValues[i]?.barcode || []),
       value.replace(/(\r\n|\n|\r)/gm, ""),
     ];
     e.target.value = "";
@@ -446,8 +443,8 @@ const Inventory = () => {
                                   <input
                                     type="text"
                                     className="form-control"
-                                    name="type"
-                                    defaultValue={element.type || ""}
+                                    name="productType"
+                                    defaultValue={element.productType || ""}
                                     onChange={(e) => handleChange(index, e)}
                                   />
                                 </div>
@@ -464,7 +461,7 @@ const Inventory = () => {
                                 <div className="form-group mb-0 col-3">
                                   <label htmlFor="">Barcode</label>
                                   <div className="tags-input-container">
-                                    {(formValues[index]?.Barcode || [])?.map(
+                                    {(formValues[index]?.barcode || [])?.map(
                                       (tag, ind) => (
                                         <div className="tag-item" key={ind}>
                                           <span className="tag-text">
@@ -484,7 +481,7 @@ const Inventory = () => {
                                       type="text"
                                       className="tags-input mb-0"
                                       placeholder="Enter Barcodes"
-                                      name="Barcode"
+                                      name="barcode"
                                       onKeyDown={(e) => handleKeyDown(index, e)}
                                     />
                                   </div>
