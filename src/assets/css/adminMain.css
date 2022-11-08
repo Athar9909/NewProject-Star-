@@ -513,18 +513,17 @@ h1 h2 p label {
   margin-bottom: 8px;
 }
 .account_profile .circle .profile-pic {
-  max-width: 100%;
-  height: 100%;
+  width: 180px !important;
+  height: 130px;
   object-fit: cover;
 }
 .account_profile .circle {
   overflow: hidden;
-  width: 50px;
-  height: 50px;
+  width: 230px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(129, 17, 17);
   border-radius: 50%;
   border: 2px solid #ffffff;
   margin: 0 auto;
@@ -535,8 +534,8 @@ h1 h2 p label {
 }
 .account_profile .p-image {
   position: absolute;
-  top: 10px;
-  right: -2px;
+  top: 25px;
+  right: 14px;
   background-color: #ffffff;
   color: #e0dce1;
   width: 28px;
@@ -745,6 +744,21 @@ h1 h2 p label {
   left: -5px;
   font-size: 20px;
   
+}
+.account_profile .file-uploadIN {
+  opacity:  0% !important;
+  position: relative;
+  left: -15px;
+  font-size: 20px;
+  padding: 20px;
+  
+}
+.upload-iconIN{
+  position: relative;
+  object-fit: cover;
+  left: 20px !important;
+  font-size: 8px;
+  color: #081424;
 }
 
 .upload-icon{
@@ -1820,5 +1834,49 @@ font-weight: bold;
 }
 .add_btn{
   
-  margin-top:28px !important;
+  margin-top:30px !important;
   }
+  /* tags input*/
+
+  
+.tags-input-container{
+  border: 1px solid rgb(152, 152, 152);
+  padding: .3em;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5em;
+}
+
+.tag-item{
+  background-color: rgb(218, 216, 216);
+  display: inline-block;
+  padding: .2em .45em;
+  border-radius: 10px;
+}
+.tag-text{
+  font-size: 14px;
+}
+.tag-item .close{
+  height: 15px;
+  width: 15px;
+  background-color: rgb(48, 48, 48);
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: .4em;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.tags-input{
+  flex-grow: 1;
+  padding: .2em 0;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}

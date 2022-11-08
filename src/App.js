@@ -45,6 +45,8 @@ import ProductBySubCate from "./buyerComponent/AllProducts/ProductBySub";
 import ProductByBrand from "./buyerComponent/AllProducts/ProductByBrand";
 import TermsCondition from "./buyerComponent/Homepage/Terms&Condition";
 import AboutUs from "./buyerComponent/Homepage/AboutUs";
+import EditInventory from "./AdminComponent/AdminDashboard/Inventory/EditInventory";
+import SingleProduct from "./buyerComponent/AllProducts/SingleProduct";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -81,6 +83,7 @@ function App() {
           <Route path="/CategoryProducts" element={<ProductByCate CateName={cateName} />} />
           <Route path="/SubCategory/Products" element={<ProductBySubCate/>} />
           <Route path="/Brands/Products" element={<ProductByBrand/>} />
+          <Route path="/AllProducts/Product" element={<SingleProduct/>} />
           <Route path="/AllBrands" element={<AllBrands />} />
 
           {/* admin Routes */}
@@ -99,6 +102,7 @@ function App() {
           <Route path="/UserManage/AddUser" element={<AddUser />} />
           <Route path="/CategorySub" element={<CategorySub />} />
           <Route path="/Inventory" element={<Inventory />} />
+          <Route path="/Inventory/View-Edit" element={<EditInventory />} />
           <Route path="/BrandsManage" element={<BrandsManage />} />
           <Route path="/Cms" element={<Cms />} />
           <Route path="/OrderRequest" element={<OrderReq />} />

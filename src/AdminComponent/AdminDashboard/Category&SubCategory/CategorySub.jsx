@@ -14,7 +14,6 @@ const CategorySub = () => {
   const SubCategoryApi ="http://localhost:7000/api/admin/subCategory/getSubCategories";
   const editCategory = "http://localhost:7000/api/admin/category/editCategory";
   const editSubCategory = "http://localhost:7000/api/admin/subCategory/editSubCategory";
-
   const [sideBar, setSideBar] = useState(true);
   const [change,setChange] = useState(false)
   const [allCategories, setAllCategories] = useState([]);
@@ -30,6 +29,7 @@ const CategorySub = () => {
   const [category, setCategory] = useState("");
   const [categoryIndex ,setCategoryIndex] = useState()
   const [subCategoryIndex ,setSubCategoryIndex] = useState()
+  console.log(categoryIndex);
 
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
@@ -64,16 +64,17 @@ const CategorySub = () => {
       console.log(res);
       if (res?.data.message === "Sub Category added") {
         setChange(!change)
-
+        
       }
     });
   };
+  const getCategories = async () => {
+    await axios.get(categoryApi).then((res) => {
+      setAllCategories(res?.data.results);
+    });
+  };
   useEffect(() => {
-    const getCategories = async () => {
-      await axios.get(categoryApi).then((res) => {
-        setAllCategories(res?.data.results);
-      });
-    };
+    
     const getSubCategories = async () => {
       await axios.get(SubCategoryApi).then((res) => {
         console.log(res);
@@ -100,7 +101,8 @@ const CategorySub = () => {
     await axios.post(editCategory + "/" + categoryId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "Modified Successfully") {
-        window.location.reload();
+        getCategories();
+        window.location.reload()
       }
     });
   };
@@ -669,7 +671,7 @@ const CategorySub = () => {
                       <div className="circle">
                         <img
                           className="profile-pic"
-                          width={250}
+                          width={150}
                           src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSubCategories[subCategoryIndex]?.subCategoryImage}`}
                         />
                       </div>

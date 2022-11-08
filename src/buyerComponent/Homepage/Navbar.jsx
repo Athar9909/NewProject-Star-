@@ -149,7 +149,7 @@ const Navbar = () => {
                 </Link>
               </li>
               {(category || [])?.map((item, index) => (
-                <li key={index}
+                <li key={index+1}
                 >
                   <Link
                   to={{

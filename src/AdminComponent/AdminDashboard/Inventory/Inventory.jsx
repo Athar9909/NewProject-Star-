@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, KeyboardEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/adminMain.css";
 import { useForm } from "react-hook-form";
@@ -8,33 +8,52 @@ import { useEffect } from "react";
 
 const Inventory = () => {
   const [files, setFiles] = useState([]);
+  const [barcodes, setBarcodes] = useState([]);
   const [values, setValues] = useState({ from: "", to: "" });
   const [searchTerm, setSearchTerm] = useState("");
   const [allProducts, setAllProducts] = useState([]);
-  const [type, setType] = useState("");
-  const [flavour, setFlavour] = useState("");
-  const [flavourImage, setFlavourImage] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [change, setChange] = useState();
+  const [Index, setIndex] = useState(0);
   const [formValues, setFormValues] = useState([
-    { type: "", flavour: "", flavourImg: "" },
-   
+    { type: [], flavour: [], flavourImg: ["ok"], Barcode: [] },
   ]);
-
-  const [dataType,setDataType] = useState([ { type: "", flavour: "", flavourImg: "" }])
   const addProduct = "http://localhost:7000/api/admin/inventory/addProduct";
   const getProducts = "http://localhost:7000/api/admin/inventory/allProducts";
- console.log(formValues);
+  const categoryApi = "http://localhost:7000/api/admin/category/getCategories";
+  const SubCategoryApi =
+    "http://localhost:7000/api/admin/subCategory/getSubCategories";
+  const brandsApi = "http://localhost:7000/api/admin/brands/getBrands";
+
+  console.log(formValues);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
     trigger,
+    reset,
   } = useForm();
 
- 
   useEffect(() => {
+    const getBrands = async () => {
+      await axios.get(categoryApi).then((res) => {
+        setCategories(res?.data.results);
+      });
+      await axios.get(SubCategoryApi).then((res) => {
+        setSubCategories(res?.data.results);
+      });
+      await axios.get(brandsApi).then((res) => {
+        setBrands(res?.data.results);
+      });
+    };
+
+    getBrands();
     GetProducts();
-  }, []);
+  }, [change]);
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
 
@@ -48,46 +67,57 @@ const Inventory = () => {
     let newFormValues = [...formValues];
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
- }
- let handleChangeImg = (i, e) => {
-  let newFormValues = [...formValues];
-  newFormValues[i][e.target.id] = e.target.files;
-  setFormValues(newFormValues);
-}   
- 
-  const addFormFields = () => {
-    setFormValues([...formValues,{ type: "", flavour: "", flavourImg: "" }])
-    
-  }
-  const removeFormFields = (index) => {
-    console.log(index-1);
+  };
+  let handleChangeImg = (i, e) => {
     let newFormValues = [...formValues];
-    newFormValues?.splice(index,1);
-    setFormValues(newFormValues)
-}
-  const onFileSelection = (e, i) => {
-    let newFile = {...files}
-    newFile[i][e.target.name] = e.target.files[0];
-      setFiles(newFile)
+    newFormValues[i][e.target.id] = e.target.files;
+    setFormValues(newFormValues);
   };
 
-  const onSubmit = async (data) => {
-    console.log(data, files);
-    const formData = new FormData();
-    formData.append("productImage", files?.productImage);
-    formData.append("flavourImage", files?.flavourImg);
-    formData.append("unitName", data?.productName);
-    formData.append("category", data?.category);
-    formData.append("quantity", data?.quantity);
-    formData.append("subCategory", data?.subCategory);
-    formData.append("brand", data?.brands);
-    formData.append("productType", data?.type);
-    formData.append("flavour", data?.flavour);
-    formData.append("description", "temp");
+  const addFormFields = (e) => {
+    setIndex(Index + 1);
+    setFormValues([
+      ...formValues,
+      { type: [], flavour: [], flavourImg: [], Barcode: [] },
+    ]);
+  };
+  const removeFormFields = (index) => {
+    console.log(index - 1);
+    let newFormValues = [...formValues];
+    newFormValues?.splice(index, 1);
+    setFormValues(newFormValues);
+  };
 
-    await axios.post(addProduct, formData).then((res) => {
-      console.log(res);
-    });
+  const onFileSelection = (e, key) => {
+    console.log(e);
+    setFiles({ ...files, [key]: e.target.files[0] });
+  };
+
+  let type = formValues?.map((a) => a.type);
+  let flavour = formValues?.map((a) => a.flavour);
+  let flavourImage = formValues?.map((a) => a.flavourImg);
+  let barcode = formValues?.map((a) => a.Barcode);
+  const onSubmit = async (data) => {
+    let chnge = null;
+    console.log(data);
+
+    await axios
+      .post(addProduct, {
+        unitName: data?.productName,
+        category: data?.category,
+        quantity: data?.quantity,
+        subCategory: data?.subCategory,
+        brand: data?.brands,
+        type:formValues[0],
+        // barcode: barcode,
+        // productType: type,
+        // flavour: flavour,
+        // flavourImage:"ok",
+        description: "hiidifdi",
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
   const onSearch = async (e) => {
     e.preventDefault();
@@ -108,6 +138,28 @@ const Inventory = () => {
       [e.target.name]: value,
     });
   };
+
+  function handleKeyDown(i, e) {
+    // If user did not press enter key, return
+    if (e.key !== "Enter") return;
+    // Get the value of the input
+    const value = e.target.value;
+    // If the value is empty, return
+    if (!value.trim()) return;
+    // Add the value to the tags array
+    setBarcodes([...barcodes, value.replace(/(\r\n|\n|\r)/gm, "")]);
+    let newFormValues = { ...formValues };
+    newFormValues[i][e.target.name] = [
+      ...(formValues[i]?.Barcode || []),
+      value.replace(/(\r\n|\n|\r)/gm, ""),
+    ];
+    e.target.value = "";
+  }
+
+  function removeTag(index) {
+    setBarcodes(barcodes.filter((el, i) => i !== index));
+  }
+
   const handleClick = () => {
     localStorage.removeItem("AdminData");
     localStorage.removeItem("AdminLogToken");
@@ -327,11 +379,15 @@ const Inventory = () => {
                         })}
                       >
                         <option selected="">Select Category</option>
-                        <option value="vaoe">Vape</option>
-                        <option value="smoke">Smoke</option>
-                        <option value="mnew">Kratom</option>
+
+                        {categories?.map((item, index) => (
+                          <option value={item?._id} key={index}>
+                            {item?.categoryName}
+                          </option>
+                        ))}
                       </select>
                     </div>
+
                     <div className="form-group col-4">
                       <label htmlFor="">Sub Category</label>
                       <select
@@ -343,9 +399,11 @@ const Inventory = () => {
                         })}
                       >
                         <option selected="">Select Sub Category</option>
-                        <option value="blue">Blue Kratom</option>
-                        <option value="royal">Royal Relex</option>
-                        <option value="mit">MIT-45 Kratom</option>
+                        {(subCategories || [])?.map((item, index) => (
+                          <option value={item?._id} key={index}>
+                            {item?.subCategoryName}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="form-group col-4">
@@ -370,9 +428,11 @@ const Inventory = () => {
                         })}
                       >
                         <option selected="">Select Brands</option>
-                        <option value="Horxon">Horizon</option>
-                        <option value="Hude">Hyde</option>
-                        <option value="mondder">Monster Vape</option>
+                        {(brands || [])?.map((item, index) => (
+                          <option value={item?._id} key={index}>
+                            {item?.brandName}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div className="form-group col-12 mt-2 mb-4">
@@ -388,7 +448,7 @@ const Inventory = () => {
                                     className="form-control"
                                     name="type"
                                     defaultValue={element.type || ""}
-                                    onChange={e => handleChange(index, e)}
+                                    onChange={(e) => handleChange(index, e)}
                                   />
                                 </div>
                                 <div className="form-group mb-0 col-2">
@@ -398,21 +458,38 @@ const Inventory = () => {
                                     className="form-control"
                                     name="flavour"
                                     defaultValue={element.flavour || ""}
-                                    onChange={e => handleChange(index, e)}
-
+                                    onChange={(e) => handleChange(index, e)}
                                   />
-                                </div> <div className="form-group mb-0 col-2">
+                                </div>{" "}
+                                <div className="form-group mb-0 col-3">
                                   <label htmlFor="">Barcode</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    name="Barcode"
-                                    defaultValue={element.Barcode || ""}
-                                    onChange={e => handleChange(index, e)}
+                                  <div className="tags-input-container">
+                                    {(formValues[index]?.Barcode || [])?.map(
+                                      (tag, ind) => (
+                                        <div className="tag-item" key={ind}>
+                                          <span className="tag-text">
+                                            {tag}
+                                          </span>
+                                          <span
+                                            className="close"
+                                            onClick={() => removeTag(ind)}
+                                          >
+                                            &times;
+                                          </span>
+                                        </div>
+                                      )
+                                    )}
 
-                                  />
+                                    <textarea
+                                      type="text"
+                                      className="tags-input mb-0"
+                                      placeholder="Enter Barcodes"
+                                      name="Barcode"
+                                      onKeyDown={(e) => handleKeyDown(index, e)}
+                                    />
+                                  </div>
                                 </div>
-                                <div className="form-group mb-0 col-4 mt-1 choose_fileInvent position-relative">
+                                <div className="form-group mb-0 col-3 mt-1 choose_fileInvent position-relative">
                                   <span>Flavour Image </span>{" "}
                                   <label
                                     htmlFor="upload_video"
@@ -424,27 +501,36 @@ const Inventory = () => {
                                   <input
                                     type="file"
                                     className="form-control"
-                                    
                                     id="flavourImg"
                                     defaultValue={element.flavourImg || ""}
-                                    onChange={e => handleChangeImg(index, e)}
-                                    
-                                   
+                                    onChange={(e) => handleChangeImg(index, e)}
                                   />
                                 </div>
                                 {index ? (
                                   <div className="form-group col-2  add_btn">
-                                    <button className="comman_btn " type="button" onClick={() => removeFormFields(index)}>Remove</button>
+                                    <button
+                                      className="comman_btn "
+                                      type="button"
+                                      onClick={() => removeFormFields(index)}
+                                    >
+                                      Remove
+                                    </button>
                                   </div>
-                                ) : <div className="form-group mb-0 col-2 add_btn">
-                                <button className="comman_btn mb-4" type="button" onClick={() => addFormFields()}>
-                                  <i className="fa fa-plus mt-1 mx-1" /> Add More
-                                </button>
-                              </div>}
+                                ) : (
+                                  <div className="form-group mb-0 col-2 add_btn">
+                                    <button
+                                      className="comman_btn mb-4"
+                                      type="button"
+                                      onClick={() => addFormFields(index)}
+                                    >
+                                      <i className="fa fa-plus mt-1 mx-1" /> Add
+                                      More
+                                    </button>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           ))}
-                          
                         </div>
                       </form>
                     </div>
@@ -551,11 +637,11 @@ const Inventory = () => {
                                   <td>
                                     <Link
                                       className="comman_btn2  text-decoration-none"
-                                      to="/Inventory/View"
-                                      id={index}
-                                      onClick={() => {
-                                        onView(index);
+                                      to={{
+                                        pathname: "/Inventory/View-Edit",
                                       }}
+                                      state={{ index }}
+                                      id={index}
                                     >
                                       View
                                     </Link>

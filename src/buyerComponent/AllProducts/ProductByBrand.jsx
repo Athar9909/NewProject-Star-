@@ -320,13 +320,18 @@ const ProductByBrand = () => {
                 <div className="product_single_right row p-4">
                     {(products[0]?.products || [])?.map((item,index)=>(
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
-
+                 <Link className="text-decoration-none" to={{
+                        pathname: "/AllProducts/Product",
+                        search: "",
+                        hash: "",
+                      }}
+                      state={{id:item?._id}}>
                     <div className="product_parts_box"  >
                       <div className="partsproduct_img" >
                         <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.productImage}`} alt="Product" />
                       </div>
                       <div className="product_content mt-3 text-center">
-                        <Link to="" className="text-decoration-none">{item?.unitName}</Link>
+                        <Link  className="text-decoration-none">{item?.unitName}</Link>
                         <Link className="fav_btn"/>
                         <div className="rating_box mt-2 mb-1">
                           <Link href="javasript:;">
@@ -347,6 +352,7 @@ const ProductByBrand = () => {
                         </div>
                       </div>
                     </div>
+                    </Link>
                   </div>
 
                     ))}

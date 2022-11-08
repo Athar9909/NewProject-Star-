@@ -40,6 +40,7 @@ const PendingView = () => {
   const approveUser = async () => {
     const res = await axios.post(approveUrl + "/" + objectId, {
       isVerified: true,
+      type:"APPROVED"
     });
     console.log(res, "hii");
     if (res?.data.message === "User approved Successfully") {
