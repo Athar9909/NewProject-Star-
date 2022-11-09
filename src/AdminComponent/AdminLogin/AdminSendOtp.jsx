@@ -64,9 +64,9 @@ useEffect(()=>{
   return (
     <div>
       <section className="login_page">
-        <div className="container-fluid px-0">
+        <div className="container-fluid mx-0">
           <div className="row justify-content-start">
-            <div className="col-4">
+            <div className="col-4 p-0">
               <div className="login_page_form shadow">
                 <div className="row">
                   <div className="col-12 formheader mb-4">
@@ -78,8 +78,8 @@ useEffect(()=>{
                         alt="Brand"
                       ></img>
                     </div>
-                    <h1 className="fw-bold fs-4  LoginHead">Verification</h1>
-                    <p className="fw-bold fs-6 ">Please enter the OTP received on your Email.</p>
+                    <h1 className="fw-bold fs-3 mx-3  LoginHead">Verification</h1>
+                    <p className="fw-bold fs-6 mx-3">Please enter the OTP received on your Email.</p>
                   </div>
                   <div className="col-12">
                   <form

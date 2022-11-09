@@ -45,9 +45,9 @@ const AdminResetPassword = () => {
   return (
     <div>
       <section className="login_page">
-        <div className="container-fluid px-0">
+        <div className="container-fluid mx-0">
           <div className="row justify-content-start">
-            <div className="col-4">
+            <div className="col-4 p-0">
               <div className="login_page_form shadow">
                 <div className="row">
                   <div className="col-12 formheader mb-4">
@@ -93,7 +93,7 @@ const AdminResetPassword = () => {
                         )}
                         <label
                           htmlFor="floatingPassword"
-                          className="mx-2 fw-bolder"
+                          className=" fs-6 fw-bolder"
                         >
                           New Password
                         </label>
@@ -122,7 +122,7 @@ const AdminResetPassword = () => {
                         )}
                         <label
                           htmlFor="floatingPassword"
-                          className="mx-2 fw-bolder"
+                          className="fs-6 fw-bolder"
                         >
                           Confirm New Password
                         </label>

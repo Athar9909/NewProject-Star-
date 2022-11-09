@@ -7,7 +7,8 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Inventory = () => {
-  const [files, setFiles] = useState([]);
+  const [productImage, setProductImage] = useState();
+  const [flavourImages, setFlavourImages] = useState();
   const [barcodes, setBarcodes] = useState([]);
   const [values, setValues] = useState({ from: "", to: "" });
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,6 +26,7 @@ const Inventory = () => {
   const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
   const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
   const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
+  const uploadImage = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/imageUpload`;
 
   console.log(formValues);
 
@@ -52,7 +54,7 @@ const Inventory = () => {
 
     getBrands();
     GetProducts();
-  }, [change]);
+  }, [change,]);
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
 
@@ -67,14 +69,8 @@ const Inventory = () => {
     newFormValues[i][e.target.name] = e.target.value;
     setFormValues(newFormValues);
   };
-  let handleChangeImg = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.id] = e.target.files;
-    setFormValues(newFormValues);
-  };
 
   const addFormFields = (e) => {
-    setIndex(Index + 1);
     setFormValues([
       ...formValues,
       { productType: [], flavour: [], flavourImg: [], barcode: [] },
@@ -87,13 +83,26 @@ const Inventory = () => {
     setFormValues(newFormValues);
   };
 
-  const onFileSelection = (e, key) => {
-    console.log(e);
-    setFiles({ ...files, [key]: e.target.files[0] });
+  const productImageSelection = (e) => {
+    setProductImage(e.target.files);
+    const formData = new FormData();
+    formData.append("productImage", productImage);
+
+    axios.post(uploadImage, formData).then((res) => {
+      console.log(res?.data.results);
+    });
+  };
+  const flavourImageSelection =async (e) => {
+    setFlavourImages(e.target.files);
+    const formData = new FormData();
+    formData.append("flavourImage", flavourImages);
+
+   await axios.post(uploadImage, formData).then((res) => {
+      console.log(res?.data.results);
+    });
   };
 
   const onSubmit = async (data) => {
-    let chnge = null;
     console.log(data);
 
     await axios
@@ -123,9 +132,7 @@ const Inventory = () => {
     setAllProducts(res?.data.results);
     return res.data;
   };
-  const onView = (index) => {
-    localStorage.setItem("objectIdProduct", allProducts[index]?._id);
-  };
+
   const handleDate = (e) => {
     const value = e.target.value;
     setValues({
@@ -151,9 +158,12 @@ const Inventory = () => {
     e.target.value = "";
   }
 
-  function removeTag(index) {
-    setFormValues(barcodes.filter((el, i) => i !== index));
-  }
+  const removeTag = (ind, i) => {
+    console.log(ind, i);
+    let newForm = { ...formValues };
+    newForm[i]?.barcode.splice(ind,1)
+    setFormValues(...formValues, newForm)
+  };
 
   const handleClick = () => {
     localStorage.removeItem("AdminData");
@@ -360,7 +370,7 @@ const Inventory = () => {
                         className="form-control "
                         defaultValue=""
                         name="productImage"
-                        onChange={(e) => onFileSelection(e, "productImage")}
+                        onChange={(e)=> productImageSelection(e)}
                       />
                     </div>
                     <div className="form-group col-4">
@@ -433,7 +443,7 @@ const Inventory = () => {
                     <div className="form-group col-12 mt-2 mb-4">
                       <form className="">
                         <div className="row flavour_box align-items-end mx-0 py-4 px-3">
-                          {formValues.map((element, index) => (
+                          {(formValues || [])?.map((element, index) => (
                             <div className="form-group mb-0 col-12">
                               <div className="row" key={index}>
                                 <div className="form-group col-2">
@@ -467,7 +477,9 @@ const Inventory = () => {
                                           </span>
                                           <span
                                             className="close"
-                                            onClick={() => removeTag(ind)}
+                                            onClick={() =>
+                                              removeTag(ind, index)
+                                            }
                                           >
                                             &times;
                                           </span>
@@ -475,7 +487,7 @@ const Inventory = () => {
                                       )
                                     )}
 
-                                    <textarea
+                                    <input
                                       type="text"
                                       className="tags-input mb-0"
                                       placeholder="Enter Barcodes"
@@ -497,8 +509,9 @@ const Inventory = () => {
                                     type="file"
                                     className="form-control"
                                     id="flavourImg"
+                                    name="flavourImage"
                                     defaultValue={element.flavourImg || ""}
-                                    onChange={(e) => handleChangeImg(index, e)}
+                                    onChange={(e)=> flavourImageSelection(e)}
                                   />
                                 </div>
                                 {index ? (

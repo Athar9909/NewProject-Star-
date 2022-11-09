@@ -230,8 +230,6 @@ a:hover {
   display: block;
 }
 
-
-
 .forms_modal_content .form-group label a {
   font-weight: 600;
 }
@@ -294,7 +292,7 @@ a:hover {
   align-items: center;
   background-repeat: no-repeat;
   background-color: #000;
-   opacity: 100%;
+  opacity: 100%;
 }
 .banner_slides::after {
   position: absolute;
@@ -818,8 +816,7 @@ footer .widget_title {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top: 80px ;
-
+  margin-top: 80px;
 }
 .age_verification::after {
   position: absolute;
@@ -833,7 +830,6 @@ footer .widget_title {
 .age_verification .container {
   z-index: 1;
   position: relative;
-  
 }
 /* .verification_content{
   background-color: rgb(106, 105, 105);
@@ -865,12 +861,12 @@ footer .widget_title {
   font-weight: 500;
   font-size: 15px !important;
 }
-.verification_content .custom_check{
-   position: relative;
-   left: -4px;
-   height: 20px;
-   width: 20px;
-   top: 4px;
+.verification_content .custom_check {
+  position: relative;
+  left: -4px;
+  height: 20px;
+  width: 20px;
+  top: 4px;
 }
 .verification_content {
   border: 2px dashed #f2f2f263;
@@ -947,8 +943,8 @@ footer .widget_title {
   padding: 20px 20px;
   border-bottom: 2px solid #f2f2f2;
 }
-.product_single{
-background-color: #eef3ff;
+.product_single {
+  background-color: #eef3ff;
 }
 .product_single_left {
   border-right: 2px solid #f2f2f2;
@@ -962,8 +958,6 @@ background-color: #eef3ff;
   color: #3d3d3d;
   box-shadow: unset;
 }
-
-
 
 .select_design {
   height: 48px;
@@ -1028,8 +1022,7 @@ background-color: #eef3ff;
 }
 .checkbox_design label::before {
   position: absolute;
-  content: "\f00c";
-  font-family: "Font Awesome 5 Pro";
+  background-color: #3e4093;
   top: 1px;
   left: 4px;
   opacity: 0;
@@ -1570,22 +1563,20 @@ background-color: #eef3ff;
   color: #000;
   font-weight: 500;
   font-size: 14px;
-
 }
-.myaccount_profile{
+.myaccount_profile {
   height: 10rem !important;
 }
 .account_profile .file-uploadsNew {
-  opacity:  1%!important;
+  opacity: 1% !important;
   position: relative;
   width: 135px;
   height: 50px;
   left: 10px;
   top: -150px;
   font-size: 100px;
-  
 }
-.account_profile{
+.account_profile {
   position: relative;
   height: 10rem !important;
 }
@@ -1610,7 +1601,6 @@ background-color: #eef3ff;
   justify-content: center;
   cursor: pointer;
 }
-
 
 .account_detailss h2 {
   font-weight: 700;
@@ -2124,6 +2114,7 @@ background-color: #eef3ff;
 
 .banner_slide {
   height: calc(100vh - 153px);
+  background: linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0));
   background-size: cover;
   background-position: center;
   position: relative;
@@ -2214,7 +2205,7 @@ section {
   padding: 0%;
   width: 45%;
 }
-.banner-titles{
+.banner-titles {
   position: relative;
   text-align: center;
   top: 250px;
@@ -2223,8 +2214,7 @@ section {
   width: 45%;
 }
 
-.bannerTitle2{
-  
+.bannerTitle2 {
   top: 250px;
   left: 600px !important;
   padding: 0%;
@@ -2240,7 +2230,7 @@ section {
   top: -70px;
   font-family: "Popins" sans-serif;
 }
-.bannerTxt{
+.bannerTxt {
   color: #fff;
   position: relative;
   z-index: 1;
@@ -2249,7 +2239,7 @@ section {
   top: -70px;
   font-family: "Popins" sans-serif;
 }
-.comman_btn22{
+.comman_btn22 {
   background-color: #eb3237;
   position: relative;
   top: -60px;
@@ -2266,7 +2256,6 @@ section {
   background-color: #eb3237;
   border-radius: 50px !important;
   padding-left: 0;
-
 }
 
 .comman_btn2 {
@@ -2364,17 +2353,16 @@ section {
   background-attachment: fixed;
   position: relative;
   background-position: center;
-
 }
-.modalHeadBg{
-  background : url("../img/verification_bg.jpg" );
+.modalHeadBg {
+  background: url("../img/verification_bg.jpg");
   background-size: cover;
-  scroll-behavior:smooth;
+  scroll-behavior: smooth;
   background-attachment: fixed;
   background-position: center;
 }
-.modalContent::after{
-   position: absolute;
+.modalContent::after {
+  position: absolute;
   content: "";
   top: 0;
   left: 0;
@@ -2382,7 +2370,6 @@ section {
   bottom: 0;
   height: 100%;
   width: 100%;
-  
 }
 .modal-header {
   border-bottom: 0 !important;
@@ -2439,16 +2426,15 @@ section {
   color: red;
 }
 /*  */
-.otp_input{
+.otp_input {
   width: 16% !important;
   height: 3rem;
 }
 
-.checkbox{
-color:red;
+.checkbox {
+  color: red;
 }
-.line-break{
-  
+.line-break {
   border-bottom: 2px solid gray;
 }
 .SignUp {
@@ -2457,14 +2443,14 @@ color:red;
 
 /* my account */
 .nav {
-  background-color:#eb3237;
-  color:#fff;
-  font-family: 'Popins' sans-serif;
+  background-color: #eb3237;
+  color: #fff;
+  font-family: "Popins" sans-serif;
 }
-.nav-active{
+.nav-active {
   background-color: #234476;
 }
- .nav-link i {
+.nav-link i {
   font-size: 20px;
   width: 30px;
 }
@@ -2497,10 +2483,10 @@ color:red;
   display: flex;
   align-items: center;
 }
-.arrow{
-    position: relative;
-    top:2px;
-    font-size: 20px;
+.arrow {
+  position: relative;
+  top: 2px;
+  font-size: 20px;
 }
 
 /*  */

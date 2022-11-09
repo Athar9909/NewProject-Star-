@@ -739,21 +739,19 @@ h1 h2 p label {
   font-family: "Poppins", sans-serif;
 }
 .account_profile .file-uploads {
-  opacity:  0%!important;
+  opacity: 0% !important;
   position: relative;
   left: -5px;
   font-size: 20px;
-  
 }
 .account_profile .file-uploadIN {
-  opacity:  0% !important;
+  opacity: 0% !important;
   position: relative;
   left: -15px;
   font-size: 20px;
   padding: 20px;
-  
 }
-.upload-iconIN{
+.upload-iconIN {
   position: relative;
   object-fit: cover;
   left: 20px !important;
@@ -761,21 +759,21 @@ h1 h2 p label {
   color: #081424;
 }
 
-.upload-icon{
+.upload-icon {
   position: relative;
   object-fit: cover;
   left: 1px !important;
   font-size: 10px;
   color: #081424;
 }
-.uploadFile{
+.uploadFile {
   position: relative;
   object-fit: cover;
   left: 3px !important;
   font-size: 10px;
   color: #081424;
 }
-.Admin-upload{
+.Admin-upload {
   opacity: 0 !important;
   position: relative;
   left: -10px;
@@ -1446,7 +1444,7 @@ div#google_translate_element {
 }
 .choose_fileInvent label {
   position: absolute;
-  background-color:#eb3237;
+  background-color: #eb3237;
   height: 50px;
   color: #fff;
   display: flex !important;
@@ -1461,7 +1459,7 @@ div#google_translate_element {
 .choose_fileAdmin label {
   position: absolute;
   top: 29px;
-  background-color:#3e4093;
+  background-color: #3e4093;
   height: 50px;
   color: #fff;
   display: flex !important;
@@ -1473,10 +1471,10 @@ div#google_translate_element {
   font-size: 13px !important;
   cursor: pointer;
 }
-.choose_file .inputText{
+.choose_file .inputText {
   position: absolute;
   top: 28px;
-  background-color:#3e4093;
+  background-color: #3e4093;
   height: 52px;
   color: #fff;
   display: flex !important;
@@ -1750,16 +1748,14 @@ div#google_translate_element {
 .filter_check input:checked ~ label::before {
   opacity: 1;
 }
-.main_myaccount{
-  background-color:#eef3ff;
+.main_myaccount {
+  background-color: #eef3ff;
 }
 /* admin Login */
 
-.LoginHead{
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.LoginHead {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   letter-spacing: 0;
-  
-
 }
 .login_page {
   background-image: url(../../assets/img/banner_img3.jpg);
@@ -1767,17 +1763,17 @@ div#google_translate_element {
   background-size: cover;
   background-position: right;
   position: relative;
-} 
+}
 .login_page::after {
   position: absolute;
-  content: '';
+  content: "";
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background-color: #000;
   opacity: 0.6;
-} 
+}
 .login_page_form {
   height: 100vh;
   position: relative;
@@ -1802,15 +1798,15 @@ div#google_translate_element {
   margin: 0;
 }
 .form-design .form-control {
-border-radius: 10px;
-height: 50px;
-font-size: 14px;
-padding: 11px 18px;
-box-shadow: unset;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 14px;
+  padding: 11px 18px;
+  box-shadow: unset;
 }
 
 .form-design .form-control:focus {
-border: 1px solid #3e4093;
+  border: 1px solid #3e4093;
 }
 .form-design .form-group label {
   display: block;
@@ -1820,46 +1816,44 @@ border: 1px solid #3e4093;
   text-align: left;
 }
 .form-design .form-group {
-margin-bottom: 22px;
+  margin-bottom: 22px;
 }
 .forgot_password {
-color: #3e4093;
-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-font-size: 18px;
-font-weight: bold;
+  color: #3e4093;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: bold;
 }
 /*  */
-.textArea{
-  height : 15rem !important;
+.textArea {
+  height: 15rem !important;
 }
-.add_btn{
-  
-  margin-top:30px !important;
-  }
-  /* tags input*/
+.add_btn {
+  margin-top: 30px !important;
+}
+/* tags input*/
 
-  
-.tags-input-container{
+.tags-input-container {
   border: 1px solid rgb(152, 152, 152);
-  padding: .3em;
+  padding: 0.3em;
   border-radius: 12px;
   width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: .5em;
+  gap: 0.5em;
 }
 
-.tag-item{
+.tag-item {
   background-color: rgb(218, 216, 216);
   display: inline-block;
-  padding: .2em .45em;
+  padding: 0.2em 0.45em;
   border-radius: 10px;
 }
-.tag-text{
+.tag-text {
   font-size: 14px;
 }
-.tag-item .close{
+.tag-item .close {
   height: 15px;
   width: 15px;
   background-color: rgb(48, 48, 48);
@@ -1868,15 +1862,15 @@ font-weight: bold;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  margin-left: .4em;
+  margin-left: 0.4em;
   font-size: 15px;
   cursor: pointer;
 }
 
-.tags-input{
+.tags-input {
   flex-grow: 1;
-  padding: .2em 0;
+  padding: 0.5em 0;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
 }

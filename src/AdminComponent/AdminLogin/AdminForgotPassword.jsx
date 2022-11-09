@@ -39,9 +39,9 @@ const AdminForgotPassword = (AdminForgotPassword) => {
   return (
     <div>
       <section className="login_page">
-        <div className="container-fluid px-0">
-          <div className="row justify-content-start">
-            <div className="col-4">
+        <div className="container-fluid mx-0">
+          <div className="row justify-content-start ">
+            <div className="col-4 p-0">
               <div className="login_page_form shadow">
                 <div className="row">
                   <div className="col-12 formheader mb-4">
@@ -88,7 +88,7 @@ const AdminForgotPassword = (AdminForgotPassword) => {
                         )}
                         <label
                           htmlFor="floatingUsername"
-                          className="mx-2 fw-bold text-secondary"
+                          className="fs-6 fw-bold text-secondary"
                         >
                           Email Address
                         </label>

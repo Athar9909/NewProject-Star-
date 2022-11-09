@@ -51,15 +51,14 @@ const AdminLogin = () => {
       <section className="login_page">
         <div className="container-fluid mx-0">
           <div className="row justify-content-start">
-            <div className="col-4">
+            <div className="col-4 p-0">
               <div className="login_page_form shadow">
                 <div className="row">
                   <div className="col-12 formheader mb-4">
                     <div className="text-center mb-5">
                       <img
                         src={Starlogo}
-                        width={300}
-                        height="100"
+                        className="logo"
                         alt="Brand"
                       ></img>
                     </div>
