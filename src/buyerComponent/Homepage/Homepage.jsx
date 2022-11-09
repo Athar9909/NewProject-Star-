@@ -181,7 +181,8 @@ const Homepage = ({ GetData }) => {
         >
           {(category || [])?.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="p-3">
+              <div className="p-3 mb-2">
+                <div className="text-center">
                 <Link
                  to={{
                   pathname: "/CategoryProducts",
@@ -194,13 +195,15 @@ const Homepage = ({ GetData }) => {
                 >
                   <img
                     src={item?.categoryImage}
-                    className="mx-2"
+                    className=""
                     alt="lorem"
                   />
-                  <span className="d-flex justify-content-center w-100 mx-2 mt-3">
+                 
+                </Link>
+                </div >
+                <span className="d-flex justify-content-center w-100 mt-2 ">
                     {item?.categoryName}
                   </span>
-                </Link>
               </div>
             </SwiperSlide>
           ))}

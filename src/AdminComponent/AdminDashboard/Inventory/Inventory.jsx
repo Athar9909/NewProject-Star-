@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const Inventory = () => {
   const [productImage, setProductImage] = useState();
-  const [flavourImages, setFlavourImages] = useState();
+  const [flavourImages, setFlavourImages] = useState([]);
   const [barcodes, setBarcodes] = useState([]);
   const [values, setValues] = useState({ from: "", to: "" });
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +19,7 @@ const Inventory = () => {
   const [change, setChange] = useState();
   const [Index, setIndex] = useState(0);
   const [formValues, setFormValues] = useState([
-    { productType: [], flavour: [], flavourImg: [], barcode: [] },
+    { productType: [], flavour: [], flavourImage: [], barcode: [] },
   ]);
   const addProduct = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/addProduct`;
   const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/allProducts`;
@@ -73,7 +73,7 @@ const Inventory = () => {
   const addFormFields = (e) => {
     setFormValues([
       ...formValues,
-      { productType: [], flavour: [], flavourImg: [], barcode: [] },
+      { productType: [], flavour: [], flavourImage: [], barcode: [] },
     ]);
   };
   const removeFormFields = (index) => {
@@ -84,29 +84,33 @@ const Inventory = () => {
   };
 
   const productImageSelection = (e) => {
-    setProductImage(e.target.files);
     const formData = new FormData();
-    formData.append("productImage", productImage);
+    formData.append("productImage", e.target.files[0]);
 
     axios.post(uploadImage, formData).then((res) => {
       console.log(res?.data.results);
+      setProductImage(res?.data.results.productImage)
     });
   };
-  const flavourImageSelection =async (e) => {
-    setFlavourImages(e.target.files);
+  const flavourImageSelection = async(e,index) => {
     const formData = new FormData();
-    formData.append("flavourImage", flavourImages);
+    formData.append("flavourImage", e.target.files[0]);
 
    await axios.post(uploadImage, formData).then((res) => {
-      console.log(res?.data.results);
+    let data = res.data?.results
+    let newFormValues = [...formValues];
+    newFormValues[index][e.target.name] = data?.flavourImage;
+    setFormValues(newFormValues);
+    
     });
   };
-
+console.log(productImage,flavourImages);
   const onSubmit = async (data) => {
     console.log(data);
 
     await axios
       .post(addProduct, {
+        productImage:productImage,
         unitName: data?.productName,
         category: data?.category,
         quantity: data?.quantity,
@@ -121,6 +125,7 @@ const Inventory = () => {
       })
       .then((res) => {
         console.log(res);
+        setChange(!change)
       });
   };
   const onSearch = async (e) => {
@@ -508,10 +513,10 @@ const Inventory = () => {
                                   <input
                                     type="file"
                                     className="form-control"
-                                    id="flavourImg"
+                                    id="flavourImage"
                                     name="flavourImage"
-                                    defaultValue={element.flavourImg || ""}
-                                    onChange={(e)=> flavourImageSelection(e)}
+                                    defaultValue={element.flavourImage || ""}
+                                    onChange={(e)=> flavourImageSelection(e ,index)}
                                   />
                                 </div>
                                 {index ? (
@@ -638,7 +643,7 @@ const Inventory = () => {
                                     <img
                                       width={40}
                                       src={User?.productImage}
-                                      
+
                                     />
                                   </td>
                                   <td>{User?.quantity}</td>

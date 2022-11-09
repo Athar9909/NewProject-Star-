@@ -92,11 +92,11 @@ const Navbar = () => {
               <Link to="#">
                 <i className="fa fa-cart-arrow-down" />
 
-                <span className="count">4</span>
+                <span className="count">0</span>
               </Link>
               <Link to="javascript:;">
                 <i className="far fa-bell" />
-                <span className="count">4</span>
+                <span className="count">0</span>
               </Link>
             </div>
             {UserAuth ? (

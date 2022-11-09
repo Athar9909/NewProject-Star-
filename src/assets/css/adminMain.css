@@ -529,7 +529,6 @@ h1 h2 p label {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
   border: 2px solid #ffffff;
   margin: 0 auto;
 }

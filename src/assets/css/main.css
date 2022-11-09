@@ -1568,12 +1568,12 @@ footer .widget_title {
   height: 10rem !important;
 }
 .account_profile .file-uploadsNew {
-  opacity: 1% !important;
+  opacity: 0% !important;
   position: relative;
-  width: 135px;
-  height: 50px;
+  width: 190px;
+  height: 100px;
   left: 10px;
-  top: -150px;
+  top: -180px;
   font-size: 100px;
 }
 .account_profile {
@@ -1594,6 +1594,19 @@ footer .widget_title {
   right: 0;
   background-color: #ffffff;
   color: #fff;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.account_profile .p-camera {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  background-color: #fff;
+  color: rgb(14, 13, 13);
   width: 30px;
   height: 30px;
   display: flex;
@@ -2490,3 +2503,7 @@ section {
 }
 
 /*  */
+.profile{
+  min-width: 150px;
+  max-height: 180px;
+}

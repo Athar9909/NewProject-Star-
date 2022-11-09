@@ -615,7 +615,7 @@ const Cms = () => {
                                             Slide Image
                                           </label>
                                           <div className="account_profile position-relative d-inline-block">
-                                            <div className="circle">
+                                            <div className="cmsSlide">
                                               <img
                                                 className="SlideCms"
                                                 src={slideData[1]?.banner}
