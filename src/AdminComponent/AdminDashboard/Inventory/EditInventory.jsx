@@ -266,7 +266,7 @@ const EditInventory = () => {
                         <div className="circle d-inline-flex">
                           <img
                             className="profile-pic"
-                            src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allProducts[index]?.productImage}`}
+                            src={`${process.env.REACT_APP_APIENDPOINT}/${allProducts[index]?.productImage}`}
                           />
                         </div>
                         <div className="p-image">
@@ -287,7 +287,7 @@ const EditInventory = () => {
                         <div className="circle d-inline-flex">
                           <img
                             className="profile-pic"
-                            src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allProducts[index]?.flavourImg}`}
+                            src={`${process.env.REACT_APP_APIENDPOINT}/${allProducts[index]?.flavourImg}`}
                           />
                         </div>
                         <div className="p-image">

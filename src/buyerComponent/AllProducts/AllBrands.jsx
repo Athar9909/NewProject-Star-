@@ -70,7 +70,7 @@ const AllBrands = () => {
                       
                       >
                         <img
-                          src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.brandImage}`}
+                          src={`${process.env.REACT_APP_APIENDPOINT}/${item?.brandImage}`}
                           alt=""
                         />
                       </Link>

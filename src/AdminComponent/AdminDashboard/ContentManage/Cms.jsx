@@ -543,7 +543,7 @@ const Cms = () => {
                                             <div className="cmsSlide">
                                               <img
                                                 className="SlideCms"
-                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[0]?.banner}`}
+                                                src={`${process.env.REACT_APP_APIENDPOINT}/${slideData[0]?.banner}`}
                                                 alt=""
                                               />
                                             </div>
@@ -618,7 +618,7 @@ const Cms = () => {
                                             <div className="circle">
                                               <img
                                                 className="SlideCms"
-                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[1]?.banner}`}
+                                                src={`${process.env.REACT_APP_APIENDPOINT}/${slideData[1]?.banner}`}
                                               />
  
                   
@@ -695,7 +695,7 @@ const Cms = () => {
                                             <div className="cmsSlide">
                                               <img
                                                 className="SlideCms"
-                                                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[2]?.banner}`}
+                                                src={`${process.env.REACT_APP_APIENDPOINT}/${slideData[2]?.banner}`}
                                               />
                                             </div>
                                             <div className="p-image">

@@ -255,7 +255,7 @@ const ApprovedView = () => {
                       <div className="col-12 text-center mb-4">
                         <div className="Pending-view_img">
                           <img
-                            src={`${process.env.REACT_APP_APIENDPOINTNEW}/${user?.profileImage}`}
+                            src={`${process.env.REACT_APP_APIENDPOINT}/${user?.profileImage}`}
                             alt="Image not Uploaded"
                           />
                         </div>

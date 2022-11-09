@@ -315,7 +315,7 @@ const ProductBySubCate = () => {
 
                     <div className="product_parts_box"  >
                       <div className="partsproduct_img" >
-                        <img src={`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.productImage}`} alt="Product" />
+                        <img src={`${process.env.REACT_APP_APIENDPOINT}/${item?.productImage}`} alt="Product" />
                       </div>
                       <div className="product_content mt-3 text-center">
                         <Link to="" className="text-decoration-none">{item?.unitName}</Link>
