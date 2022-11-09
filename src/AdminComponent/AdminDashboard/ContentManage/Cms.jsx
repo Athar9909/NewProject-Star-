@@ -540,9 +540,9 @@ const Cms = () => {
                                           </label>
 
                                           <div className="account_profile position-relative d-inline-block">
-                                            <div className="circle">
+                                            <div className="cmsSlide">
                                               <img
-                                                className="profile-pic"
+                                                className="SlideCms"
                                                 src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[0]?.banner}`}
                                                 alt=""
                                               />
@@ -617,7 +617,7 @@ const Cms = () => {
                                           <div className="account_profile position-relative d-inline-block">
                                             <div className="circle">
                                               <img
-                                                className="profile-pic"
+                                                className="SlideCms"
                                                 src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[1]?.banner}`}
                                               />
  
@@ -692,9 +692,9 @@ const Cms = () => {
                                             Slide Image
                                           </label>
                                           <div className="account_profile position-relative d-inline-block">
-                                            <div className="circle">
+                                            <div className="cmsSlide">
                                               <img
-                                                className="profile-pic"
+                                                className="SlideCms"
                                                 src={`${process.env.REACT_APP_APIENDPOINTNEW}/${slideData[2]?.banner}`}
                                               />
                                             </div>

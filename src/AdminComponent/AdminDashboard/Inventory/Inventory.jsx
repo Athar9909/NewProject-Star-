@@ -54,7 +54,7 @@ const Inventory = () => {
 
     getBrands();
     GetProducts();
-  }, [change,]);
+  }, [change,formValues]);
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
 
@@ -162,7 +162,7 @@ const Inventory = () => {
     console.log(ind, i);
     let newForm = { ...formValues };
     newForm[i]?.barcode.splice(ind,1)
-    setFormValues(...formValues, newForm)
+    setChange(!change)
   };
 
   const handleClick = () => {

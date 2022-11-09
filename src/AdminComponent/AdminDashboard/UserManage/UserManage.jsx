@@ -23,7 +23,6 @@ const UserManage = () => {
   const [impFile, setImpFile] = useState([]);
   const [userId, setUserId] = useState();
   const [ux, setUx] = useState("");
-
   const [sideBar, setSideBar] = useState(true);
   const [uploadError, setUploadError] = useState("");
   const [pendingUsers, setPendingUsers] = useState([]);

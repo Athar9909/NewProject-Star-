@@ -55,8 +55,8 @@ const AddUser = () => {
 
     await axios.post(apiUrl, formData).then((res) => {
       console.log(res);
-      if (res?.data.message === "User Deatils Updated Successfully") {
-        navigate("/UserManage/ApprovedView");
+      if (res?.data.message === "Registered Successfully") {
+        navigate("/UserManage");
       }
       if (res?.data.message === "Email is already registered") {
         setEmailErr("Email is already registered")
@@ -265,6 +265,7 @@ const AddUser = () => {
                                 <i className="fa fa-file me-1" />
                                 Choose File
                               </label>
+                              <span></span>
                               <input
                                 className={classNames(
                                   "form-control",
@@ -544,7 +545,8 @@ const AddUser = () => {
 
                             <label htmlFor="file1">
                               <div className="">
-                                <FaFileUpload size={25} />
+                                <FaFileUpload size={26} />
+                                <h1 className=" fs-6 mt-2 text-secondary">{files.federalTaxId?.name}</h1>
                               </div>
                             </label>
                           </div>
@@ -578,6 +580,8 @@ const AddUser = () => {
                             <label htmlFor="file2">
                               <div className="">
                                 <FaFileUpload size={25} />
+                                <h1 className=" fs-6 mt-2 text-secondary">{files.tobaccoLicence?.name}</h1>
+
                               </div>
                             </label>
                           </div>
@@ -608,6 +612,8 @@ const AddUser = () => {
                             <label htmlFor="file3">
                               <div className="">
                                 <FaFileUpload size={25} />
+                                <h1 className=" fs-6 mt-2 text-secondary">{files.salesTaxId?.name}</h1>
+
                               </div>
                             </label>
                           </div>
@@ -642,7 +648,8 @@ const AddUser = () => {
                             <label htmlFor="file4">
                               <div className="">
                                 <FaFileUpload size={25} />
-                                {data.businessLicense}
+                                <h1 className=" fs-6 mt-2 text-secondary">{files.businessLicense?.name}</h1>
+                                
                               </div>
                             </label>
                           </div>
@@ -722,6 +729,8 @@ const AddUser = () => {
                             <label htmlFor="file5">
                               <div className="">
                                 <FaFileUpload size={25} />
+                                <h1 className=" fs-6 mt-2 text-secondary">{files.accountOwnerId?.name}</h1>
+
                               </div>
                             </label>
                           </div>
@@ -753,9 +762,10 @@ const AddUser = () => {
                         {errors.email && (
                           <small className="errorText mx-1 fw-bold">
                             {errors.email?.message}
-                            {emailErr}
                           </small>
                         )}
+                            {emailErr}
+
                       </div>
                       <div className="form-group col-4 mb-4">
                         <label htmlFor="" className="fw-bold fs-6">

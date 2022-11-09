@@ -85,7 +85,7 @@ const Homepage = ({ GetData }) => {
           <div className="carousel-inner">
             <div className="carousel-item active ">
               <img
-                src={`${process.env.REACT_APP_APIENDPOINTNEW}/${allSlides[0]?.banner}`}
+                src={`${process.env.REACT_APP_APIENDPOINT}/${allSlides[0]?.banner}`}
                 className="d-block w-100 banner_slide"
                 alt="..."
               />

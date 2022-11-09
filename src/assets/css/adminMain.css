@@ -517,6 +517,22 @@ h1 h2 p label {
   height: 130px;
   object-fit: cover;
 }
+.account_profile .SlideCms {
+  width: 400px !important;
+  height: 180px !important;
+  object-fit: cover;
+}
+.account_profile .cmsSlide {
+  overflow: hidden;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  margin: 0 auto;
+}
 .account_profile .circle {
   overflow: hidden;
   width: 230px;
@@ -531,6 +547,10 @@ h1 h2 p label {
 .upload-button {
   position: relative;
   left: 0;
+}
+.fileName{
+  position: relative;
+  top: 0
 }
 .account_profile .p-image {
   position: absolute;
