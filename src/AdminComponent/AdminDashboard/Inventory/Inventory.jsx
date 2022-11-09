@@ -637,7 +637,8 @@ const Inventory = () => {
                                   <td>
                                     <img
                                       width={40}
-                                      src={`${process.env.REACT_APP_APIENDPOINT}/${User?.productImage}`}
+                                      src={User?.productImage}
+                                      
                                     />
                                   </td>
                                   <td>{User?.quantity}</td>

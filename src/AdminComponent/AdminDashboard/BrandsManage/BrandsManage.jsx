@@ -360,7 +360,7 @@ const BrandsManage = () => {
                                           <td>{item?.brandName}</td>
                                           <td>
                                             <img width={50}
-                                              src={`${process.env.REACT_APP_APIENDPOINT}/${item?.brandImage}`}
+                                              src={item?.brandImage}
                                             ></img>
                                           </td>
 
@@ -431,7 +431,8 @@ const BrandsManage = () => {
                       <img
                         className="profile-pic"
                         width={250}
-                        src={`${process.env.REACT_APP_APIENDPOINT}/${allBrands[Index]?.brandImage}`}
+                        src={allBrands[Index]?.brandImage}
+                        
                       />
                     </div>
                     <div className="p-image">

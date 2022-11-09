@@ -46,7 +46,7 @@ const Profile = () => {
                   className="profile-pic"
                   width={150}
                   height={150}
-                  src={`${process.env.REACT_APP_APIENDPOINT}/${users?.profileImage}`}
+                  src={users?.profileImage}
                   alt={require("../../assets/img/profile_img1.png")}
                 />
               </div>

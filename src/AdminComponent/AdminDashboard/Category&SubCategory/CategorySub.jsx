@@ -402,10 +402,8 @@ const CategorySub = () => {
                                                 {item?.updatedAt?.slice(0, 10)}
                                               </td>
                                               <td>{item?.categoryName}</td>
-                                              <td><img width={35} src={`${process.env.REACT_APP_APIENDPOINT}/${item?.categoryImage}`}></img></td>
-                                              {
-                                              console.log(`${process.env.REACT_APP_APIENDPOINTNEW}/${item?.categoryImage}`)
-                                              }
+                                              <td><img width={35} src={item?.categoryImage}></img></td>
+                                             
                                               <td>Active</td>
                                               <td>
                                                 <Link
@@ -529,7 +527,7 @@ const CategorySub = () => {
                                                 }
                                               </td>
                                               <td>{item?.subCategoryName}</td>
-                                              <td><img width={40} src={`${process.env.REACT_APP_APIENDPOINT}/${item?.subCategoryImage}`}></img></td>
+                                              <td><img width={40} src={item?.subCategoryImage}></img></td>
 
                                               <td>
                                                 <Link
@@ -601,7 +599,7 @@ const CategorySub = () => {
                         <img
                           className="profile-pic"
                           width={250}
-                          src={`${process.env.REACT_APP_APIENDPOINT}/${allCategories[categoryIndex]?.categoryImage}`}
+                          src={allCategories[categoryIndex]?.categoryImage}
                           
                         />
                       </div>
@@ -672,7 +670,7 @@ const CategorySub = () => {
                         <img
                           className="profile-pic"
                           width={150}
-                          src={`${process.env.REACT_APP_APIENDPOINT}/${allSubCategories[subCategoryIndex]?.subCategoryImage}`}
+                          src={allSubCategories[subCategoryIndex]?.subCategoryImage}
                         />
                       </div>
                       <div className="p-image">

@@ -85,7 +85,7 @@ const Homepage = ({ GetData }) => {
           <div className="carousel-inner">
             <div className="carousel-item active ">
               <img
-                src={`${process.env.REACT_APP_APIENDPOINT}/${allSlides[0]?.banner}`}
+                src={allSlides[0]?.banner}
                 className="d-block w-100 banner_slide"
                 alt="..."
               />
@@ -104,7 +104,7 @@ const Homepage = ({ GetData }) => {
             </div>
             <div className="carousel-item ">
               <img
-                src={`${process.env.REACT_APP_APIENDPOINT}/${allSlides[1]?.banner}`}
+                src={allSlides[1]?.banner}
                 className="d-block w-100 banner_slide"
                 alt="..."
               />
@@ -121,7 +121,7 @@ const Homepage = ({ GetData }) => {
             </div>
             <div className="carousel-item ">
               <img
-                src={`${process.env.REACT_APP_APIENDPOINT}/${allSlides[2]?.banner}`}
+                src={allSlides[2]?.banner}
                 className="d-block w-100 banner_slide"
                 alt="..."
               />
@@ -193,7 +193,7 @@ const Homepage = ({ GetData }) => {
                   
                 >
                   <img
-                    src={`${process.env.REACT_APP_APIENDPOINT}/${item?.categoryImage}`}
+                    src={item?.categoryImage}
                     className="mx-2"
                     alt="lorem"
                   />
@@ -589,7 +589,7 @@ const Homepage = ({ GetData }) => {
 
               <SwiperSlide key={index}>
                 <Link to="/AllBrands" className="brand_box col-sm-12 p-sm-4">
-                  <img src={`${process.env.REACT_APP_APIENDPOINT}/${item?.brandImage}`} alt="" />
+                  <img src={item?.brandImage} alt="" />
                 </Link>
               </SwiperSlide>
           ))} 
