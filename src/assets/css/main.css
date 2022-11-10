@@ -1565,7 +1565,12 @@ footer .widget_title {
   font-size: 14px;
 }
 .myaccount_profile {
-  height: 10rem !important;
+  height: 12rem !important;
+}
+
+.radioBtn{
+  position: relative;
+  width: 20px;
 }
 .account_profile .file-uploadsNew {
   opacity: 0% !important;
@@ -1578,7 +1583,7 @@ footer .widget_title {
 }
 .account_profile {
   position: relative;
-  height: 10rem !important;
+  height:8rem !important;
 }
 .account_profile .circle {
   overflow: hidden;
@@ -2126,7 +2131,7 @@ footer .widget_title {
 }
 
 .banner_slide {
-  height: calc(100vh - 153px);
+  height: 100vh;
   background: linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0));
   background-size: cover;
   background-position: center;

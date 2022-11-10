@@ -3,17 +3,18 @@ import { useState } from "react";
 
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../../assets/css/adminMain.css";
+import { FaFileUpload } from "react-icons/fa";
 
 import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
 import { FaFileDownload } from "react-icons/fa";
-import fileDownload from 'js-file-download'
+import fileDownload from "js-file-download";
 const ApprovedView = () => {
   const [msg, setMsg] = useState("");
-  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
-  const generatePass =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/generatePassword`
+  const apiUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`;
+  const generatePass = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/generatePassword`;
   const [sideBar, setSideBar] = useState(true);
   const [user, setUser] = useState([]);
   const [editText, setEditText] = useState("Edit");
@@ -43,15 +44,15 @@ const ApprovedView = () => {
       }
     });
   };
- 
+
   const handleClick = () => {
     localStorage.removeItem("AdminData");
     localStorage.removeItem("AdminLogToken");
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div className={sideBar? "admin_main" : "expanded_main"}>
-    <div className={sideBar? "siderbar_section": "d-none"}>
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -172,7 +173,7 @@ const ApprovedView = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-          <div className="col">
+            <div className="col">
               {sideBar ? (
                 <div>
                   <h1
@@ -181,7 +182,9 @@ const ApprovedView = () => {
                       console.log("yello");
                       setSideBar(!sideBar);
                     }}
-                  ><i className="fa fa-bars"></i></h1>
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
                 </div>
               ) : (
                 <div>
@@ -189,7 +192,7 @@ const ApprovedView = () => {
                     <button
                       onClick={(e) => {
                         console.log(e);
-                        setSideBar(!sideBar)
+                        setSideBar(!sideBar);
                       }}
                     >
                       X
@@ -322,7 +325,13 @@ const ApprovedView = () => {
                         </div>
                       </div>
                       <div className="col-md-3 mb-4 d-flex align-items-stretch">
-                        <div className={user.federalTaxId ?"row view-inner-box border  mx-0 w-100" :"row view-inner-box border border-danger text-danger mx-0 w-100"}>
+                        <div
+                          className={
+                            user.federalTaxId
+                              ? "row view-inner-box border  mx-0 w-100"
+                              : "row view-inner-box border border-danger text-danger mx-0 w-100"
+                          }
+                        >
                           <span className="fw-bold">Federal Tax ID:</span>
                           <div className="col img_box_show ">
                             <input
@@ -334,9 +343,24 @@ const ApprovedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.federalTaxId,"federalTaxId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.federalTaxId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(user?.federalTaxId);
+                                  }}
+                                >
+                                  {user.federalTaxId ? (
+                                    <FaFileDownload size={25} color="black" />
+                                  ) : (
+                                    <FaFileUpload size={25} color="red" />
+                                  )}
+                                  <p
+                                    className="mt-2"
+                                    style={{ fontSize: "9px" }}
+                                  >
+                                    {user?.federalTaxId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -344,7 +368,13 @@ const ApprovedView = () => {
                         </div>
                       </div>
                       <div className="col-md-3 mb-4 d-flex align-items-stretch">
-                        <div className={user.tobaccoLicence ?"row view-inner-box border  mx-0 w-100" :"row view-inner-box border border-danger text-danger mx-0 w-100"}>
+                        <div
+                          className={
+                            user.tobaccoLicence
+                              ? "row view-inner-box border  mx-0 w-100"
+                              : "row view-inner-box border border-danger text-danger mx-0 w-100"
+                          }
+                        >
                           <span className="fw-bold">Tobacco License:</span>
                           <div className="col img_box_show">
                             <input
@@ -356,9 +386,27 @@ const ApprovedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.tobaccoLicence,"tobaccoLicence.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.tobaccoLicence}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.tobaccoLicence,
+                                      "tobaccoLicence.jpg"
+                                    );
+                                  }}
+                                >
+                                  {user.tobaccoLicence ? (
+                                    <FaFileDownload size={25} color="black" />
+                                  ) : (
+                                    <FaFileUpload size={25} color="red" />
+                                  )}
+                                  <p
+                                    className="mt-2"
+                                    style={{ fontSize: "9px" }}
+                                  >
+                                    {user?.tobaccoLicence}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -366,7 +414,13 @@ const ApprovedView = () => {
                         </div>
                       </div>
                       <div className="col-md-3 mb-4 d-flex align-items-stretch">
-                        <div className={user.salesTaxId ?"row view-inner-box border  mx-0 w-100" :"row view-inner-box border border-danger text-danger mx-0 w-100"}>
+                        <div
+                          className={
+                            user.salesTaxId
+                              ? "row view-inner-box border  mx-0 w-100"
+                              : "row view-inner-box border border-danger text-danger mx-0 w-100"
+                          }
+                        >
                           <span className="fw-bold">Sales Tax ID:</span>
                           <div className="col img_box_show">
                             <input
@@ -378,9 +432,27 @@ const ApprovedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.salesTaxId,"salesTaxId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.salesTaxId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.salesTaxId,
+                                      "salesTaxId.jpg"
+                                    );
+                                  }}
+                                >
+                                  {user.salesTaxId ? (
+                                    <FaFileDownload size={25} color="black" />
+                                  ) : (
+                                    <FaFileUpload size={25} color="red" />
+                                  )}
+                                  <p
+                                    className="mt-2"
+                                    style={{ fontSize: "9px" }}
+                                  >
+                                    {user?.salesTaxId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -388,7 +460,13 @@ const ApprovedView = () => {
                         </div>
                       </div>
                       <div className="col-md-3 mb-4 d-flex align-items-stretch">
-                        <div className={user.businessLicense ?"row view-inner-box border  mx-0 w-100" :"row view-inner-box border border-danger text-danger mx-0 w-100"}>
+                        <div
+                          className={
+                            user.businessLicense
+                              ? "row view-inner-box border  mx-0 w-100"
+                              : "row view-inner-box border border-danger text-danger mx-0 w-100"
+                          }
+                        >
                           <span className="fw-bold">Business License:</span>
                           <div className="col img_box_show">
                             <input
@@ -400,9 +478,27 @@ const ApprovedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.businessLicense,"businessLicense.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.businessLicense}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.businessLicense,
+                                      "businessLicense.jpg"
+                                    );
+                                  }}
+                                >
+                                  {user.businessLicense ? (
+                                    <FaFileDownload size={25} color="black" />
+                                  ) : (
+                                    <FaFileUpload size={25} color="red" />
+                                  )}
+                                  <p
+                                    className="mt-2"
+                                    style={{ fontSize: "9px" }}
+                                  >
+                                    {user?.businessLicense}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -426,7 +522,13 @@ const ApprovedView = () => {
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 d-flex align-items-stretch">
-                        <div className={user.accountOwnerId ?"row view-inner-box border  mx-0 w-100" :"row view-inner-box border border-danger text-danger mx-0 w-100"}>
+                        <div
+                          className={
+                            user.accountOwnerId
+                              ? "row view-inner-box border  mx-0 w-100"
+                              : "row view-inner-box border border-danger text-danger mx-0 w-100"
+                          }
+                        >
                           <span className="fw-bold">Account Owner ID:</span>
                           <div className="col img_box_show">
                             <input
@@ -438,9 +540,27 @@ const ApprovedView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                                <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.accountOwnerId,"accountOwnerId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.accountOwnerId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.accountOwnerId,
+                                      "accountOwnerId.jpg"
+                                    );
+                                  }}
+                                >
+                                 {user.accountOwnerId ? (
+                                    <FaFileDownload size={25} color="black" />
+                                  ) : (
+                                    <FaFileUpload size={25} color="red" />
+                                  )}
+                                  <p
+                                    className="mt-2"
+                                    style={{ fontSize: "9px" }}
+                                  >
+                                    {user?.accountOwnerId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -486,6 +606,7 @@ const ApprovedView = () => {
                                 id="vii"
                                 checked={user?.quotation}
                                 name="quotation"
+                                disabled
                               />
                               <label htmlFor="vii">Yes </label>
                             </div>
@@ -497,6 +618,7 @@ const ApprovedView = () => {
                                 type="radio"
                                 id="sh"
                                 name="quotation"
+                                disabled
                               />
                               <label htmlFor="sh">No </label>
                             </div>

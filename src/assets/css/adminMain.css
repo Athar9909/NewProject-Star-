@@ -517,6 +517,16 @@ h1 h2 p label {
   height: 130px;
   object-fit: cover;
 }
+.flavourImage{
+  width: 160px !important;
+  height: 100%;
+  padding: 0.5rem;
+}
+.flavourImage .imageSection .flavour-pic {
+  width: 120px !important;
+  height: 200px;
+  object-fit: cover;
+}
 .account_profile .SlideCms {
   width: 400px !important;
   height: 180px !important;
@@ -551,10 +561,11 @@ h1 h2 p label {
   position: relative;
   top: 0
 }
-.account_profile .p-image {
+
+.flavourImage .p-image {
   position: absolute;
-  top: 25px;
-  right: 14px;
+  top: -1px;
+  right: 6px;
   background-color: #ffffff;
   color: #e0dce1;
   width: 28px;
@@ -770,11 +781,18 @@ h1 h2 p label {
   font-size: 20px;
   padding: 20px;
 }
+.flavourImage .file-uploadIN {
+  opacity: 0% !important;
+  position: relative;
+  left: -15px;
+  font-size: 20px;
+  padding: 20px;
+}
 .upload-iconIN {
   position: relative;
   object-fit: cover;
   left: 20px !important;
-  font-size: 8px;
+  font-size: 12px;
   color: #081424;
 }
 
@@ -792,11 +810,12 @@ h1 h2 p label {
   font-size: 10px;
   color: #081424;
 }
+
 .Admin-upload {
-  opacity: 0 !important;
-  position: relative;
+  opacity: 0% !important;
+  position: absolute;
   left: -10px;
-  font-size: 20px;
+  width: 40px;
 }
 .account_profile .p-image i {
   position: relative;
@@ -804,6 +823,7 @@ h1 h2 p label {
   left: 12px;
   font-size: 20px;
   color: #081424;
+  width: 30px;;
 }
 /* statuss check */
 

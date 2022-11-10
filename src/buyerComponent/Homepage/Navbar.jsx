@@ -20,7 +20,7 @@ const Navbar = () => {
   const [otpEmail, setOtpEmail] = useState();
   const [UserAuth, setUserAuth] = useState("");
   const [scrolled, setScrolled] = useState(false);
-
+  
   const getEmail = (data) => {
     setOtpEmail(data);
   };
@@ -177,7 +177,7 @@ const Navbar = () => {
                               }}
                               state={{name:item?.subCategoryName}} 
                                 >
-                                  <h3 className="dropdown_heading">
+                                  <h3 className="dropdown_heading fs-6">
                                     {item?.subCategoryName}
                                   </h3>
                                 </Link>

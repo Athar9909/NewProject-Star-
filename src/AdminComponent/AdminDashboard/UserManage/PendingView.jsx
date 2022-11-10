@@ -8,24 +8,21 @@ import Starlogo from "../../../assets/img/logo.png";
 import profile from "../../../assets/img/profile_img1.png";
 import { useEffect } from "react";
 import axios from "axios";
-import fileDownload from 'js-file-download'
+import fileDownload from "js-file-download";
 import { FaFileDownload } from "react-icons/fa";
 
-
-
 const PendingView = () => {
-  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
-  const approveUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//adminAuthorisedUser`
-  const rejectUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/rejectUser`
+  const apiUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`;
+  const approveUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin//adminAuthorisedUser`;
+  const rejectUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/rejectUser`;
   const [sideBar, setSideBar] = useState(true);
 
   const [user, setUser] = useState([]);
-  const [approveText,setApproveText] = useState("Approve")
+  const [approveText, setApproveText] = useState("Approve");
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
   const objectId = localStorage.getItem("objectId");
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,20 +35,18 @@ const PendingView = () => {
   }, []);
 
   const approveUser = async () => {
-    const res = await axios.post(approveUrl + "/" + objectId, {
-      isVerified: true,
-      type:"APPROVED"
-    });
+    const res = await axios.post(approveUrl + "/" + objectId);
     console.log(res, "hii");
     if (res?.data.message === "User approved Successfully") {
-        setApproveText("Approved")
-        navigate("/UserManage")
+      setApproveText("Approved");
+      navigate("/UserManage");
     }
   };
   const rejectUser = async () => {
-    const res = await axios.post(rejectUrl + "/" + objectId, {
-      type:"RETURNED"
-    });
+     await axios.post(rejectUrl + "/" + objectId).then((res)=>{
+      navigate("/UserManage");
+
+     })
   };
   const handleClick = () => {
     localStorage.removeItem("AdminData");
@@ -60,8 +55,8 @@ const PendingView = () => {
   };
 
   return (
-    <div className={sideBar? "admin_main" : "expanded_main"}>
-    <div className={sideBar? "siderbar_section": "d-none"}>
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -69,7 +64,7 @@ const PendingView = () => {
             </Link>
           </div>
           <div className="sidebar_menus">
-          <ul className="list-unstyled ps-1 m-0">
+            <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
                   className=" "
@@ -79,69 +74,86 @@ const PendingView = () => {
                     fontSize: "18px",
                   }}
                 >
-                 <i className="fa fa-home"></i> Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
                 <Link
                   className="fw-bold bg-white"
                   to="/UserManage"
-                  style={{ textDecoration: "none", fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif",
-                  color: "#3e4093",
-                }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                    color: "#3e4093",
+                  }}
                 >
-                 <i class="fa fa-user"></i> User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/CategorySub"
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                 <i class="fa fa-layer-group"></i> Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Inventory"
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                <i class="far fa-building"></i>  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/brandsManage"
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                <i class="fa fa-ship"></i>  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/OrderRequest"
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                 <i class="fa fa-layer-group"></i>  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
                 <Link
                   className=""
                   to="/Cms"
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
-                 <i class="fa fa-cog"></i> CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -149,8 +161,11 @@ const PendingView = () => {
                   className=""
                   to="/AdminLogin"
                   onClick={handleClick}
-                  style={{ textDecoration: "none",  fontSize: "18px",
-                  fontFamily: "'Rubik', sans-serif", }}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "18px",
+                    fontFamily: "'Rubik', sans-serif",
+                  }}
                 >
                   <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
@@ -162,7 +177,7 @@ const PendingView = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-          <div className="col">
+            <div className="col">
               {sideBar ? (
                 <div>
                   <h1
@@ -171,7 +186,9 @@ const PendingView = () => {
                       console.log("yello");
                       setSideBar(!sideBar);
                     }}
-                  ><i className="fa fa-bars"></i></h1>
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
                 </div>
               ) : (
                 <div>
@@ -179,7 +196,7 @@ const PendingView = () => {
                     <button
                       onClick={(e) => {
                         console.log(e);
-                        setSideBar(!sideBar)
+                        setSideBar(!sideBar);
                       }}
                     >
                       X
@@ -321,9 +338,17 @@ const PendingView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.federalTaxId,"federalTaxId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.federalTaxId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(user?.federalTaxId);
+                                  }}
+                                >
+                                  <FaFileDownload size={25} />
+                                  <p className="" style={{ fontSize: "9px" }}>
+                                    {user?.federalTaxId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -343,9 +368,20 @@ const PendingView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.tobaccoLicence,"tobaccoLicence.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.tobaccoLicence}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.tobaccoLicence,
+                                      "tobaccoLicence.jpg"
+                                    );
+                                  }}
+                                >
+                                  <FaFileDownload size={25} />
+                                  <p className="" style={{ fontSize: "9px" }}>
+                                    {user?.tobaccoLicence}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -365,9 +401,20 @@ const PendingView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.salesTaxId,"salesTaxId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.salesTaxId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.salesTaxId,
+                                      "salesTaxId.jpg"
+                                    );
+                                  }}
+                                >
+                                  <FaFileDownload size={25} />
+                                  <p className="" style={{ fontSize: "9px" }}>
+                                    {user?.salesTaxId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -385,11 +432,22 @@ const PendingView = () => {
                               name="file"
                               disabled
                             />
-                            <label htmlFor="file1" >
+                            <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.businessLicense,"businessLicense.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.businessLicense}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.businessLicense,
+                                      "businessLicense.jpg"
+                                    );
+                                  }}
+                                >
+                                  <FaFileDownload size={25} />
+                                  <p className="" style={{ fontSize: "9px" }}>
+                                    {user?.businessLicense}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -425,9 +483,22 @@ const PendingView = () => {
                             />
                             <label htmlFor="file1">
                               <div className="">
-                              <Link to="" className="text-decoration-none" onClick={()=>{fileDownload(user?.accountOwnerId,"accountOwnerId.jpg")}}>
-                                <FaFileDownload size={25} />
-                                {user?.accountOwnerId}
+                                <Link
+                                  to=""
+                                  className="text-decoration-none"
+                                  onClick={() => {
+                                    fileDownload(
+                                      user?.accountOwnerId,
+                                      "accountOwnerId.jpg"
+                                    );
+                                  }}
+                                >
+                                  <FaFileDownload size={25} />
+
+                                  <p className="" style={{ fontSize: "9px" }}>
+                                    {" "}
+                                    {user?.accountOwnerId}
+                                  </p>
                                 </Link>
                               </div>
                             </label>
@@ -472,7 +543,6 @@ const PendingView = () => {
                           href="javascript:;"
                           className="comman_btn2 ms-2 text-decoration-none"
                           onClick={rejectUser}
-                          
                         >
                           Return
                         </Link>

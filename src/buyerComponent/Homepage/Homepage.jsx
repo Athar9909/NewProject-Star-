@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper";
-
+import staticImg from "../../assets/img/banner_img.png"
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -23,9 +23,9 @@ import { useState } from "react";
 
 const Homepage = ({ GetData }) => {
   const [allSlides, setAllSlides] = useState([]);
-  const slidesApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/homeBanner/getSlides`
-  const categoryApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCategory`
-  const brandApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/brands/getBrands`
+  const slidesApi = `${process.env.REACT_APP_APIENDPOINTNEW}user/homeBanner/getSlides`;
+  const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCategory`;
+  const brandApi = `${process.env.REACT_APP_APIENDPOINTNEW}user/brands/getBrands`;
   const [category, setCategory] = useState([]);
   const [brands, setBrands] = useState([]);
   const [productsCate, setProductsCate] = useState("hello");
@@ -70,7 +70,6 @@ const Homepage = ({ GetData }) => {
     });
   };
 
-  
   return (
     <div className="home_page">
       <Navbar />
@@ -106,7 +105,7 @@ const Homepage = ({ GetData }) => {
               <img
                 src={allSlides[1]?.banner}
                 className="d-block w-100 banner_slide"
-                alt="..."
+                alt="No image"
               />
               <div className="carousel-caption banner-titles">
                 <h5 className="d-flex text-center  Bannertext">
@@ -183,27 +182,21 @@ const Homepage = ({ GetData }) => {
             <SwiperSlide key={index}>
               <div className="p-3 mb-2">
                 <div className="text-center">
-                <Link
-                 to={{
-                  pathname: "/CategoryProducts",
-                  search: "?sort=name",
-                  hash: "#the-hash",
-                }}
-                state={{name:item?.categoryName}}
-                  className="featured__box text-center mt-5  text-decoration-none"
-                  
-                >
-                  <img
-                    src={item?.categoryImage}
-                    className=""
-                    alt="lorem"
-                  />
-                 
-                </Link>
-                </div >
+                  <Link
+                    to={{
+                      pathname: "/CategoryProducts",
+                      search: "?sort=name",
+                      hash: "#the-hash",
+                    }}
+                    state={{ name: item?.categoryName }}
+                    className="featured__box text-center mt-5  text-decoration-none"
+                  >
+                    <img src={item?.categoryImage} className="" alt="lorem" />
+                  </Link>
+                </div>
                 <span className="d-flex justify-content-center w-100 mt-2 ">
-                    {item?.categoryName}
-                  </span>
+                  {item?.categoryName}
+                </span>
               </div>
             </SwiperSlide>
           ))}
@@ -588,14 +581,13 @@ const Homepage = ({ GetData }) => {
               modules={[FreeMode, Pagination, Autoplay]}
               className="mySwiper row"
             >
-          {(brands || [])?.map((item, index) => (
-
-              <SwiperSlide key={index}>
-                <Link to="/AllBrands" className="brand_box col-sm-12 p-sm-4">
-                  <img src={item?.brandImage} alt="" />
-                </Link>
-              </SwiperSlide>
-          ))} 
+              {(brands || [])?.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <Link to="/AllBrands" className="brand_box col-sm-12 p-sm-4">
+                    <img src={item?.brandImage} alt="" />
+                  </Link>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
@@ -633,7 +625,7 @@ const Homepage = ({ GetData }) => {
 
               <button
                 type="button"
-                className="btn-close fs-2 bg-white mx-0"
+                className="btn-close fs-2 bg-white mx-0 d-none"
                 id="age_close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -641,40 +633,6 @@ const Homepage = ({ GetData }) => {
             </div>
             <div className="modalContent">
               <AgeVerification ModalClose={ModalClose} />
-            </div>
-          </div>
-        </div>
-      </div>
-      <button
-        type="button"
-        id="terms_modal"
-        class="btn btn-primary d-none"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal2"
-      >
-        Launch demo modal
-      </button>
-
-      <div
-        class="modal "
-        id="exampleModal2"
-        tabindex="-1"
-        aria-labelledby="exampleModal2Label"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content p-5 mb-3">
-            <div class="modal-header ">
-              <button
-                type="button"
-                class="btn-close "
-                id="terms_close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="">
-              <TermsCondition modalCloseTerms={modalCloseTerms} />
             </div>
           </div>
         </div>

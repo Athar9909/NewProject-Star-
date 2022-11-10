@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const EditProfile = () => {
-  const editProfil =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editProfile`
+  const editProfile =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editProfile`
   const [files, setFiles] = useState([]);
   const [adminData,setAdminData] = useState([])
   axios.defaults.headers.common["x-auth-token-admin"] =
@@ -18,7 +18,6 @@ const EditProfile = () => {
     formState: { errors },
     reset,
   } = useForm();
-  console.log(adminData);
   useEffect(() => {
     const AdminData = JSON.parse(localStorage.getItem("AdminData"));
     setAdminData(AdminData);
@@ -28,14 +27,16 @@ const EditProfile = () => {
     setFiles({ ...files, [key]: e.target.files[0] });
   };
   const onSubmit = async (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.append("adminProfile", files?.adminProfile);
     formData.append("firstName",data?.name)
 
-    await axios.post(editProfil,formData).then((res)=>{
+    await axios.post(editProfile,formData).then((res)=>{
       console.log(res);
       if (res?.data.message === "Profile updated Successfully"){
-        localStorage.setItem("AdminData", JSON.stringify(res?.data?.results.admin));
+        let Data = res?.data?.results.admin;
+        localStorage.setItem("AdminData", JSON.stringify(Data))
          window.location.reload()
       }
     
@@ -225,10 +226,10 @@ const EditProfile = () => {
                         <div className="admin_profile">
                           <img className="admin_img" src={profile} /> 
                         </div>
-                        <div className="p-image">
-                          <i className="upload-icon fas fa-camera " />
+                        <div className="p-image ">
+                          <i className="upload-icon fas fa-camera  fs-3" />
                           <input
-                            className="Admin-upload"
+                            className="Admin-upload "
                             name="adminProfile"
                             type="file"
                             accept="image/*"
@@ -238,12 +239,12 @@ const EditProfile = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="form-group col-12">
+                    <div className="form-group col-12 mt-5">
                       <label htmlFor="">Full Name</label>
                       <input
                         type="text"
                         className="form-control"
-                        defaultValue={adminData.firstName}
+                        defaultValue={adminData.fullName}
                         name="name"
                         id="name" 
                         {...register("name")}

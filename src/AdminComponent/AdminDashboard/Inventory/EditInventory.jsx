@@ -12,13 +12,14 @@ const EditInventory = () => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/allProducts`;
+  const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/singleProduct`;
   const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
   const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
   const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
 
   const location = useLocation();
-  let index = location.state?.index;
+  let id = location.state?.id;
+  console.log(id);
   const {
     register,
     handleSubmit,
@@ -47,8 +48,8 @@ const EditInventory = () => {
     localStorage.getItem("AdminLogToken");
 
   const GetProducts = async () => {
-    await axios.post(getProducts).then((res) => {
-      setAllProducts(res.data?.results);
+    await axios.get(getProducts + "/" + id).then((res) => {
+      setAllProducts([res?.data.results]);
     });
   };
 
@@ -57,29 +58,25 @@ const EditInventory = () => {
     setFiles({ ...files, [key]: e.target.files[0] });
   };
 
-  //   let type = formValues?.map((a) => a.type);
-  //   let flavour = formValues?.map((a) => a.flavour);
-  //   let flavourImage = formValues?.map((a) => a.flavourImg);
-  //   let barcode = formValues?.map((a) => a.Barcode);
-  //   const onSubmit = async (data) => {
-  //     console.log(data);
-  //     const formData = new FormData();
-  //     formData.append("productImage", files?.productImage);
-  //     formData.append("unitName", data?.productName);
-  //     formData.append("category", data?.category);
-  //     formData.append("quantity", data?.quantity);
-  //     formData.append("subCategory", data?.subCategory);
-  //     formData.append("brand", data?.brands);
-  //     formData.append("barcode", barcode);
-  //     formData.append("productType", type);
-  //     formData.append("flavour", flavour);
-  //     formData.append("flavourImage", flavourImage);
-  //     formData.append("description", "temp");
+    // const onSubmit = async (data) => {
+    //   console.log(data);
+    //   const formData = new FormData();
+    //   formData.append("productImage", files?.productImage);
+    //   formData.append("unitName", data?.productName);
+    //   formData.append("category", data?.category);
+    //   formData.append("quantity", data?.quantity);
+    //   formData.append("subCategory", data?.subCategory);
+    //   formData.append("brand", data?.brands);
+    //   formData.append("barcode", barcode);
+    //   formData.append("productType", type);
+    //   formData.append("flavour", flavour);
+    //   formData.append("flavourImage", flavourImage);
+    //   formData.append("description", "temp");
 
-  //     await axios.post(addProduct, formData).then((res) => {
-  //       console.log(res);
-  //     });
-  //   };
+    //   await axios.post(addProduct, formData).then((res) => {
+    //     console.log(res);
+    //   });
+    // };
 
   const handleClick = () => {
     localStorage.removeItem("AdminData");
@@ -258,19 +255,20 @@ const EditInventory = () => {
                     className="form-design py-4 px-3 help-support-form row align-items-end justify-content-between"
                     action=""
                   >
-                    <div className="form-group col-6 text-center">
+                    <div className="form-group col-12 text-center">
                       <label htmlFor="" className="text-center">
                         Product Image
                       </label>
                       <div className="account_profile position-relative d-inline-block">
-                        <div className="circle d-inline-flex">
+                        <div className=" d-inline-flex">
                           <img
                             className="profile-pic"
-                            src={allProducts[index]?.productImage}
+                            style={{height:"200px"}}
+                            src={allProducts[0]?.productImage}
                           />
                         </div>
                         <div className="p-image">
-                          <i className="upload-iconIN fas fa-camera" />
+                          <i className="  fas fa-camera" />
                           <input
                             className="file-uploadIN"
                             type="file"
@@ -279,32 +277,12 @@ const EditInventory = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="form-group col-6 text-center">
-                      <label htmlFor="" className="text-center">
-                        Flavour Image
-                      </label>
-                      <div className="account_profile position-relative d-inline-block">
-                        <div className="circle d-inline-flex">
-                          <img
-                            className="profile-pic"
-                            src={allProducts[index]?.flavourImg}
-                          />
-                        </div>
-                        <div className="p-image">
-                          <i className="upload-iconIN fas fa-camera" />
-                          <input
-                            className="file-uploadIN"
-                            type="file"
-                            accept="image/*"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    
                     <div className="form-group col-4">
                       <label htmlFor="">Product Name</label>
                       <input
                         type="text"
-                        defaultValue={allProducts[index]?.unitName}
+                        defaultValue={allProducts[0]?.unitName}
                         className="form-control"
                       />
                     </div>
@@ -314,7 +292,7 @@ const EditInventory = () => {
                         className="form-select form-control"
                         aria-label="Default select example"
                       >
-                        <option>{allProducts[index]?.category}</option>
+                        <option>{allProducts[0]?.category.categoryName}</option>
                         <option selected="" value={1}>
                           Vape
                         </option>
@@ -331,7 +309,7 @@ const EditInventory = () => {
                         aria-label="Default select example"
                       >
                         <option selected="">
-                          {allProducts[index]?.subCategory}
+                          {allProducts[0]?.subCategory.subCategoryName}
                         </option>
                         <option selected="" value={1}>
                           Blue Kratom
@@ -346,7 +324,14 @@ const EditInventory = () => {
                       <label htmlFor="">Quantity</label>
                       <input
                         type="text"
-                        defaultValue={allProducts[index]?.quantity}
+                        defaultValue={allProducts[0]?.quantity}
+                        className="form-control"
+                      />
+                    </div><div className="form-group col">
+                      <label htmlFor="">Barcode</label>
+                      <input
+                        type="text"
+                        defaultValue={allProducts[0]?.quantity}
                         className="form-control"
                       />
                     </div>
@@ -356,7 +341,7 @@ const EditInventory = () => {
                         className="form-select form-control"
                         aria-label="Default select example"
                       >
-                        <option>{allProducts[index]?.brand}</option>
+                        <option>{allProducts[0]?.brand.brandName}</option>
                         <option value={1}>Horizon</option>
                         <option value={2}>Hyde</option>
                         <option value={3}>Monster Vape</option>
@@ -366,21 +351,90 @@ const EditInventory = () => {
                         </option>
                       </select>
                     </div>
-                    <div className="form-group col">
-                      <label htmlFor="">Type</label>
-                      <input
-                        type="text"
-                        defaultValue={allProducts[index]?.productType}
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="form-group col">
-                      <label htmlFor="">Flavour</label>
-                      <input
-                        type="text"
-                        defaultValue={allProducts[index]?.flavour}
-                        className="form-control"
-                      />
+                    <div className="form-group col-12 mt-2 mb-4">
+                      <form className="">
+                        <div className="row flavour_box align-items-end mx-0 py-4 px-3">
+                          {(allProducts[0]?.type || []).map(
+                            (item, index) => (
+                              <div
+                                className="form-group mb-0 col-12"
+                                key={index}
+                              >
+                                <div className="row">
+                                  <div className="form-group col-3">
+                                    <label htmlFor="">Type</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      name="productType"
+                                      defaultValue={item?.productType}
+                                    />
+                                  </div>
+                                  <div className="form-group mb-0 col-3">
+                                    <label htmlFor="">Flavour</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      name="flavour"
+                                      defaultValue={item?.flavour}
+                                    />
+                                  </div>{" "}
+                                  <div className="form-group mb-0 col-3">
+                                    <label htmlFor="">Barcode</label>
+                                    <div className="tags-input-container">
+                                      {(item?.barcode || [])?.map(
+                                        (tag, ind) => (
+                                          <div className="tag-item" key={ind}>
+                                            <span className="tag-text">
+                                              {tag}
+                                            </span>
+                                            <span
+                                              className="close"
+                                              // onClick={() =>
+                                              //   removeTag(ind, index)
+                                              // }
+                                            >
+                                              &times;
+                                            </span>
+                                          </div>
+                                        )
+                                      )}
+
+                                      <input
+                                        type="text"
+                                        className="tags-input mb-0"
+                                        name="barcode"
+                                        // onKeyDown={(e) => handleKeyDown(index, e)}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="form-group mb-2 col-3 mt-1  position-relative">
+                                    <label className="">Flavour Image </label>
+                                    <div className="flavourImage position-relative d-inline-block">
+                                      <div className="imageSection d-inline-flex">
+                                        <img
+                                          className="flavour-pic"
+                                          style={{height:"200px"}}
+                                          src={item?.flavourImage}
+                                        />
+                                      </div>
+                                      <div className="p-image">
+                                        <i className="upload-iconIN fas fa-camera" />
+                                        <input
+                                          className="file-uploadIN"
+                                          type="file"
+                                          accept="image/*"
+                                          name="flavourImage"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </form>
                     </div>
                     <div className="form-group mb-0 col-12 text-center mt-2">
                       <button className="comman_btn">Save</button>

@@ -14,8 +14,8 @@ import { FaFileUpload } from "react-icons/fa";
 const EditUser = () => {
   const [files, setFiles] = useState([]);
   console.log(files);
-  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`
-  const apiUrl2 =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editUserProfile`
+  const apiUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getUser`;
+  const apiUrl2 = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editUserProfile`;
   const [sideBar, setSideBar] = useState(true);
   const [user, setUser] = useState([]);
   axios.defaults.headers.common["x-auth-token-admin"] =
@@ -58,7 +58,6 @@ const EditUser = () => {
     formData.append("heardAboutUs", data?.heardAboutUs);
     formData.append("quotation", data?.quotation);
 
-
     await axios.post(apiUrl2 + "/" + objectId, formData).then((res) => {
       console.log(res);
       if (res?.data.message === "User Deatils Updated Successfully") {
@@ -66,8 +65,6 @@ const EditUser = () => {
       }
     });
   };
-
- 
 
   useEffect(() => {
     getUser();
@@ -106,8 +103,8 @@ const EditUser = () => {
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div className={sideBar? "admin_main" : "expanded_main"}>
-    <div className={sideBar? "siderbar_section": "d-none"}>
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -115,18 +112,17 @@ const EditUser = () => {
             </Link>
           </div>
           <div className="sidebar_menus">
-            <ul className="list-unstyled ps-1 m-0">
+          <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className=""
+                  className=" "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
+                    fontSize: "18px",
                   }}
                 >
-                  Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
@@ -135,12 +131,12 @@ const EditUser = () => {
                   to="/UserManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                     color: "#3e4093",
                   }}
                 >
-                  User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
@@ -149,11 +145,11 @@ const EditUser = () => {
                   to="/CategorySub"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
@@ -162,24 +158,24 @@ const EditUser = () => {
                   to="/Inventory"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/brandsManage"
-                  to=""
+                  className=""
+                  to="/brandsManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
@@ -188,11 +184,11 @@ const EditUser = () => {
                   to="/OrderRequest"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
@@ -201,11 +197,11 @@ const EditUser = () => {
                   to="/Cms"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -215,11 +211,11 @@ const EditUser = () => {
                   onClick={handleClick}
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -229,7 +225,7 @@ const EditUser = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-          <div className="col">
+            <div className="col">
               {sideBar ? (
                 <div>
                   <h1
@@ -238,7 +234,9 @@ const EditUser = () => {
                       console.log("yello");
                       setSideBar(!sideBar);
                     }}
-                  ><i className="fa fa-bars"></i></h1>
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
                 </div>
               ) : (
                 <div>
@@ -246,7 +244,7 @@ const EditUser = () => {
                     <button
                       onClick={(e) => {
                         console.log(e);
-                        setSideBar(!sideBar)
+                        setSideBar(!sideBar);
                       }}
                     >
                       X
@@ -318,9 +316,12 @@ const EditUser = () => {
                             <div className="">
                               <img className="" width={150} src={profile} />
                             </div>
+
                             <div className="p-image">
+                            <i className="upload-iconIN fas fa-camera" />
+
                               <input
-                                className="file-uploads"
+                                className="file-uploadIN"
                                 type="file"
                                 name="imageProfile"
                                 accept="image/*"
@@ -555,7 +556,10 @@ const EditUser = () => {
                             <label htmlFor="file1">
                               <div className="">
                                 <FaFileUpload size={25} />
-                                {user?.federalTaxId}
+
+                                <p className="mt-2" style={{ fontSize: "9px" }}>
+                                  {user?.federalTaxId}
+                                </p>
                               </div>
                             </label>
                           </div>
@@ -584,7 +588,10 @@ const EditUser = () => {
                             <label htmlFor="file2">
                               <div className="">
                                 <FaFileUpload size={25} />
-                                {user?.tobaccoLicence}
+
+                                <p className="mt-2" style={{ fontSize: "9px" }}>
+                                  {user?.tobaccoLicence}
+                                </p>
                               </div>
                             </label>
                           </div>
@@ -605,7 +612,10 @@ const EditUser = () => {
                             <label htmlFor="file3">
                               <div className="">
                                 <FaFileUpload size={25} />
-                                {user?.salesTaxId}
+
+                                <p className="mt-2" style={{ fontSize: "9px" }}>
+                                  {user?.salesTaxId}
+                                </p>
                               </div>
                             </label>
                           </div>
@@ -630,7 +640,10 @@ const EditUser = () => {
                             <label htmlFor="file1">
                               <div className="">
                                 <FaFileUpload size={25} />
-                                {user?.businessLicense}
+
+                                <p className="mt-2" style={{ fontSize: "9px" }}>
+                                  {user?.businessLicense}
+                                </p>
                               </div>
                             </label>
                           </div>
@@ -664,8 +677,8 @@ const EditUser = () => {
                           )}
                           name="lastName"
                           id="LastName"
-                          {...register("lastName",{
-                            required:"last Name is Required"
+                          {...register("lastName", {
+                            required: "last Name is Required",
                           })}
                         />
                       </div>
@@ -792,8 +805,7 @@ const EditUser = () => {
                                 type="radio"
                                 id="vii"
                                 data-val="true"
-                                 value="true"
-                                
+                                value="true"
                                 name="quotation"
                                 {...register("quotation")}
                               />
@@ -805,12 +817,11 @@ const EditUser = () => {
                               <input
                                 className="d-none"
                                 type="radio"
-                                id="sh"                       
+                                id="sh"
                                 data-val="false"
-                                 value="false"
+                                value="false"
                                 name="quotation"
                                 {...register("quotation")}
-
                               />
                               <label htmlFor="sh">No </label>
                             </div>

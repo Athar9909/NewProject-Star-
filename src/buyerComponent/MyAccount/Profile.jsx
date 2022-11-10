@@ -11,17 +11,13 @@ const Profile = () => {
 
   axios.defaults.headers.common["x-auth-token-user"] =
     localStorage.getItem("loginToken");
-
   useEffect(() => {
-    getUser();
-  }, [change]);
+    const data = JSON.parse(localStorage.getItem("UserData"));
+    setUsers(data);
+  }, []);
+ 
 
-  const getUser = async () => {
-    await axios.get(userApi).then((res) => {
-      let data = res?.data.results;
-      setUsers(data);
-    });
-  };
+
   console.log(files);
   const changeProfile = async (e, key) => {
     setFiles({ ...files, [key]: e.target.files[0] });
@@ -39,14 +35,9 @@ const Profile = () => {
       <div className="col-lg-12 bg-white p-4">
         <div className="myaccount_profile row">
           <div className="col-auto">
-            <div className="account_profile ">
+            <div className="account_profile">
               <div className="">
-                <img
-                  className="profile"
-                  
-                  src={users?.profileImage}
-                  alt={require("../../assets/img/profile_img1.png")}
-                />
+                <img className="profile" src={users?.profileImage} />
               </div>
               <div className="">
                 <img
@@ -65,7 +56,7 @@ const Profile = () => {
           </div>
           <div className="col">
             <div className="account_detailss mt-3">
-              <h2>{users?.firstName + " " + users?.lastName}</h2>
+              <h2>{users?.firstName}</h2>
               <span>{users?.city}</span>
             </div>
           </div>

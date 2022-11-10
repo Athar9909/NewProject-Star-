@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Footer from '../Footer/Footer'
+import Navbar from './Navbar'
 
 const PrivacyPolicies = () => {
   const [data , setData] = useState("")
@@ -10,6 +12,8 @@ const PrivacyPolicies = () => {
     })
   },[])
   return (
+    <div>
+      <Navbar/>
     <div className=" bg-whitem-2 p-5" >
       <>
   <h1> Privacy Policy STAR IMPORTERS</h1>
@@ -151,6 +155,8 @@ const PrivacyPolicies = () => {
   <p></p>
 </>
 
+    </div>
+    <Footer/>
     </div>
   )
 }

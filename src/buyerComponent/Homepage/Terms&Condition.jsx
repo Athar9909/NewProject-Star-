@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import Footer from '../Footer/Footer'
+import Navbar from './Navbar'
 
 const TermsCondition = () => {
   const [data , setData] = useState("")
@@ -11,7 +13,10 @@ const TermsCondition = () => {
     })
   },[])
   return (
+    <div>
+ <Navbar/>
     <div className=" bg-whitem-2 p-5" >
+      
       <>
   <h1> Terms & Condition for STAR IMPORTERS</h1>
   <p className='text-info'>
@@ -177,6 +182,9 @@ const TermsCondition = () => {
 </>
 
     </div>
+    <Footer/>
+    </div>
+
   )
 }
 

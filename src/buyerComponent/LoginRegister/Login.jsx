@@ -10,12 +10,11 @@ const Login = () => {
   const [apiData, setApiData] = useState([]);
   const navigate = useNavigate();
   const Swal = require("sweetalert2");
-  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}user/login`
+  const apiUrl = `${process.env.REACT_APP_APIENDPOINTNEW}user/login`;
   const autoClose = () => {
     document.getElementById("close").click();
   };
 
-  console.log(apiData, "data");
   const {
     register,
     handleSubmit,
@@ -24,7 +23,6 @@ const Login = () => {
     trigger,
   } = useForm();
   const onSubmit = async (data) => {
-    console.log( data ,"clicke");
     await axios
       .post(apiUrl, {
         email: data.email,

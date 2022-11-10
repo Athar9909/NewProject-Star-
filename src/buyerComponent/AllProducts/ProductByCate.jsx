@@ -320,6 +320,13 @@ const ProductByCate = () => {
                   <div className="col-xl-4 col-lg-6 col-md-6" key={index}>
 
                     <div className="product_parts_box"  >
+                      <Link className="text-decoration-none" to={{
+                        pathname: "/AllProducts/Product",
+                        search: "",
+                        hash: "",
+                      }}
+                      state={{id:item?._id}}>
+                        {console.log(item?._id)}
                       <div className="partsproduct_img" >
                         <img src={item.products?.productImage} alt="Product" />
                       </div>
@@ -327,23 +334,24 @@ const ProductByCate = () => {
                         <Link to="" className="text-decoration-none">{item?.products?.unitName}</Link>
                         <Link className="fav_btn" href="javscript:;" />
                         <div className="rating_box mt-2 mb-1">
-                          <Link href="javasript:;">
+                          
                             <i className="fa fa-star" />
-                          </Link> 
-                          <Link href="javasript:;">
+                          
+                          
                             <i className="fa fa-star" />
-                          </Link>
-                          <Link href="javasript:;">
+                        
+                          
                             <i className="fa fa-star" />
-                          </Link>
-                          <Link href="javasript:;">
+                          
+                        
                             <i className="fa fa-star" />
-                          </Link>
-                          <Link href="javasript:;">
+                          
+                          
                             <i className="fal fa-star" />
-                          </Link>
+                          
                         </div>
                       </div>
+                      </Link>
                     </div>
                   </div>
 

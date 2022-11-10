@@ -24,7 +24,7 @@ const Inventory = () => {
   const addProduct = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/addProduct`;
   const getProducts = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/allProducts`;
   const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
-  const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
+  const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/subCategoryList`;
   const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
   const uploadImage = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/inventory/imageUpload`;
 
@@ -44,7 +44,9 @@ const Inventory = () => {
       await axios.get(categoryApi).then((res) => {
         setCategories(res?.data.results);
       });
-      await axios.get(SubCategoryApi).then((res) => {
+      await axios.post(SubCategoryApi,{
+        category:"Tobacco"
+      }).then((res) => {
         setSubCategories(res?.data.results);
       });
       await axios.get(brandsApi).then((res) => {
@@ -63,6 +65,14 @@ const Inventory = () => {
       setAllProducts(res.data?.results);
     });
   };
+  const NewSubCategory =async (e) =>{
+    let name = e.target.value
+    await axios.post(SubCategoryApi,{
+      category:"Tobacco"
+    }).then((res) => {
+      setSubCategories(res?.data.results);
+    });
+  }
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -387,6 +397,7 @@ console.log(productImage,flavourImages);
                         {...register("category", {
                           required: "category is Required*",
                         })}
+                        onChange={(e)=> NewSubCategory(e)}
                       >
                         <option selected="">Select Category</option>
 
@@ -409,9 +420,9 @@ console.log(productImage,flavourImages);
                         })}
                       >
                         <option selected="">Select Sub Category</option>
-                        {(subCategories || [])?.map((item, index) => (
+                        {(subCategories[0]?.subCategories || [])?.map((item, index) => (
                           <option value={item?._id} key={index}>
-                            {item?.subCategoryName}
+                            {item}
                           </option>
                         ))}
                       </select>
@@ -654,7 +665,7 @@ console.log(productImage,flavourImages);
                                       to={{
                                         pathname: "/Inventory/View-Edit",
                                       }}
-                                      state={{ index }}
+                                      state={{ id: User?._id }}
                                       id={index}
                                     >
                                       View
