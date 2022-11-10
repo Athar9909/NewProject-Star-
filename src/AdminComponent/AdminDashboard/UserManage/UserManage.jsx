@@ -30,7 +30,7 @@ const UserManage = () => {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [rejectedUsers, setRejectedUsers] = useState([]);
-  const [set,setSet]=useState(false)
+  const [set,setSet]=useState()
   const [msg ,setMsg] = ("")
   const [enableUser, setEnableUser] = useState();
   const importInput = document.getElementById("fileID");
