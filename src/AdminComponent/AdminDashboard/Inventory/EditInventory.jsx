@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Starlogo from "../../../assets/img/logo.png";
 import axios from "axios";
 import { useEffect } from "react";
+import ProfileBar from "../ProfileBar";
 
 const EditInventory = () => {
   const [files, setFiles] = useState([]);
@@ -211,33 +212,8 @@ const EditInventory = () => {
                 <i className="far fa-bars" />
               </a>
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img src="assets/img/profile.png" alt="" />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <a className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div className="col-auto d-flex ml-5">
+              <ProfileBar />
             </div>
           </div>
         </div>

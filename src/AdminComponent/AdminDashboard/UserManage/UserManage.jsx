@@ -12,10 +12,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
 import { post } from "jquery";
+import ProfileBar from "../ProfileBar";
 const UserManage = () => {
   const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/allUsersList`
   const uploadUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/importUsers`
   const userStatus =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/userStatus`
+  const genCrendentials = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/sendUsersCredentials`
   const [values, setValues] = useState({ from: "", to: "" });
   const [search, setSearch] = useState();
   const [statsIndex, setStatsIndex] = useState();
@@ -28,6 +30,8 @@ const UserManage = () => {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [rejectedUsers, setRejectedUsers] = useState([]);
+  const [set,setSet]=useState(false)
+  const [msg ,setMsg] = ("")
   const [enableUser, setEnableUser] = useState();
   const importInput = document.getElementById("fileID");
   const dropArea = document.getElementById("dropBox");
@@ -73,6 +77,7 @@ const UserManage = () => {
   console.log(sideBar);
 
   useEffect(() => {
+    
     const getPendingUser = async () => {
       const res = await axios.post(apiUrl, {
         type: "PENDING",
@@ -108,7 +113,7 @@ const UserManage = () => {
       console.log(res);
       setUploadError(res?.data.message);
       if (res?.data.message === "Successfully Imported") {
-        navigate("/UserManage");
+        setSet(!set)
       }
     });
     document.getElementById("reUpload").hidden = false;
@@ -144,6 +149,11 @@ const UserManage = () => {
         console.log(res);
       });
   };
+  const GenerateCrendential = async() =>{
+    await axios.post(genCrendentials).then((res)=>{
+      setMsg("Crendentials Sent SuccessFully")
+    })
+  }
   return (
     <div className={sideBar? "admin_main" : "expanded_main"}>
       <div className={sideBar? "siderbar_section": "d-none"}>
@@ -293,38 +303,8 @@ const UserManage = () => {
                 </div>
               )}
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary rounded-circle p-0 "
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="border rounded-circle"
-                    src={profile}
-                    alt=""
-                    width={50}
-                  />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <Link className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+            <div className="col-auto d-flex ml-5">
+              <ProfileBar />
             </div>
           </div>
         </div>
@@ -776,6 +756,7 @@ const UserManage = () => {
               <div>
                 <div className="container">
                   <div className="">
+                    {set ?
                     <div className="drop_box p-5">
                       <header>
                         <h4>Choose File here</h4>
@@ -822,7 +803,16 @@ const UserManage = () => {
                         </button>
                       )}
                     </div>
+                  :
+                  <div className="drop_box p-5">
+                    <h1 className="fs-5">CSV Imported</h1>
+                <p> {impFile?.name} </p> 
+                 <button className="comman_btn mt-3" onClick={GenerateCrendential}>Generate Passwords</button>
+                 <p>{msg}</p>
                   </div>
+                        }
+                  </div>
+
                 </div>
               </div>
             </div>

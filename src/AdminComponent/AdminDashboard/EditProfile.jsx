@@ -5,13 +5,16 @@ import Starlogo from "../../assets/img/logo.png";
 import profile from "../../assets/img/profile_img1.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import ProfileBar from "./ProfileBar";
 
 const EditProfile = () => {
-  const editProfile =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editProfile`
+  const editProfile = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/editProfile`;
+  const getAdmin = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/getAdminData`;
   const [files, setFiles] = useState([]);
-  const [adminData,setAdminData] = useState([])
+  const [adminData, setAdminData] = useState([]);
+  const [chnge, setChnge] = useState();
   axios.defaults.headers.common["x-auth-token-admin"] =
-  localStorage.getItem("AdminLogToken");
+    localStorage.getItem("AdminLogToken");
   const {
     register,
     handleSubmit,
@@ -19,9 +22,14 @@ const EditProfile = () => {
     reset,
   } = useForm();
   useEffect(() => {
-    const AdminData = JSON.parse(localStorage.getItem("AdminData"));
-    setAdminData(AdminData);
-  }, []);
+    const GetAdminData =async ()=>{
+    await axios.get(getAdmin).then((res) => {
+      setAdminData(res?.data.results.admin);
+    });
+  }
+  GetAdminData()
+  }, [chnge]);
+
   const onFileSelection = (e, key) => {
     console.log(e);
     setFiles({ ...files, [key]: e.target.files[0] });
@@ -30,17 +38,14 @@ const EditProfile = () => {
     console.log(data);
     const formData = new FormData();
     formData.append("adminProfile", files?.adminProfile);
-    formData.append("firstName",data?.name)
-
-    await axios.post(editProfile,formData).then((res)=>{
+    formData.append("fullName", data?.name);
+      
+    await axios.post(editProfile, formData).then((res) => {
       console.log(res);
-      if (res?.data.message === "Profile updated Successfully"){
-        let Data = res?.data?.results.admin;
-        localStorage.setItem("AdminData", JSON.stringify(Data))
-         window.location.reload()
+      if (res?.data.message === "Profile updated Successfully") {
+        window.location.reload()
       }
-    
-    })
+    });
   };
 
   const handleClick = () => {
@@ -58,32 +63,31 @@ const EditProfile = () => {
             </Link>
           </div>
           <div className="sidebar_menus">
-            <ul className="list-unstyled ps-1 m-0">
+          <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
-                  className="fw-bold bg-white"
+                  className=" "
                   to="/AdminDashboard"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
-                    fontFamily: "'Rubik', sans-serif",
-                    color: "#3e4093",
+                    fontSize: "18px",
                   }}
                 >
-                  Dashboard
+                  <i className="fa fa-home"></i> Dashboard
                 </Link>
               </li>
               <li>
                 <Link
-                  className=""
+                  className="fw-bold bg-white"
                   to="/UserManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
+                    color: "#3e4093",
                   }}
                 >
-                  User Management
+                  <i class="fa fa-user"></i> User Management
                 </Link>
               </li>
               <li>
@@ -92,11 +96,11 @@ const EditProfile = () => {
                   to="/CategorySub"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Category &amp; Sub Category
+                  <i class="fa fa-layer-group"></i> Category &amp; Sub Category
                 </Link>
               </li>
               <li>
@@ -105,24 +109,24 @@ const EditProfile = () => {
                   to="/Inventory"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Inventory Management
+                  <i class="far fa-building"></i> Inventory Management
                 </Link>
               </li>
               <li>
                 <Link
-                  className="/brandsManage"
-                  to=""
+                  className=""
+                  to="/brandsManage"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Brands Management
+                  <i class="fa fa-ship"></i> Brands Management
                 </Link>
               </li>
               <li>
@@ -131,11 +135,11 @@ const EditProfile = () => {
                   to="/OrderRequest"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Order request
+                  <i class="fa fa-layer-group"></i> Order request
                 </Link>
               </li>
               <li>
@@ -144,11 +148,11 @@ const EditProfile = () => {
                   to="/Cms"
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  CMS
+                  <i class="fa fa-cog"></i> CMS
                 </Link>
               </li>
               <li>
@@ -158,11 +162,11 @@ const EditProfile = () => {
                   onClick={handleClick}
                   style={{
                     textDecoration: "none",
-                    fontSize: "16px",
+                    fontSize: "18px",
                     fontFamily: "'Rubik', sans-serif",
                   }}
                 >
-                  Logout
+                  <i class="fa fa-sign-out-alt"></i>Logout
                 </Link>
               </li>
             </ul>
@@ -177,33 +181,8 @@ const EditProfile = () => {
                 <p></p>
               </a>
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary p-0"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img className="" src={profile} alt="" width={50} />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <a className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div className="col-auto d-flex ml-5">
+              <ProfileBar />
             </div>
           </div>
         </div>
@@ -224,7 +203,10 @@ const EditProfile = () => {
                     <div className="form-group col-auto">
                       <div className="account_profile position-relative">
                         <div className="admin_profile">
-                          <img className="admin_img" src={profile} /> 
+                          <img
+                            className="admin_img"
+                            src={adminData?.adminProfile}
+                          />
                         </div>
                         <div className="p-image ">
                           <i className="upload-icon fas fa-camera  fs-3" />
@@ -246,7 +228,7 @@ const EditProfile = () => {
                         className="form-control"
                         defaultValue={adminData.fullName}
                         name="name"
-                        id="name" 
+                        id="name"
                         {...register("name")}
                       />
                     </div>

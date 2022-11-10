@@ -10,6 +10,7 @@ import axios from "axios";
 import classNames from "classnames";
 import { FaFileUpload } from "react-icons/fa";
 import { data } from "jquery";
+import ProfileBar from "../ProfileBar";
 
 const AddUser = () => {
   const [files, setFiles] = useState([]);
@@ -200,38 +201,8 @@ const AddUser = () => {
                 </div>
               )}
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary rounded-circle p-0 "
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="border rounded-circle"
-                    src={profile}
-                    alt=""
-                    width={50}
-                  />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <Link className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+            <div className="col-auto d-flex ml-5">
+              <ProfileBar />
             </div>
           </div>
         </div>

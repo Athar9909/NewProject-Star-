@@ -92,7 +92,7 @@ const Homepage = ({ GetData }) => {
                 <h5 className="d-flex text-start  Bannertext">
                   {allSlides[0]?.title}
                 </h5>
-                <p className="d-flex text-start bannerTxt">
+                <p className="d-flex text-start fs-6 bannerTxt">
                   {allSlides[0]?.description}
                 </p>
 
