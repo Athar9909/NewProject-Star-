@@ -4,8 +4,27 @@ import Navbar from "../Homepage/Navbar";
 import { Link } from "react-router-dom";
 import "../../assets/css/main.css";
 import Profile from "./Profile";
-
+import axios from "axios";
 const MainMenu = () => {
+  const [dataTC, setDataTC] = useState("");
+  const [dataPrivacy, setDataPrivacy] = useState("");
+  const [dataAbout, setDataAbout] = useState("");
+  const TermsCond = `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/tAndC`;
+  const about =  `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/aboutUs`
+  const Privacy =  `${process.env.REACT_APP_APIENDPOINTNEW}user/welcome/privacyPolicy`
+
+
+  useEffect(() => {
+    axios.get(TermsCond).then((res) => {
+      setDataTC(res.data?.results);
+    });
+    axios.get(Privacy).then((res) => {
+      setDataPrivacy(res.data?.results);
+    });
+    axios.get(about).then((res) => {
+      setDataAbout(res.data?.results);
+    });
+  }, []);
   return (
     <div className="main_myaccount">
       <Navbar />
@@ -43,7 +62,7 @@ const MainMenu = () => {
 
       <div className="myaccount mb-4 ">
         <div className="container-lg position-relative">
-          <Profile/>
+          <Profile />
         </div>
         <div className="container container-sm">
           <div className="row mt-5  justify-content-center">
@@ -135,7 +154,7 @@ const MainMenu = () => {
 
             <div className="col-lg-9 ">
               <div className="bg-white p-4 ">
-                    <div className="row">
+                <div className="row">
                   <div className="col-12 main_menudata">
                     <div className="accordion" id="accordionExample">
                       <div className="accordion-item mb-3">
@@ -158,28 +177,8 @@ const MainMenu = () => {
                           data-bs-parent="#accordionExample"
                         >
                           <div className="accordion-body">
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.{" "}
-                            </p>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.
-                            </p>
+                           
+                            <p>{dataAbout[0]?.description}</p>
                           </div>
                         </div>
                       </div>
@@ -203,28 +202,7 @@ const MainMenu = () => {
                           data-bs-parent="#accordionExample"
                         >
                           <div className="accordion-body">
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.{" "}
-                            </p>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.
-                            </p>
+                            <p>{dataPrivacy[0]?.description}</p>
                           </div>
                         </div>
                       </div>
@@ -248,27 +226,9 @@ const MainMenu = () => {
                           data-bs-parent="#accordionExample"
                         >
                           <div className="accordion-body">
+                           
                             <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.{" "}
-                            </p>
-                            <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Aenean euismod bibendum laoreet. Proin
-                              gravida dolor sit amet lacus accumsan et viverra
-                              justo commodo. Proin sodales pulvinar sic tempor.
-                              Sociis natoque penatibus et magnis dis parturient
-                              montes, nascetur ridiculus mus. Nam fermentum,
-                              nulla luctus pharetra vulputate, felis tellus
-                              mollis orci, sed rhoncus pronin sapien nunc accuan
-                              eget.
+                            {dataTC[0]?.description}
                             </p>
                           </div>
                         </div>

@@ -14,13 +14,13 @@ import UpdatePassword from "../LoginRegister/UpdatePassword";
 import axios from "axios";
 
 const Navbar = () => {
-  const categoryApi =  `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCatAndSubCat`
+  const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}user/category/getCatAndSubCat`;
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const [otpEmail, setOtpEmail] = useState();
   const [UserAuth, setUserAuth] = useState("");
   const [scrolled, setScrolled] = useState(false);
-  
+
   const getEmail = (data) => {
     setOtpEmail(data);
   };
@@ -44,6 +44,7 @@ const Navbar = () => {
   const LogOut = () => {
     setUserAuth(localStorage.removeItem("loginToken"));
     setUserAuth(localStorage.removeItem("UserData"));
+    navigate("/");
     window.location.reload();
   };
   const handleScroll = () => {
@@ -101,11 +102,13 @@ const Navbar = () => {
             </div>
             {UserAuth ? (
               <div className="d-flex mt-2 ">
+                
+                <div class="dropdown">
                 <Link to="/MyAccount" className="text-decoration-none mx-1">
                   <button className="signup_btns m-2  ">My Account</button>
                 </Link>
-
-                <Link
+                  <div class="dropdown-content">
+                    <Link
                   to=""
                   className="login_btns mt-3 text-decoration-none"
                   data-bs-toggle="modal"
@@ -118,6 +121,10 @@ const Navbar = () => {
                 >
                   Logout
                 </Link>
+                  </div>
+                </div>
+
+               
               </div>
             ) : (
               <div className="d-flex mt-2">
@@ -149,15 +156,14 @@ const Navbar = () => {
                 </Link>
               </li>
               {(category || [])?.map((item, index) => (
-                <li key={index+1}
-                >
+                <li key={index + 1}>
                   <Link
-                  to={{
-                  pathname: "/CategoryProducts",
-                  search: "?sort=name",
-                  hash: "#the-hash",
-                }}
-                state={{name:item?.categoryName}}
+                    to={{
+                      pathname: "/CategoryProducts",
+                      search: "?sort=name",
+                      hash: "#the-hash",
+                    }}
+                    state={{ name: item?.categoryName }}
                     className="dropdown-toggle text-decoration-none"
                     href="Javascript:;"
                   >
@@ -166,32 +172,29 @@ const Navbar = () => {
                   <div className="dropdown-menu maga_drop_down py-lg-4 py-md-3 shadow">
                     <div className="container-fluid px-0">
                       <div className="row w-100 mx-5">
-                        {(item?.subcategories || []).map(
-                          (item, index) => (
-                            <div className="col-lg-2 col-md-6" key={index}>
-                              <div className="maga_drop__menus">
-                                <Link
+                        {(item?.subcategories || []).map((item, index) => (
+                          <div className="col-lg-2 col-md-6" key={index}>
+                            <div className="maga_drop__menus">
+                              <Link
                                 to={{
-                                pathname: "/SubCategory/Products",
-                                search: "",
-                              }}
-                              state={{name:item?.subCategoryName}} 
-                                >
-                                  <h3 className="dropdown_heading fs-6">
-                                    {item?.subCategoryName}
-                                  </h3>
-                                </Link>
-                              </div>
+                                  pathname: "/SubCategory/Products",
+                                  search: "",
+                                }}
+                                state={{ name: item?.subCategoryName }}
+                              >
+                                <h3 className="dropdown_heading fs-6">
+                                  {item?.subCategoryName}
+                                </h3>
+                              </Link>
                             </div>
-                          )
-                        )}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
                 </li>
               ))}
 
-              
               <li>
                 <Link className="text-decoration-none" to="">
                   Brands

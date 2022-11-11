@@ -22,7 +22,7 @@ const SendOtp = (otpEmail) => {
   const onSubmit = async (data) => {
     const tempOtp = data.number1 + data.number2 + data.number3 + data.number4;
     const otp = parseInt(tempOtp);
-
+   console.log(tempOtp);
     const VerifyUser = () => {
      axios.post(apiUrl,{
         email,
@@ -32,7 +32,7 @@ const SendOtp = (otpEmail) => {
         console.log(res);
         if (res?.data.message === "OTP Verified") {
           Swal.fire({
-            title: "OTP Verified",
+            title: "OTP Verified", 
             text: "",
             icon: "Success",
             confirmButtonText: "OK",

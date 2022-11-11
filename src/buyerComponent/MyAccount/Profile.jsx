@@ -3,7 +3,7 @@ import "../../assets/css/main.css";
 import axios from "axios";
 const Profile = () => {
   const [users, setUsers] = useState([]);
-  const [files, setFiles] = useState();
+  const [files, setFiles] = useState([]);
   const [change, setChange] = useState(false);
 
   const editImage = `${process.env.REACT_APP_APIENDPOINTNEW}user/editProfile`;
@@ -12,19 +12,25 @@ const Profile = () => {
   axios.defaults.headers.common["x-auth-token-user"] =
     localStorage.getItem("loginToken");
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("UserData"));
-    setUsers(data);
-  }, []);
+   const getUser =async()=>{
+    await axios.get(userApi).then((res)=>{
+      console.log(res);
+      setUsers(res?.data.results)
+    })
+   }
+   getUser()
+
+  }, [change]);
  
 
 
   console.log(files);
   const changeProfile = async (e, key) => {
-    setFiles({ ...files, [key]: e.target.files[0] });
     const formData = new FormData();
-    formData.append("profileImage", files?.ImageProfile);
+    formData.append("profileImage", e.target.files[0]);
     await axios.post(editImage, formData).then((res) => {
       if (res.data?.message === "Profile updated Successfully") {
+        console.log("HIi");
         setChange(!change);
       }
     });
@@ -37,7 +43,7 @@ const Profile = () => {
           <div className="col-auto">
             <div className="account_profile">
               <div className="">
-                <img className="profile" src={users?.profileImage} />
+                <img className="profileImage"  src={users?.profileImage} />
               </div>
               <div className="">
                 <img
