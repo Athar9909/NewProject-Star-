@@ -96,7 +96,7 @@ else if(data.Npassword === password){
             </div>
             <div className="form-floating mb-4">
               <input
-                type="text"
+                type="password"
                 className="form-control shadow-none border border-secondary"
                 id="floatingPassword"
                 placeholder="New Password"

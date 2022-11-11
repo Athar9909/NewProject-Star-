@@ -53,7 +53,9 @@ const SendOtp = (otpEmail) => {
      await  axios
      .post(sendOtp, {
        email: email,
-     }).then((res)=>{})
+     }).then((res)=>{
+      console.log(res?.data.results);
+     })
   }
   const  moveOnMax =(event, field, nextFieldID)=> {
     event = event || window.event;

@@ -569,9 +569,16 @@ const SignUp = () => {
                   </div>
                   <div className="form-floating col-12 mb-4 select_dropdown">
                     <select
-                      className="form-select form-control shadow-none border border-secondary fw-bolder"
+                      className={classNames(
+                        "form-select form-control shadow-none border border-secondary fw-bolder ",
+                        { "is-invalid": errors.phoneNumber }
+                      )}
                       id="floatingSelect2"
                       aria-label="Floating label select example"
+                      name="heardAboutUs"
+                      {...register("heardAboutUs", {
+                        required: "Email is Required*",
+                      })}
                     >
                       <option value="Email Flyer">Email Flyer</option>
                       <option value="Search Engine (Google, Yahoo, Bing, Etc.)">
@@ -585,12 +592,16 @@ const SignUp = () => {
                       How did you hear about us?
                     </label>
                   </div>
-                  <div class="form-check mt-1 col-6 mx-2">
+                  <div class="form-check mt-1 col-6 mx-3 ">
                     <input
-                      class="form-check-input"
+                    
+                      className={classNames(
+                        "form-check-input border border-secondary",
+                      )}
                       type="checkbox"
                       value=""
                       id="flexCheckAddress"
+                    
                     />
                     <label
                       className="form-check-label fs-6 text-secondary fw-bold "
@@ -601,7 +612,9 @@ const SignUp = () => {
                   </div>
                   <div class="form-check mt-1 col-5 mx-2">
                     <input
-                      class="form-check-input"
+                      className={classNames(
+                        "form-check-input border border-secondary",
+                      )}
                       type="checkbox"
                       value=""
                       id="flexCheckAddress"

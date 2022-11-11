@@ -14,10 +14,10 @@ import { Modal } from "bootstrap";
 import { post } from "jquery";
 import ProfileBar from "../ProfileBar";
 const UserManage = () => {
-  const apiUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/allUsersList`
-  const uploadUrl =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/importUsers`
-  const userStatus =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/userStatus`
-  const genCrendentials = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/sendUsersCredentials`
+  const apiUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/allUsersList`;
+  const uploadUrl = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/importUsers`;
+  const userStatus = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/userStatus`;
+  const genCrendentials = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/sendUsersCredentials`;
   const [values, setValues] = useState({ from: "", to: "" });
   const [search, setSearch] = useState();
   const [statsIndex, setStatsIndex] = useState();
@@ -30,8 +30,8 @@ const UserManage = () => {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [rejectedUsers, setRejectedUsers] = useState([]);
-  const [set,setSet]=useState(true)
-  const [msg ,setMsg] = ("")
+  const [set, setSet] = useState(true);
+  const [msg, setMsg] = "";
   const [enableUser, setEnableUser] = useState();
   const importInput = document.getElementById("fileID");
   const dropArea = document.getElementById("dropBox");
@@ -74,10 +74,8 @@ const UserManage = () => {
     setRejectedUsers(res?.data.results);
     return res.data;
   };
-  console.log(sideBar);
 
   useEffect(() => {
-    
     const getPendingUser = async () => {
       const res = await axios.post(apiUrl, {
         type: "PENDING",
@@ -113,7 +111,7 @@ const UserManage = () => {
       console.log(res);
       setUploadError(res?.data.message);
       if (res?.data.message === "Successfully Imported") {
-        setSet(!set)
+        setSet(!set);
       }
     });
     document.getElementById("reUpload").hidden = false;
@@ -149,14 +147,18 @@ const UserManage = () => {
         console.log(res);
       });
   };
-  const GenerateCrendential = async() =>{
-    await axios.post(genCrendentials).then((res)=>{
-      setMsg("Crendentials Sent SuccessFully")
-    })
-  }
+  const GenerateCrendential = async () => {
+    await axios.post(genCrendentials).then((res) => {
+      console.log(res);
+      if (res?.data.message === "Credentials Sent Successfully") {
+        document.getElementById("modal-toggle87").click();
+        setMsg("Credentials Sent Successfully");
+      }
+    });
+  };
   return (
-    <div className={sideBar? "admin_main" : "expanded_main"}>
-      <div className={sideBar? "siderbar_section": "d-none"}>
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className=" ">
@@ -286,7 +288,9 @@ const UserManage = () => {
                       console.log("yello");
                       setSideBar(!sideBar);
                     }}
-                  ><i className="fa fa-bars"></i></h1>
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
                 </div>
               ) : (
                 <div>
@@ -294,7 +298,7 @@ const UserManage = () => {
                     <button
                       onClick={(e) => {
                         console.log(e);
-                        setSideBar(!sideBar)
+                        setSideBar(!sideBar);
                       }}
                     >
                       X
@@ -369,7 +373,7 @@ const UserManage = () => {
                             aria-controls="nav-home"
                             aria-selected="true"
                           >
-                            Pending <span className="circle_count">3</span>
+                            Pending <span className="circle_count">{pendingUsers?.length}</span>
                           </button>
                           <button
                             className="nav-link outline-0"
@@ -381,7 +385,7 @@ const UserManage = () => {
                             aria-controls="nav-approve"
                             aria-selected="false"
                           >
-                            Approved <span className="circle_count">8</span>
+                            Approved <span className="circle_count">{approvedUsers?.length}</span>
                           </button>
                           <button
                             className="nav-link outline-0 border-0"
@@ -393,7 +397,7 @@ const UserManage = () => {
                             aria-controls="nav-return"
                             aria-selected="false"
                           >
-                            Returned <span className="circle_count">4</span>
+                            Returned <span className="circle_count">{rejectedUsers?.length}</span>
                           </button>
                         </div>
                       </nav>
@@ -756,69 +760,117 @@ const UserManage = () => {
               <div>
                 <div className="container">
                   <div className="">
-                    {set ?
-                    <div className="drop_box p-5">
-                      <header>
-                        <h4>Choose File here</h4>
-                      </header>
-                      <p>Files Supported: CSV,EXCEL</p>
-                      <p className="text-dark bg-light p-2">
-                        {impFile?.name}{" "}
+                    {set ? (
+                      <div className="drop_box p-5">
+                        <header>
+                          <h4>Choose File here</h4>
+                        </header>
+                        <p>Files Supported: CSV,EXCEL</p>
+                        <p className="text-dark bg-light p-2">
+                          {impFile?.name}{" "}
+                          <button
+                            hidden
+                            className="btn"
+                            id="reUpload"
+                            onClick={() => {
+                              importInput.click();
+                            }}
+                          >
+                            <BiEdit />
+                          </button>
+                        </p>
+                        <p className="text-danger fw-bold">{uploadError}</p>
+                        <input
+                          type="file"
+                          accept=".csv"
+                          id="fileID"
+                          style={{ display: "none" }}
+                          onChange={onFileSelection}
+                        />
+                        {ux !== "" ? (
+                          <button
+                            className="comman_btn"
+                            htmlFor=""
+                            onClick={onUpload}
+                          >
+                            Upload
+                          </button>
+                        ) : (
+                          <button
+                            className="comman_btn2"
+                            htmlFor=""
+                            onClick={() => {
+                              importInput.click();
+                            }}
+                          >
+                            Import
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="drop_box p-5">
+                        <h1 className="fs-5">CSV Imported</h1>
+                        <p> {impFile?.name} </p>
                         <button
-                          hidden
-                          className="btn"
-                          id="reUpload"
-                          onClick={() => {
-                            importInput.click();
-                          }}
+                          className="comman_btn mt-3"
+                          onClick={GenerateCrendential}
                         >
-                          <BiEdit />
+                          Generate Passwords
                         </button>
-                      </p>
-                      <p className="text-danger fw-bold">{uploadError}</p>
-                      <input
-                        type="file"
-                        accept=".csv"
-                        id="fileID"
-                        style={{ display: "none" }}
-                        onChange={onFileSelection}
-                      />
-                      {ux !== "" ? (
-                        <button
-                          className="comman_btn"
-                          htmlFor=""
-                          onClick={onUpload}
-                        >
-                          Upload
-                        </button>
-                      ) : (
-                        <button
-                          className="comman_btn2"
-                          htmlFor=""
-                          onClick={() => {
-                            importInput.click();
-                          }}
-                        >
-                          Import
-                        </button>
-                      )}
-                    </div>
-                  :
-                  <div className="drop_box p-5">
-                    <h1 className="fs-5">CSV Imported</h1>
-                <p> {impFile?.name} </p> 
-                 <button className="comman_btn mt-3" onClick={GenerateCrendential}>Generate Passwords</button>
-                 <p>{msg}</p>
+                      </div>
+                    )}
                   </div>
-                        }
-                  </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div
+        className="modal comman_modal_form forms_modal"
+        id="staticBackdrop87"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex={-1}
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content border-0 rounded-0  rounded-top">
+            <div className="modal-body">
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              />
+
+              <div>
+                <div className="container">
+                  <div className="row justify-content-center p-2">
+                    <div className="col-11 text-center mt-2">
+                      <p className="fs-4 fw-bold">
+                      <i class="fa fa-check-double mx-1 text-success"></i>
+
+                        All Crenditials Sent Successfully!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Link
+        data-bs-toggle="modal"
+        id="modal-toggle87"
+        data-bs-target="#staticBackdrop87"
+        href="javscript:;"
+        className="comman_btn text-decoration-none d-none"
+      >
+        Import
+      </Link>
     </div>
   );
 };

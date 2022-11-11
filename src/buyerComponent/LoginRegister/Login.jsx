@@ -58,6 +58,14 @@ const Login = () => {
             confirmButtonText: "Cool",
           });
         }
+        if (res?.data.message === "You are suspended by admin") {
+          Swal.fire({
+            title: "Your Account has beed disabled. Please Contact Admin!",
+            width: 600,
+            icon: "error",
+            confirmButtonText: "Ok",
+          });
+        }
         if (res?.data.message === "Wrong Password") {
           Swal.fire({
             title: "Wrong Password",
@@ -75,9 +83,17 @@ const Login = () => {
             confirmButtonText: "Ok",
           });
         }
+       
       });
   };
-  onSubmit();
+  const togglePassword = () => {
+    let x = document.getElementById("Password-Input");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  };
 
   return (
     <div>
@@ -112,7 +128,7 @@ const Login = () => {
                       <input
                         type="email"
                         className={classNames(
-                          "form-control  border border-secondary",
+                          "form-control  border border-secondary px-3",
                           { "is-invalid": errors.email }
                         )}
                         id="floatingEmail"
@@ -127,7 +143,7 @@ const Login = () => {
                           {errors.email?.message}
                         </small>
                       )}
-                      <label htmlFor="floatingEmail" className="mx-2 fw-bolder">
+                      <label htmlFor="floatingEmail" className="fs-6 fw-bolder">
                         Email Address
                       </label>
                     </div>
@@ -135,10 +151,11 @@ const Login = () => {
                       <input
                         type="password"
                         className={classNames(
-                          "form-control  border border-secondary",
+                          "form-control  border border-secondary px-3",
                           { "is-invalid": errors.password }
                         )}
-                        id="floatingPassword"
+                        id="Password-Input"
+                        
                         placeholder="Password"
                         name="password"
                         {...register("password", {
@@ -152,10 +169,14 @@ const Login = () => {
                       )}
                       <label
                         htmlFor="floatingPassword"
-                        className="mx-2 fw-bolder"
+                        className="fs-6 fw-bolder"
                       >
                         Password
                       </label>
+                      <span
+                        onClick={togglePassword}
+                        className="fa fa-fw fa-eye field-icon toggle-password"
+                      />
                     </div>
                     <div className="form-group forgot_password mb-md-3 mb-3">
                       <a

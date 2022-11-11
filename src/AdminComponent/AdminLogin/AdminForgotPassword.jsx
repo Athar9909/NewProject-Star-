@@ -26,7 +26,7 @@ const AdminForgotPassword = (AdminForgotPassword) => {
         email: data.UserName,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res?.data.results ,"OTP");
         if (res?.data.message === "Otp Sent") {
           localStorage.setItem("AdminEmail",data.UserName)
           navigate("/AdminVerifyOtp");

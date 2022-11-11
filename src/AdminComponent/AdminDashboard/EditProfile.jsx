@@ -13,6 +13,8 @@ const EditProfile = () => {
   const [files, setFiles] = useState([]);
   const [adminData, setAdminData] = useState([]);
   const [chnge, setChnge] = useState();
+  const [sideBar, setSideBar] = useState(true);
+
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
   const {
@@ -54,8 +56,8 @@ const EditProfile = () => {
     localStorage.removeItem("AdminEmail");
   };
   return (
-    <div className="admin_main">
-      <div className="siderbar_section">
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -176,10 +178,33 @@ const EditProfile = () => {
       <div className="admin_main_inner">
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
-            <div className="col">
-              <a className="sidebar_btn" href="javscript:;">
-                <p></p>
-              </a>
+          <div className="col">
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar);
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
             <div className="col-auto d-flex ml-5">
               <ProfileBar />

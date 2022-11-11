@@ -47,6 +47,7 @@ import TermsCondition from "./buyerComponent/Homepage/Terms&Condition";
 import AboutUs from "./buyerComponent/Homepage/AboutUs";
 import EditInventory from "./AdminComponent/AdminDashboard/Inventory/EditInventory";
 import SingleProduct from "./buyerComponent/AllProducts/SingleProduct";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -62,6 +63,7 @@ function App() {
       
 
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Homepage  GetData={GetData}/>} />
           <Route path="/Register" element={<SignUp />} />

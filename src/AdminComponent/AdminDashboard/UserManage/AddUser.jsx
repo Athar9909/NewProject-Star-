@@ -253,7 +253,7 @@ const AddUser = () => {
                                 }
                               />
                               {errors.imageProfile && (
-                                <small className="errorText mx-1 fw-bold">
+                                <small className="errorText text-start fw-bold">
                                   {errors.imageProfile?.message}
                                 </small>
                               )}

@@ -771,7 +771,7 @@ h1 h2 p label {
 .account_profile .file-uploads {
   opacity: 0% !important;
   position: relative;
-  left: -5px;
+  left: -12px;
   font-size: 20px;
 }
 .account_profile .file-uploadIN {

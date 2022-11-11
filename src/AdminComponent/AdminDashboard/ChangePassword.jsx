@@ -5,11 +5,13 @@ import Starlogo from "../../assets/img/logo.png";
 import profile from "../../assets/img/profile_img1.png";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import ProfileBar from "./ProfileBar";
 
 const ChangePassword = () => {
   const [adminData, setAdminData] = useState([]);
   const [message, setMessage] = useState("");
-  const changePassword =  `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/changePassword`
+  const changePassword = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/changePassword`;
+  const [sideBar, setSideBar] = useState(true);
 
   axios.defaults.headers.common["x-auth-token-admin"] =
     localStorage.getItem("AdminLogToken");
@@ -31,9 +33,23 @@ const ChangePassword = () => {
     localStorage.removeItem("AdminLogToken");
     localStorage.removeItem("AdminEmail");
   };
+  const togglePassword = () => {
+    let x = document.getElementById("password-input");
+    let y = document.getElementById("password-input2");
+    if (y.type === "password") {
+      y.type = "text";
+    } else {
+      y.type = "password";
+    }
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  };
   return (
-    <div className="admin_main">
-      <div className="siderbar_section">
+    <div className={sideBar ? "admin_main" : "expanded_main"}>
+      <div className={sideBar ? "siderbar_section" : "d-none"}>
         <div className="siderbar_inner">
           <div className="sidebar_logo">
             <Link to="" className="">
@@ -41,7 +57,7 @@ const ChangePassword = () => {
             </Link>
           </div>
           <div className="sidebar_menus">
-          <ul className="list-unstyled ps-1 m-0">
+            <ul className="list-unstyled ps-1 m-0">
               <li>
                 <Link
                   className=" "
@@ -155,37 +171,35 @@ const ChangePassword = () => {
         <div className="admin_header shadow">
           <div className="row align-items-center mx-0 justify-content-between w-100">
             <div className="col">
-              <a className="sidebar_btn" href="javscript:;">
-                <p>☰</p>
-              </a>
+              {sideBar ? (
+                <div>
+                  <h1
+                    className="mt-2 text-white"
+                    onClick={() => {
+                      console.log("yello");
+                      setSideBar(!sideBar);
+                    }}
+                  >
+                    <i className="fa fa-bars"></i>
+                  </h1>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="">
+                    <button
+                      onClick={(e) => {
+                        console.log(e);
+                        setSideBar(!sideBar);
+                      }}
+                    >
+                      X
+                    </button>
+                  </h3>
+                </div>
+              )}
             </div>
-            <div className="col-auto">
-              <div className="dropdown Profile_dropdown">
-                <button
-                  className="btn btn-secondary p-0"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img className="" src={profile} alt="" width={50} />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    <a className="dropdown-item" href="edit-profile.html">
-                      Edit Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="change-password.html">
-                      Change Password
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <div className="col-auto d-flex ml-5">
+              <ProfileBar />
             </div>
           </div>
         </div>
@@ -204,12 +218,14 @@ const ChangePassword = () => {
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <div className="form-group col-12">
-                      <label className="fs-4 text-success fw-bold">{message}</label>
+                      <label className="fs-4 text-success fw-bold">
+                        {message}
+                      </label>
                       <label htmlFor="">Old Password</label>
                       <input
                         type="password"
                         className="form-control"
-                        defaultValue="Vishnu Jangid"
+                        placeholder="Enter Old Password"
                         name="oldPassword"
                         id="name"
                         {...register("oldPassword")}
@@ -218,23 +234,26 @@ const ChangePassword = () => {
                     <div className="form-group col-12">
                       <label htmlFor="">New Password</label>
                       <input
-                        type="password"
+                        type="text"
                         className="form-control"
-                        defaultValue="Vishnu Jangid"
                         name="name"
                         id="name"
+                        placeholder="Enter Password"
                       />
                     </div>
                     <div className="form-group col-12">
-                      <label htmlFor="">Confirm New Password</label>
+                      <label htmlFor="">Confirm New Password </label>
+                      
                       <input
                         type="password"
                         className="form-control"
-                        defaultValue="Vishnu Jangid"
+                        placeholder="Enter Password"
+                        
                         name="newPassword"
                         id="name"
                         {...register("newPassword")}
                       />
+                    
                     </div>
                     <div className="form-group col-12 text-center">
                       <button className="comman_btn" type="submit">

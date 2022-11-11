@@ -168,7 +168,7 @@ const Homepage = ({ GetData }) => {
 
       <section className="featured_category mx-5 shadow pt-3 mb-5">
         <Swiper
-          slidesPerView={6}
+          slidesPerView={5}
           spaceBetween={30}
           loop={true}
           autoplay={{

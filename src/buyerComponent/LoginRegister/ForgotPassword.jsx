@@ -23,7 +23,7 @@ const ForgotPassword = ({ getEmail }) => {
         email: data.email,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res?.data.results);
         if (res?.data.message === "User not registered") {
           Swal.fire({
             title: "You are not a registered User",
