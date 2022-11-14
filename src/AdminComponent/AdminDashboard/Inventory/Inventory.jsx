@@ -67,9 +67,9 @@ const Inventory = () => {
     });
   };
   const NewSubCategory =async (e) =>{
-    let name = e.target.value
+    let categoryId = e.target.value
     await axios.post(SubCategoryApi,{
-      category:"Tobacco"
+      category:categoryId
     }).then((res) => {
       setSubCategories(res?.data.results);
     });
@@ -396,9 +396,9 @@ console.log(productImage,flavourImages);
                         })}
                       >
                         <option selected="">Select Sub Category</option>
-                        {(subCategories[0]?.subCategories || [])?.map((item, index) => (
+                        {(subCategories || [])?.map((item, index) => (
                           <option value={item?._id} key={index}>
-                            {item}
+                            {item.subcategories?.subCategoryName}
                           </option>
                         ))}
                       </select>

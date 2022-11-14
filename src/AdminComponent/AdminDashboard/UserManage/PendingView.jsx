@@ -44,10 +44,9 @@ const PendingView = () => {
     }
   };
   const rejectUser = async () => {
-     await axios.post(rejectUrl + "/" + objectId).then((res)=>{
-      navigate("/UserManage");
-
-     })
+    //  await axios.post(rejectUrl + "/" + objectId).then((res)=>{
+    //   navigate("/UserManage");
+    //  })
   };
   const handleClick = () => {
     localStorage.removeItem("AdminData");
@@ -209,8 +208,6 @@ const PendingView = () => {
             <div className="col-auto d-flex ml-5">
               <ProfileBar />
             </div>
-            
-
           </div>
         </div>
       </div>
@@ -513,15 +510,327 @@ const PendingView = () => {
                           {approveText}
                         </Link>
                         <Link
-                          href="javascript:;"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop21"
                           className="comman_btn2 ms-2 text-decoration-none"
-                          onClick={rejectUser}
                         >
                           Return
                         </Link>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade comman_modal"
+        id="staticBackdrop21"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex={-1}
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content border-0">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
+                Return Reason
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              />
+            </div>
+            <div className="modal-body bg-light border rounded">
+              <div className="container ">
+                <div className="row justify-content-center ">
+                  <form className="p-2">
+                    <h5 className="fw-bold">Enter Reason :</h5>
+
+                    <textarea
+                      className="w-100 fs-6 p-2"
+                      style={{ height: "8rem" }}
+                    />
+
+                    <div className="row text-start mt-3 return_Reason">
+                      <h6 className="mb-2">Choose Invalid Fields :</h6>
+                      <div className="col-md-6">
+                        <ul className="list-group ">
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Company Name
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                DBA
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                               Address Line
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                htmlFor="flexCheckDefault"
+                              >
+                                City
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                               State
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Zipcode
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Federal Tax Id
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                               Sales Tax Id
+                              </label>
+                            </div>
+                          </li>
+                         
+                        </ul>
+                      </div>
+                      <div className="col-md-6">
+                        <ul className="list-group">
+                        <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                htmlFor="flexCheckDefault"
+                              >
+                                Tobacco Licence
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Business Licence
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                First Name
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Last Name
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Account Owner Id
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Email
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Phone
+                              </label>
+                            </div>
+                          </li>
+                          <li className="list-group-item">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                              <label
+                                class="form-check-label mx-1"
+                                for="flexCheckDefault"
+                              >
+                                Heard About Us
+                              </label>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-md-12 text-center mt-4">
+                         <button className="comman_btn2 rounded" >Return</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

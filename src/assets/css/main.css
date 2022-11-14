@@ -2137,7 +2137,7 @@ footer .widget_title {
 .banner_slide {
   background: linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0));
   background-size: cover;
-  max-height: 100vh;
+  height: 45rem;
   background-position: center;
   position: relative;
   display: flex;

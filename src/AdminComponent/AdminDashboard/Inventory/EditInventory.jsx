@@ -17,7 +17,7 @@ const EditInventory = () => {
   const categoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/category/getCategories`;
   const SubCategoryApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/subCategory/getSubCategories`;
   const brandsApi = `${process.env.REACT_APP_APIENDPOINTNEW}api/admin/brands/getBrands`;
-
+  const EditProduct = ""
   const location = useLocation();
   let id = location.state?.id;
   console.log(id);
@@ -59,25 +59,20 @@ const EditInventory = () => {
     setFiles({ ...files, [key]: e.target.files[0] });
   };
 
-    // const onSubmit = async (data) => {
-    //   console.log(data);
-    //   const formData = new FormData();
-    //   formData.append("productImage", files?.productImage);
-    //   formData.append("unitName", data?.productName);
-    //   formData.append("category", data?.category);
-    //   formData.append("quantity", data?.quantity);
-    //   formData.append("subCategory", data?.subCategory);
-    //   formData.append("brand", data?.brands);
-    //   formData.append("barcode", barcode);
-    //   formData.append("productType", type);
-    //   formData.append("flavour", flavour);
-    //   formData.append("flavourImage", flavourImage);
-    //   formData.append("description", "temp");
+    const onSubmit = async (data) => {
+      console.log(data);
+      const formData = new FormData();
+      formData.append("productImage", files?.productImage);
+      formData.append("unitName", data?.productName);
+      formData.append("category", data?.category);
+      formData.append("quantity", data?.quantity);
+      formData.append("subCategory", data?.subCategory);
+      formData.append("brand", data?.brands);
 
-    //   await axios.post(addProduct, formData).then((res) => {
-    //     console.log(res);
-    //   });
-    // };
+      await axios.post(EditProduct, formData).then((res) => {
+        console.log(res);
+      });
+    };
 
   const handleClick = () => {
     localStorage.removeItem("AdminData");
@@ -230,6 +225,7 @@ const EditInventory = () => {
                   <form
                     className="form-design py-4 px-3 help-support-form row align-items-end justify-content-between"
                     action=""
+                    onSubmit={handleSubmit(onSubmit)}
                   >
                     <div className="form-group col-12 text-center">
                       <label htmlFor="" className="text-center">
