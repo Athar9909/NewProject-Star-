@@ -48,6 +48,7 @@ import AboutUs from "./buyerComponent/Homepage/AboutUs";
 import EditInventory from "./AdminComponent/AdminDashboard/Inventory/EditInventory";
 import SingleProduct from "./buyerComponent/AllProducts/SingleProduct";
 import ScrollToTop from "./ScrollToTop";
+import Cart from "./buyerComponent/Cart/Cart";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -87,6 +88,7 @@ function App() {
           <Route path="/Brands/Products" element={<ProductByBrand/>} />
           <Route path="/AllProducts/Product" element={<SingleProduct/>} />
           <Route path="/AllBrands" element={<AllBrands />} />
+          <Route path="/Cart" element={<Cart />} />
 
           {/* admin Routes */}
           <Route path="/AdminLogin" element={<AdminLogin />} />

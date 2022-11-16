@@ -125,6 +125,20 @@ const CategorySub = () => {
     localStorage.removeItem("AdminLogToken");
     localStorage.removeItem("AdminEmail");
   };
+  const CategoryStatus = async (index) => {
+    await axios
+      .post(CategoryStatus + "/" + allCategories[index]?._id)
+      .then((res) => {
+        console.log(res);
+      });
+  };
+  const subCategoryStatus = async (index) => {
+    // await axios
+    //   .post(userStatus + "/" + approvedUsers[index]?._id)
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
+  };
   return (
      <div className={sideBar? "admin_main" : "expanded_main"}>
     <div className={sideBar? "siderbar_section": "d-none"}>
@@ -373,9 +387,31 @@ const CategorySub = () => {
                                                 {item?.updatedAt?.slice(0, 10)}
                                               </td>
                                               <td>{item?.categoryName}</td>
-                                              <td><img width={35} src={item?.categoryImage}></img></td>
+                                              <td><img width={80} src={item?.categoryImage}></img></td>
                                              
-                                              <td>Active</td>
+                                              <td>
+                                              {" "}
+                                              <div className="toggle-switch">
+                                                <input
+                                                  type="checkbox"
+                                                  className="checkbox"
+                                                  id={index + 1}
+                                                  defaultChecked
+                                                  onClick={() => {
+                                                    CategoryStatus(index);
+                                                  }}
+                                                />
+                                                <label
+                                                  className="label"
+                                                  htmlFor={index + 1}
+                                                >
+                                                  <span className="inner" />
+                                                  <span className="switch" />
+                                                </label>
+                                              </div>
+                                            </td>
+
+                                  
                                               <td>
                                                 <Link
                                                   data-bs-toggle="modal"
@@ -480,6 +516,7 @@ const CategorySub = () => {
                                           <th>Category Name</th>
                                           <th>Sub Category Name</th>
                                           <th>Media</th>
+                                          <th>Status</th>
                                           <th>Action</th>
                                         </tr>
                                       </thead>
@@ -498,7 +535,28 @@ const CategorySub = () => {
                                                 }
                                               </td>
                                               <td>{item?.subCategoryName}</td>
-                                              <td><img width={40} src={item?.subCategoryImage}></img></td>
+                                              <td><img width={80} src={item?.subCategoryImage}></img></td>
+                                              <td>
+                                              {" "}
+                                              <div className="toggle-switch">
+                                                <input
+                                                  type="checkbox"
+                                                  className="checkbox"
+                                                  id={index + 1}
+                                                  defaultChecked
+                                                  onClick={() => {
+                                                    CategoryStatus(index);
+                                                  }}
+                                                />
+                                                <label
+                                                  className="label"
+                                                  htmlFor={index + 1}
+                                                >
+                                                  <span className="inner" />
+                                                  <span className="switch" />
+                                                </label>
+                                              </div>
+                                            </td>
 
                                               <td>
                                                 <Link

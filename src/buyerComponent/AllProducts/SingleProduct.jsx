@@ -8,15 +8,19 @@ import { useState } from 'react';
 
 const SingleProduct = () => {
   const getProduct =  `${process.env.REACT_APP_APIENDPOINTNEW}user/product/getProduct`
+  const [productImages,setProductImages] = useState([])
   const [product,setProduct] = useState([])
   let location = useLocation()
   let objectId = location.state.id
   console.log(location,"joooo");
-
+console.log(productImages);
   useEffect(()=>{
    const NewProducts = async () =>{
     await axios.get(getProduct + "/" + objectId).then((res) => {
+      console.log(res);
       setProduct(res.data.results)
+      setProductImages(res.data.results?.productImage)
+      setProductImages({...productImages} ,res.data.results?.type)
     });
    }
    NewProducts()
@@ -45,7 +49,7 @@ const SingleProduct = () => {
                         to="/AllBrands"
                         className="text-decoration-none text-white fs-6  "
                       >
-                       All Brands <span className="arrow mx-1">&#62;</span>{" "}
+                       {product?.category?.categoryName} <span className="arrow mx-1">&#62;</span>{" "}
                       </Link>
                     </li>
                     <li className="breadcrumb-item" aria-current="page">
@@ -85,7 +89,7 @@ const SingleProduct = () => {
                   aria-current="true"
                   aria-label="Slide 1"
                 >
-                  <img src="assets/img/product_new1.png" alt="" />
+                  <img src={product?.productImage}  alt="" />
                 </button>
                 <button
                   type="button"
@@ -93,7 +97,7 @@ const SingleProduct = () => {
                   data-bs-slide-to={1}
                   aria-label="Slide 2"
                 >
-                  <img src="assets/img/product_new2.png" alt="" />
+                  <img src={product?.productImage} alt="" />
                 </button>
                 <button
                   type="button"
@@ -116,7 +120,7 @@ const SingleProduct = () => {
                 <div className="carousel-item active">
                   <div className="productimg_show">
                     <img
-                      src="assets/img/product_new1.png"
+                      src={product?.productImage}
                       className="d-block"
                       alt="..."
                     />

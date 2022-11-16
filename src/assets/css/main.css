@@ -2569,3 +2569,11 @@ section {
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+.element {
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+.element:hover { /* .element.hidden */
+  opacity: 0;
+  pointer-events: none; /* <-- This one */
+}
