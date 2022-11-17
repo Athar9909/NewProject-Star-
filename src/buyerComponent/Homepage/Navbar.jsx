@@ -90,7 +90,7 @@ const Navbar = () => {
           </div>
           <div className="col-auto d-flex align-items-center">
             <div className="social_icon d-flex">
-              <Link to="#">
+              <Link to="/Cart">
                 <i className="fa fa-cart-arrow-down" />
 
                 <span className="count">0</span>
